@@ -35,14 +35,12 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.text.BadLocationException;
-import sun.rmi.transport.tcp.TCPChannel;
 
 /**
  *
@@ -276,6 +274,13 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         BBackground.setMaximumSize(new java.awt.Dimension(20, 20));
         BBackground.setMinimumSize(new java.awt.Dimension(20, 20));
         BBackground.setPreferredSize(new java.awt.Dimension(20, 20));
+        BBackground.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                BBackgroundActionPerformed(evt);
+            }
+        });
         jToolBar1.add(BBackground);
 
         BForeground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/fg.png"))); // NOI18N
@@ -437,6 +442,12 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
             Logger.getLogger(ChannelPane.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_LURLMouseClicked
+
+    private void BBackgroundActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BBackgroundActionPerformed
+    {//GEN-HEADEREND:event_BBackgroundActionPerformed
+        ColorDialog c=new ColorDialog(null,false);
+        c.show(true);
+    }//GEN-LAST:event_BBackgroundActionPerformed
 
     public void close()
     {

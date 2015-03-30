@@ -228,6 +228,9 @@
               <Dimension value="[20, 20]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BBackgroundActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="BForeground">
           <Properties>
