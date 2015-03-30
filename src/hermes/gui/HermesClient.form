@@ -41,7 +41,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BHashActionPerformed"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="BHash.setMnemonic(KeyEvent.VK_H);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="// create an Action doing what you want&#xa;        Action action = new AbstractAction(&quot;doSomething&quot;)&#xa;        {&#xa;&#xa;            @Override&#xa;            public void actionPerformed(ActionEvent e)&#xa;            {&#xa;                BHashActionPerformed(e);&#xa;            }&#xa;&#xa;        };&#xa;action.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(&quot;control H&quot;));&#xa;&#xa;        BHash.getActionMap().put(&quot;OpenHashDialog&quot;, action);&#xa;        BHash.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(&#xa;                (KeyStroke) action.getValue(Action.ACCELERATOR_KEY), &quot;OpenHashDialog&quot;);"/>
       </AuxValues>
     </Component>
   </NonVisualComponents>

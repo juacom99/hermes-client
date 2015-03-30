@@ -15,6 +15,7 @@ import com.hermes.common.constants.HLocation;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -22,14 +23,18 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.zip.DataFormatException;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -42,28 +47,25 @@ public class HermesClient extends javax.swing.JFrame
      * Creates new form NewJFrame
      */
     private HCUser user;
-    
+
     public HermesClient() throws UnknownHostException
     {
         initComponents();
-        
         ListPane lp = new ListPane();
 
         user = new HCUser("Ħεямεѕ", "ABCDEFGHIJKLMNOP", (short) 155, HLineType.HLNone, HBrowsable.Browsable, (byte) 30, HGender.Male, HLocation.Uruguay, "Montevideo", InetAddress.getByName("167.62.91.249"), (short) 14884, InetAddress.getByName("10.1.20.56"), InetAddress.getByName("8.8.8.8"), (short) 80, (byte) 12, (byte) 34, (byte) 5);
 
         user.setAvatar(new ImageIcon("./avatar.png"));
-        user.setPersonalMessage("https://github.com/juacom99/hermes-project");
-        
+        user.setPersonalMessage("https://github.com/juacom99/hermes-client");
+
         TPChat.addTab("Channel List     ", new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/channel-list.png")), lp, "Channel List");
-        
-      
- 
-      Container glassPane = (Container) this.getGlassPane();
-      glassPane.setVisible(true);
-      glassPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-      
-      glassPane.add(BHash);
-      glassPane.add(BConfig);
+
+        Container glassPane = (Container) this.getGlassPane();
+        glassPane.setVisible(true);
+        glassPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+
+        glassPane.add(BHash);
+        glassPane.add(BConfig);
     }
 
     /**
@@ -93,7 +95,22 @@ public class HermesClient extends javax.swing.JFrame
         BHash.setMaximumSize(new java.awt.Dimension(20, 20));
         BHash.setMinimumSize(new java.awt.Dimension(20, 20));
         BHash.setPreferredSize(new java.awt.Dimension(20, 20));
-        BHash.setMnemonic(KeyEvent.VK_H);
+        // create an Action doing what you want
+        Action action = new AbstractAction("doSomething")
+        {
+
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                BHashActionPerformed(e);
+            }
+
+        };
+        action.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control H"));
+
+        BHash.getActionMap().put("OpenHashDialog", action);
+        BHash.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+            (KeyStroke) action.getValue(Action.ACCELERATOR_KEY), "OpenHashDialog");
         BHash.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -123,41 +140,34 @@ public class HermesClient extends javax.swing.JFrame
 
     private void BHashActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BHashActionPerformed
     {//GEN-HEADEREND:event_BHashActionPerformed
-        
-        
-        String hash=JOptionPane.showInputDialog(this,"Input a hash","arlnk://CHATROOM:127.0.0.1:14884|UYM");
+
+        String hash = JOptionPane.showInputDialog(this, "Input a hash", "arlnk://CHATROOM:127.0.0.1:14884|UYM");
         System.out.println(hash);
-        if(hash!=null)
+        if (hash != null)
         {
 
             try
             {
-                HChannel c= HHash.getInstance().decode(hash);
+                HChannel c = HHash.getInstance().decode(hash);
                 addChannel(c);
-            }
-            catch(IOException ex)
+            } catch (IOException ex)
             {
                 System.err.println(ex.getMessage());
-            }
-            catch(DataFormatException ex)
+            } catch (DataFormatException ex)
             {
                 System.err.println(ex.getMessage());
-            }
-            catch(Exception ex)
+            } catch (Exception ex)
             {
                 System.err.println(ex.getMessage());
             }
         }
     }//GEN-LAST:event_BHashActionPerformed
 
-    
-     private JPanel getTitlePanel(final JTabbedPane tabbedPane, final JPanel panel, String title)
+    private JPanel getTitlePanel(final JTabbedPane tabbedPane, final JPanel panel, String title)
     {
         JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 3, 0));
         titlePanel.setOpaque(false);
 
-        
-        
         JLabel icon = new JLabel(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/chat.png")));
         Dimension d = new Dimension(21, 21);
         icon.setSize(d);
@@ -167,8 +177,7 @@ public class HermesClient extends javax.swing.JFrame
         JLabel titleLbl = new JLabel(title);
         titleLbl.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         titlePanel.add(titleLbl);
-        
-        
+
         JButton closeButton = new JButton(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/close.png")));
         closeButton.setBorderPainted(false);
         closeButton.setFocusPainted(false);
@@ -184,7 +193,7 @@ public class HermesClient extends javax.swing.JFrame
             public void mouseClicked(MouseEvent e)
             {
                 tabbedPane.remove(panel);
-                ((ChannelPane)panel).close();
+                ((ChannelPane) panel).close();
             }
         });
         titlePanel.add(closeButton);
@@ -192,16 +201,16 @@ public class HermesClient extends javax.swing.JFrame
         return titlePanel;
     }
 
-      private void addChannel(HChannel channel) throws Exception
+    private void addChannel(HChannel channel) throws Exception
     {
-       ChannelPane cp = new ChannelPane(user,channel);
+        ChannelPane cp = new ChannelPane(user, channel);
         TPChat.add(cp);
         int index = TPChat.indexOfComponent(cp);
         TPChat.setTabComponentAt(index, getTitlePanel(TPChat, cp, channel.getName()));
-        
-        TPChat.setSelectedIndex(TPChat.getTabCount()-1);
+
+        TPChat.setSelectedIndex(TPChat.getTabCount() - 1);
     }
-      
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BConfig;
     private javax.swing.JButton BHash;
