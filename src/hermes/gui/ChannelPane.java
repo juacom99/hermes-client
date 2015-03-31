@@ -24,6 +24,7 @@ import com.hermes.client.events.HIClientEvents;
 import com.hermes.common.AresFormater;
 import com.hermes.common.HChannel;
 import com.hermes.common.HUser;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
@@ -37,9 +38,9 @@ import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.JTabbedPane;
@@ -99,7 +100,8 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
                     try
                     {
                         addPrivate(u.getUsername());
-                    } catch (Exception ex)
+                    }
+                    catch (Exception ex)
                     {
                         Logger.getLogger(ChannelPane.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -153,7 +155,8 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
             privates.put(userName, cp);
             int index = TPTabs.indexOfComponent(cp);
             TPTabs.setTabComponentAt(index, getTitlePanel(TPTabs, cp, userName));
-        } else
+        }
+        else
         {
             cp = privates.get(userName);
 
@@ -378,19 +381,23 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
                     if (text.startsWith("/me"))
                     {
                         client.sendEmote(text.substring(3));
-                    } else if (text.startsWith("/") || text.startsWith("#"))
+                    }
+                    else if (text.startsWith("/") || text.startsWith("#"))
                     {
                         client.sendCommand(text.substring(1));
-                    } else
+                    }
+                    else
                     {
                         client.sendMessage(text);
                     }
 
-                } catch (IOException ex)
+                }
+                catch (IOException ex)
                 {
                     Logger.getLogger(ChannelPane.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } else
+            }
+            else
             {
                 String to = TPTabs.getTitleAt(TPTabs.getSelectedIndex());
                 client.sendPM(to, text);
@@ -411,7 +418,8 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         {
             TFInput.getDocument().insertString(TFInput.getCaretPosition(), "" + ((char) 2) + ((int) AresFormater.BOLD_CHARACTER), null);
             TFInput.requestFocus();
-        } catch (BadLocationException ex)
+        }
+        catch (BadLocationException ex)
         {
             Logger.getLogger(ChannelPane.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -423,7 +431,8 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         {
             TFInput.getDocument().insertString(TFInput.getCaretPosition(), "" + ((char) 2) + ((int) AresFormater.ITALIC_CHARACTER), null);
             TFInput.requestFocus();
-        } catch (BadLocationException ex)
+        }
+        catch (BadLocationException ex)
         {
             Logger.getLogger(ChannelPane.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -435,7 +444,8 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         {
             TFInput.getDocument().insertString(TFInput.getCaretPosition(), "" + ((char) 2) + ((int) AresFormater.UNDERLINE_CHARACTER), null);
             TFInput.requestFocus();
-        } catch (BadLocationException ex)
+        }
+        catch (BadLocationException ex)
         {
             Logger.getLogger(ChannelPane.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -447,7 +457,8 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         {
 
             DesktopApi.browse(new URI(this.url));
-        } catch (URISyntaxException ex)
+        }
+        catch (URISyntaxException ex)
         {
             Logger.getLogger(ChannelPane.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -457,16 +468,17 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
     {//GEN-HEADEREND:event_BBackgroundActionPerformed
         ColorDialog c = new ColorDialog(null, false);
         c.setModal(true);
-        c.setLocation((int)BForeground.getLocationOnScreen().getX()-50,(int)BForeground.getLocationOnScreen().getY()-125);
+        c.setLocation((int) BForeground.getLocationOnScreen().getX() - 50, (int) BForeground.getLocationOnScreen().getY() - 125);
         JRootPane rootPane = ((JDialog) c).getRootPane();
         rootPane.setWindowDecorationStyle(JRootPane.NONE);
         c.setVisible(true);
-        if(c.getColorCode()!=null)
+        if (c.getColorCode() != null)
         {
             try
             {
-                TFInput.getDocument().insertString(TFInput.getCaretPosition(),AresFormater.BACKGROUND_CHARACTER+c.getColorCode(), null);
-            } catch (BadLocationException ex)
+                TFInput.getDocument().insertString(TFInput.getCaretPosition(), AresFormater.BACKGROUND_CHARACTER + c.getColorCode(), null);
+            }
+            catch (BadLocationException ex)
             {
                 Logger.getLogger(ChannelPane.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -476,18 +488,19 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
 
     private void BForegroundActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BForegroundActionPerformed
     {//GEN-HEADEREND:event_BForegroundActionPerformed
-         ColorDialog c = new ColorDialog(null, false);
+        ColorDialog c = new ColorDialog(null, false);
         c.setModal(true);
-        c.setLocation((int)BForeground.getLocationOnScreen().getX()-50,(int)BForeground.getLocationOnScreen().getY()-125);
+        c.setLocation((int) BForeground.getLocationOnScreen().getX() - 50, (int) BForeground.getLocationOnScreen().getY() - 125);
         JRootPane rootPane = ((JDialog) c).getRootPane();
         rootPane.setWindowDecorationStyle(JRootPane.NONE);
         c.setVisible(true);
-        if(c.getColorCode()!=null)
+        if (c.getColorCode() != null)
         {
             try
             {
-                TFInput.getDocument().insertString(TFInput.getCaretPosition(),AresFormater.FOREGROUND_CHARACTER+c.getColorCode(), null);
-            } catch (BadLocationException ex)
+                TFInput.getDocument().insertString(TFInput.getCaretPosition(), AresFormater.FOREGROUND_CHARACTER + c.getColorCode(), null);
+            }
+            catch (BadLocationException ex)
             {
                 Logger.getLogger(ChannelPane.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -500,7 +513,8 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         try
         {
             client.disconnect();
-        } catch (IOException ex)
+        }
+        catch (IOException ex)
         {
             Logger.getLogger(ChannelPane.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -541,7 +555,8 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
             ChatPane cp = privates.get(evt.getSender());
             cp.write(AresFormater.getInstance().toHTML(AresFormater.BOLD_CHARACTER + evt.getSender() + ":"));
             cp.write(AresFormater.getInstance().toHTML("        " + evt.getText()));
-        } catch (Exception ex)
+        }
+        catch (Exception ex)
         {
             Logger.getLogger(ChannelPane.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -629,5 +644,7 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
     public void onServerAck(HClientAckEvent evt)
     {
         main.write(AresFormater.FOREGROUND_CHARACTER + "02Logged in, retrieving user's list...");
+        
+       
     }
 }
