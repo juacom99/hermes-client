@@ -16,6 +16,7 @@ import javax.swing.JFileChooser;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.StyledEditorKit;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
@@ -54,7 +55,7 @@ public class ChatPane extends javax.swing.JPanel
                         DesktopApi.browse(new URI(e.getURL().toString()));
                     } catch (URISyntaxException ex)
                     {
-                        Logger.getLogger(ChatPane.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(ChatPane.class.getName()).log(Level.SEVERE,null, ex);
                     }
                 }
             }
@@ -67,12 +68,12 @@ public class ChatPane extends javax.swing.JPanel
     {
         try
         {
-            //Convert Color from ares to HTML
-            //Add it to the Document
+            
+            
             String str = AresFormater.getInstance().toHTML(s);
-            kit.insertHTML(doc, doc.getLength(), str, 0, 0, null);
+            kit.insertHTML(doc, doc.getLength(), str, 0, 0,null);
 
-            EPChat.select(doc.getLength(), doc.getLength());
+            //EPChat.select(doc.getLength(), doc.getLength());
         } catch (BadLocationException ex)
         {
             Logger.getLogger(ChatPane.class.getName()).log(Level.SEVERE, null, ex);

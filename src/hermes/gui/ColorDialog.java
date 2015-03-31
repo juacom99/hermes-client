@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.KeyStroke;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -35,7 +36,7 @@ public class ColorDialog extends javax.swing.JDialog
         super(parent, true);
         initComponents();
         setSize(120, 120);
-        getRootPane().setBorder( BorderFactory.createLineBorder(Color.BLACK) );
+        getRootPane().setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.darkGray, java.awt.Color.black));
         colorCode = null;
         KeyStroke stroke = KeyStroke.getKeyStroke("ESCAPE");
         Action actionListener = new AbstractAction()
@@ -48,7 +49,7 @@ public class ColorDialog extends javax.swing.JDialog
         InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap.put(stroke, "ESCAPE");
         rootPane.getActionMap().put("ESCAPE", actionListener);
-        
+
         JButton bColor;
         String name;
         for (int i = 0; i < AresFormater.COLORS.length; i++)
