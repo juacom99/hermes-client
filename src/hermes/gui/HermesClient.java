@@ -66,6 +66,9 @@ public class HermesClient extends javax.swing.JFrame
 
         glassPane.add(BHash);
         glassPane.add(BConfig);
+        
+        
+       
     }
 
     /**
@@ -95,7 +98,6 @@ public class HermesClient extends javax.swing.JFrame
         BHash.setMaximumSize(new java.awt.Dimension(20, 20));
         BHash.setMinimumSize(new java.awt.Dimension(20, 20));
         BHash.setPreferredSize(new java.awt.Dimension(20, 20));
-        // create an Action doing what you want
         Action action = new AbstractAction("doSomething")
         {
 

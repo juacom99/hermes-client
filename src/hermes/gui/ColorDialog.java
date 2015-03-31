@@ -3,11 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package hermes.gui;
 
 import com.hermes.common.AresFormater;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.BorderFactory;
+import javax.swing.InputMap;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -19,23 +28,60 @@ public class ColorDialog extends javax.swing.JDialog
     /**
      * Creates new form ColorDialog
      */
+    private String colorCode;
+
     public ColorDialog(java.awt.Frame parent, boolean modal)
     {
-        super(parent, modal);
+        super(parent, true);
         initComponents();
-        setUndecorated(modal);
-        setSize(120,120);
-        JButton bColor;
-        for(int i=0;i<AresFormater.COLORS.length;i++)
+        setSize(120, 120);
+        getRootPane().setBorder( BorderFactory.createLineBorder(Color.BLACK) );
+        colorCode = null;
+        KeyStroke stroke = KeyStroke.getKeyStroke("ESCAPE");
+        Action actionListener = new AbstractAction()
         {
-            bColor=new JButton();
-            bColor.setSize(30,30);
+            public void actionPerformed(ActionEvent actionEvent)
+            {
+                setVisible(false);
+            }
+        };
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(stroke, "ESCAPE");
+        rootPane.getActionMap().put("ESCAPE", actionListener);
+        
+        JButton bColor;
+        String name;
+        for (int i = 0; i < AresFormater.COLORS.length; i++)
+        {
+            bColor = new JButton();
+            name = "" + i;
+            if (i < 10)
+            {
+                name = "0" + name;
+            }
+            bColor.setName(name);
+            bColor.setSize(30, 30);
             bColor.setBorderPainted(false);
             bColor.setContentAreaFilled(false);
             bColor.setOpaque(true);
             bColor.setBackground(AresFormater.COLORS[i]);
+            bColor.addActionListener(new ActionListener()
+            {
+
+                @Override
+                public void actionPerformed(ActionEvent e)
+                {
+                    colorCode = ((JButton) e.getSource()).getName();
+                    dispose();
+                }
+            });
             add(bColor);
         }
+    }
+
+    public String getColorCode()
+    {
+        return colorCode;
     }
 
     /**
@@ -50,10 +96,22 @@ public class ColorDialog extends javax.swing.JDialog
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                formKeyPressed(evt);
+            }
+        });
         getContentPane().setLayout(new java.awt.GridLayout(4, 4));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_formKeyPressed
+    {//GEN-HEADEREND:event_formKeyPressed
+        System.out.println(evt.getKeyCode() + " " + evt.getKeyChar() + " " + evt.getExtendedKeyCode());
+    }//GEN-LAST:event_formKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

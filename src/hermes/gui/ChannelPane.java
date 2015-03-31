@@ -36,9 +36,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JRootPane;
 import javax.swing.JTabbedPane;
 import javax.swing.text.BadLocationException;
 
@@ -185,8 +188,8 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         BBold = new javax.swing.JButton();
         BItalic = new javax.swing.JButton();
         BUnderline = new javax.swing.JButton();
-        BBackground = new javax.swing.JButton();
         BForeground = new javax.swing.JButton();
+        BBackground = new javax.swing.JButton();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(30, 20), new java.awt.Dimension(30, 20), new java.awt.Dimension(30, 32767));
         BEmoticons = new javax.swing.JButton();
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
@@ -269,6 +272,20 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         });
         jToolBar1.add(BUnderline);
 
+        BForeground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/fg.png"))); // NOI18N
+        BForeground.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        BForeground.setMaximumSize(new java.awt.Dimension(20, 20));
+        BForeground.setMinimumSize(new java.awt.Dimension(20, 20));
+        BForeground.setPreferredSize(new java.awt.Dimension(20, 20));
+        BForeground.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                BForegroundActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(BForeground);
+
         BBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/bg.png"))); // NOI18N
         BBackground.setMargin(new java.awt.Insets(0, 0, 0, 0));
         BBackground.setMaximumSize(new java.awt.Dimension(20, 20));
@@ -282,13 +299,6 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
             }
         });
         jToolBar1.add(BBackground);
-
-        BForeground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/fg.png"))); // NOI18N
-        BForeground.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        BForeground.setMaximumSize(new java.awt.Dimension(20, 20));
-        BForeground.setMinimumSize(new java.awt.Dimension(20, 20));
-        BForeground.setPreferredSize(new java.awt.Dimension(20, 20));
-        jToolBar1.add(BForeground);
         jToolBar1.add(filler1);
 
         BEmoticons.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/emoti.png"))); // NOI18N
@@ -358,9 +368,9 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
     {//GEN-HEADEREND:event_TFInputKeyPressed
         if (evt.getKeyCode() == 10)
         {
-            String text=TFInput.getText().replace(((char)2)+"6",""+AresFormater.BOLD_CHARACTER);
-            text=text.replaceAll(((char)2)+"7",""+AresFormater.UNDERLINE_CHARACTER);
-            text=text.replaceAll(((char)2)+"9",""+AresFormater.ITALIC_CHARACTER);
+            String text = TFInput.getText().replace(((char) 2) + "6", "" + AresFormater.BOLD_CHARACTER);
+            text = text.replaceAll(((char) 2) + "7", "" + AresFormater.UNDERLINE_CHARACTER);
+            text = text.replaceAll(((char) 2) + "9", "" + AresFormater.ITALIC_CHARACTER);
             if (TPTabs.getSelectedIndex() == 0)
             {
                 try
@@ -399,7 +409,7 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
     {//GEN-HEADEREND:event_BBoldActionPerformed
         try
         {
-            TFInput.getDocument().insertString(TFInput.getCaretPosition(), ""+((char)2) + ((int) AresFormater.BOLD_CHARACTER), null);
+            TFInput.getDocument().insertString(TFInput.getCaretPosition(), "" + ((char) 2) + ((int) AresFormater.BOLD_CHARACTER), null);
             TFInput.requestFocus();
         } catch (BadLocationException ex)
         {
@@ -411,7 +421,7 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
     {//GEN-HEADEREND:event_BItalicActionPerformed
         try
         {
-            TFInput.getDocument().insertString(TFInput.getCaretPosition(), ""+((char)2)+ ((int) AresFormater.ITALIC_CHARACTER), null);
+            TFInput.getDocument().insertString(TFInput.getCaretPosition(), "" + ((char) 2) + ((int) AresFormater.ITALIC_CHARACTER), null);
             TFInput.requestFocus();
         } catch (BadLocationException ex)
         {
@@ -423,7 +433,7 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
     {//GEN-HEADEREND:event_BUnderlineActionPerformed
         try
         {
-            TFInput.getDocument().insertString(TFInput.getCaretPosition(), ""+((char)2)+ ((int) AresFormater.UNDERLINE_CHARACTER), null);
+            TFInput.getDocument().insertString(TFInput.getCaretPosition(), "" + ((char) 2) + ((int) AresFormater.UNDERLINE_CHARACTER), null);
             TFInput.requestFocus();
         } catch (BadLocationException ex)
         {
@@ -445,9 +455,45 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
 
     private void BBackgroundActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BBackgroundActionPerformed
     {//GEN-HEADEREND:event_BBackgroundActionPerformed
-        ColorDialog c=new ColorDialog(null,false);
-        c.show(true);
+        ColorDialog c = new ColorDialog(null, false);
+        c.setModal(true);
+        c.setLocation((int)BForeground.getLocationOnScreen().getX()-50,(int)BForeground.getLocationOnScreen().getY()-125);
+        JRootPane rootPane = ((JDialog) c).getRootPane();
+        rootPane.setWindowDecorationStyle(JRootPane.NONE);
+        c.setVisible(true);
+        if(c.getColorCode()!=null)
+        {
+            try
+            {
+                TFInput.getDocument().insertString(TFInput.getCaretPosition(),AresFormater.BACKGROUND_CHARACTER+c.getColorCode(), null);
+            } catch (BadLocationException ex)
+            {
+                Logger.getLogger(ChannelPane.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            TFInput.requestFocus();
+        }
     }//GEN-LAST:event_BBackgroundActionPerformed
+
+    private void BForegroundActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BForegroundActionPerformed
+    {//GEN-HEADEREND:event_BForegroundActionPerformed
+         ColorDialog c = new ColorDialog(null, false);
+        c.setModal(true);
+        c.setLocation((int)BForeground.getLocationOnScreen().getX()-50,(int)BForeground.getLocationOnScreen().getY()-125);
+        JRootPane rootPane = ((JDialog) c).getRootPane();
+        rootPane.setWindowDecorationStyle(JRootPane.NONE);
+        c.setVisible(true);
+        if(c.getColorCode()!=null)
+        {
+            try
+            {
+                TFInput.getDocument().insertString(TFInput.getCaretPosition(),AresFormater.FOREGROUND_CHARACTER+c.getColorCode(), null);
+            } catch (BadLocationException ex)
+            {
+                Logger.getLogger(ChannelPane.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            TFInput.requestFocus();
+        }
+    }//GEN-LAST:event_BForegroundActionPerformed
 
     public void close()
     {
@@ -493,7 +539,7 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         {
             addPrivate(evt.getSender());
             ChatPane cp = privates.get(evt.getSender());
-             cp.write(AresFormater.getInstance().toHTML(AresFormater.BOLD_CHARACTER + evt.getSender() + ":"));
+            cp.write(AresFormater.getInstance().toHTML(AresFormater.BOLD_CHARACTER + evt.getSender() + ":"));
             cp.write(AresFormater.getInstance().toHTML("        " + evt.getText()));
         } catch (Exception ex)
         {
