@@ -6,19 +6,18 @@
 package hermes.gui;
 
 import com.hermes.client.HCUser;
-import com.hermes.client.events.HClientAckEvent;
 import com.hermes.common.HChannel;
 import com.hermes.common.HHash;
 import com.hermes.common.constants.HBrowsable;
 import com.hermes.common.constants.HGender;
 import com.hermes.common.constants.HLineType;
 import com.hermes.common.constants.HLocation;
-import java.awt.Component;
+import hermes.events.ChannelPanEvents;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -53,6 +52,7 @@ public class HermesClient extends javax.swing.JFrame
     public HermesClient() throws UnknownHostException
     {
         initComponents();
+        
         ListPane lp = new ListPane();
 
         user = new HCUser("Ħεямεѕ", "ABCDEFGHIJKLMNOP", (short) 155, HLineType.HLNone, HBrowsable.Browsable, (byte) 30, HGender.Male, HLocation.Uruguay, "Montevideo", InetAddress.getByName("167.62.91.249"), (short) 14884, InetAddress.getByName("10.1.20.56"), InetAddress.getByName("8.8.8.8"), (short) 80, (byte) 12, (byte) 34, (byte) 5);
@@ -71,7 +71,7 @@ public class HermesClient extends javax.swing.JFrame
         glassPane.add(BHash);
         glassPane.add(BConfig);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -153,16 +153,13 @@ public class HermesClient extends javax.swing.JFrame
             {
                 HChannel c = HHash.getInstance().decode(hash);
                 addChannel(c);
-            }
-            catch (IOException ex)
+            } catch (IOException ex)
             {
                 System.err.println(ex.getMessage());
-            }
-            catch (DataFormatException ex)
+            } catch (DataFormatException ex)
             {
                 System.err.println(ex.getMessage());
-            }
-            catch (Exception ex)
+            } catch (Exception ex)
             {
                 System.err.println(ex.getMessage());
             }
@@ -181,7 +178,6 @@ public class HermesClient extends javax.swing.JFrame
         titlePanel.add(LIcon);
 
         JLabel titleLbl = new JLabel(title);
-        titlePanel.setName("*******************TITLE MUDAFUCKER*************************");
         titleLbl.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         titlePanel.add(titleLbl);
 
@@ -213,12 +209,38 @@ public class HermesClient extends javax.swing.JFrame
 
     private void addChannel(HChannel channel) throws Exception
     {
-        ChannelPane cp = new ChannelPane(user, channel);
+        ChannelPanEvents events = new ChannelPanEvents()
+        {
+
+            @Override
+            public void onTextRecived(ChannelPane source)
+            {
+
+            }
+
+            @Override
+            public void onNameChange(ChannelPane source,String newName)
+            {
+                int index = TPChat.indexOfComponent(source);
+                if (index != -1)
+                {
+                    JPanel p = ((JPanel) TPChat.getTabComponentAt(index));
+                    
+                    ((JLabel) p.getComponent(1)).setText(newName);
+
+                   // System.out.println("Icon: " + p.getComponent(0));
+                   // System.out.println("Name: " + p.getComponent(1));
+                }
+            }
+        };
+        
+        ChannelPane cp = new ChannelPane(user, channel,events);
         TPChat.add(cp);
         int index = TPChat.indexOfComponent(cp);
         TPChat.setTabComponentAt(index, getTitlePanel(TPChat, cp, channel.getName(), new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/chat.png")), true));
 
         TPChat.setSelectedIndex(TPChat.getTabCount() - 1);
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

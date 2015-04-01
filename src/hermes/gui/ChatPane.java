@@ -73,7 +73,7 @@ public class ChatPane extends javax.swing.JPanel
             String str = AresFormater.getInstance().toHTML(s);
             kit.insertHTML(doc, doc.getLength(), str, 0, 0,null);
 
-            //EPChat.select(doc.getLength(), doc.getLength());
+           EPChat.select(doc.getLength(), doc.getLength());
         } catch (BadLocationException ex)
         {
             Logger.getLogger(ChatPane.class.getName()).log(Level.SEVERE, null, ex);

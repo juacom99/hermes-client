@@ -24,7 +24,7 @@ import com.hermes.client.events.HIClientEvents;
 import com.hermes.common.AresFormater;
 import com.hermes.common.HChannel;
 import com.hermes.common.HUser;
-import java.awt.Component;
+import hermes.events.ChannelPanEvents;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
@@ -40,7 +40,6 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.JTabbedPane;
@@ -60,10 +59,14 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
     private MainChatPane main;
     private String url;
     private HashMap<String, ChatPane> privates;
+    private ChannelPanEvents event;
 
-    public ChannelPane(HCUser user, HChannel channel) throws IOException, Exception
+    public ChannelPane(HCUser user, HChannel channel,ChannelPanEvents event) throws IOException, Exception
     {
         initComponents();
+        
+        this.event=event;
+        
         jToolBar1.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
         this.main = new MainChatPane();
         TPTabs.add("Main Chat", main);
@@ -544,6 +547,7 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
     public void onPublicMessage(HClientMessageEvent evt)
     {
         main.write(AresFormater.FOREGROUND_CHARACTER + "01" + evt.getSender() + "> " + AresFormater.FOREGROUND_CHARACTER + "12" + evt.getText());
+        event.onTextRecived(this);
     }
 
     @Override
@@ -555,6 +559,7 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
             ChatPane cp = privates.get(evt.getSender());
             cp.write(AresFormater.getInstance().toHTML(AresFormater.BOLD_CHARACTER + evt.getSender() + ":"));
             cp.write(AresFormater.getInstance().toHTML("        " + evt.getText()));
+            event.onTextRecived(this);
         }
         catch (Exception ex)
         {
@@ -566,6 +571,7 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
     public void onNoSuch(HClientNoSuchEvent evt)
     {
         main.write(AresFormater.FOREGROUND_CHARACTER + "04" + evt.getNoSuch());
+        event.onTextRecived(this);
     }
 
     @Override
@@ -618,7 +624,7 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
     @Override
     public void onConnect(HClientEvent evt)
     {
-        main.write(((char) 3) + "02Connected, starting handshake");
+        main.write(((char) 3) + "02Connected, starting handshake");        
     }
 
     @Override
@@ -644,7 +650,6 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
     public void onServerAck(HClientAckEvent evt)
     {
         main.write(AresFormater.FOREGROUND_CHARACTER + "02Logged in, retrieving user's list...");
-        
-       
+        event.onNameChange(this,evt.getChannelName());
     }
 }
