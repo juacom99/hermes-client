@@ -55,7 +55,8 @@ public class HermesClient extends javax.swing.JFrame
         
         ListPane lp = new ListPane();
 
-        user = new HCUser("Ħεямεѕ", "ABCDEFGHIJKLMNOP", (short) 155, HLineType.HLNone, HBrowsable.Browsable, (byte) 30, HGender.Male, HLocation.Uruguay, "Montevideo", InetAddress.getByName("167.62.91.249"), (short) 14884, InetAddress.getByName("10.1.20.56"), InetAddress.getByName("8.8.8.8"), (short) 80, (byte) 12, (byte) 34, (byte) 5);
+        //
+        user = new HCUser("Ħεямεѕ", "ZXCVBNMASDFGHJKL", (short) 155, HLineType.HLNone, HBrowsable.Browsable, (byte) 30, HGender.Male, HLocation.Uruguay, "Montevideo", InetAddress.getByName("167.62.91.249"), (short) 14884, InetAddress.getByName("10.1.20.56"), InetAddress.getByName("8.8.8.8"), (short) 80, (byte) 12, (byte) 34, (byte) 5);
 
         user.setAvatar(new ImageIcon("./avatar.png"));
         user.setPersonalMessage("https://github.com/juacom99/hermes-client");
@@ -238,8 +239,8 @@ public class HermesClient extends javax.swing.JFrame
         TPChat.add(cp);
         int index = TPChat.indexOfComponent(cp);
         TPChat.setTabComponentAt(index, getTitlePanel(TPChat, cp, channel.getName(), new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/chat.png")), true));
-
         TPChat.setSelectedIndex(TPChat.getTabCount() - 1);
+        cp.connect();
 
     }
 

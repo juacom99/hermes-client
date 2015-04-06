@@ -30,6 +30,7 @@ import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -60,11 +61,12 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
     private String url;
     private HashMap<String, ChatPane> privates;
     private ChannelPanEvents event;
+    private HChannel channel;
 
     public ChannelPane(HCUser user, HChannel channel,ChannelPanEvents event) throws IOException, Exception
     {
         initComponents();
-        
+        this.channel=channel;
         this.event=event;
         
         jToolBar1.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
@@ -75,7 +77,7 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
 
         client = new HClient(user);
         client.addClientEventListener(this);
-        main.write(AresFormater.FOREGROUND_CHARACTER + "02Connecting to host, please wait...");
+        
 
         if (channel.getTopic() != null)
         {
@@ -83,8 +85,6 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         }
 
         TFInput.requestFocus();
-
-        client.connect(channel.getPublicIP(), channel.getPort());
 
         main.addMouseClickEvent(new MouseAdapter()
         {
@@ -523,6 +523,19 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         }
     }
 
+    
+    public void connect()
+    {
+        main.write(AresFormater.FOREGROUND_CHARACTER + "02Connecting to host, please wait...");
+        try
+        {
+            client.connect(channel.getPublicIP(), channel.getPort());
+        } catch (IOException ex)
+        {
+            HClientEvent e=new HClientEvent();
+            onDisconnect(e);
+        } 
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BBackground;
     private javax.swing.JButton BBold;
