@@ -31,10 +31,24 @@ public class ListPane extends javax.swing.JPanel
     private void initComponents()
     {
 
+        BUpdate = new javax.swing.JButton();
+        TFFilter = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        TFFilter = new javax.swing.JTextField();
-        BUpdate = new javax.swing.JButton();
+
+        BUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/update.png"))); // NOI18N
+        BUpdate.setBorderPainted(false);
+        BUpdate.setContentAreaFilled(false);
+        BUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        BUpdate.setMaximumSize(new java.awt.Dimension(24, 19));
+        BUpdate.setMinimumSize(new java.awt.Dimension(24, 19));
+        BUpdate.setPreferredSize(new java.awt.Dimension(24, 19));
+        BUpdate.setRequestFocusEnabled(false);
+        BUpdate.setRolloverEnabled(false);
+
+        TFFilter.setMaximumSize(new java.awt.Dimension(340, 24));
+        TFFilter.setMinimumSize(new java.awt.Dimension(340, 24));
+        TFFilter.setPreferredSize(new java.awt.Dimension(340, 24));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][]
@@ -59,40 +73,16 @@ public class ListPane extends javax.swing.JPanel
         });
         jScrollPane1.setViewportView(jTable1);
 
-        TFFilter.setMaximumSize(new java.awt.Dimension(340, 24));
-        TFFilter.setMinimumSize(new java.awt.Dimension(340, 24));
-        TFFilter.setPreferredSize(new java.awt.Dimension(340, 24));
-
-        BUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/update.png"))); // NOI18N
-        BUpdate.setBorderPainted(false);
-        BUpdate.setContentAreaFilled(false);
-        BUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BUpdate.setMaximumSize(new java.awt.Dimension(24, 19));
-        BUpdate.setMinimumSize(new java.awt.Dimension(24, 19));
-        BUpdate.setPreferredSize(new java.awt.Dimension(24, 19));
-        BUpdate.setRequestFocusEnabled(false);
-        BUpdate.setRolloverEnabled(false);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(198, Short.MAX_VALUE)
-                .addComponent(TFFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(198, Short.MAX_VALUE))
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 766, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(BUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(TFFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(10, 10, 10)
+                .addGap(40, 40, 40)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
                 .addContainerGap())
         );

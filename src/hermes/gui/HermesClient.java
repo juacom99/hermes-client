@@ -56,7 +56,7 @@ public class HermesClient extends javax.swing.JFrame
         ListPane lp = new ListPane();
 
         //
-        user = new HCUser("Ħεямεѕ", "ZXCVBNMASDFGHJKL", (short) 155, HLineType.HLNone, HBrowsable.Browsable, (byte) 30, HGender.Male, HLocation.Uruguay, "Montevideo", InetAddress.getByName("167.62.91.249"), (short) 14884, InetAddress.getByName("10.1.20.56"), InetAddress.getByName("8.8.8.8"), (short) 80, (byte) 12, (byte) 34, (byte) 5);
+        user = new HCUser("Ħεямεѕ", "ABCDEFGHIJKLMNOP", (short) 155, HLineType.HLNone, HBrowsable.Browsable, (byte) 30, HGender.Male, HLocation.Uruguay, "Montevideo", InetAddress.getByName("167.62.91.249"), (short) 14884, InetAddress.getByName("10.1.20.56"), InetAddress.getByName("8.8.8.8"), (short) 80, (byte) 12, (byte) 34, (byte) 5);
 
         user.setAvatar(new ImageIcon("./avatar.png"));
         user.setPersonalMessage("https://github.com/juacom99/hermes-client");
@@ -67,7 +67,7 @@ public class HermesClient extends javax.swing.JFrame
 
         JPanel newTab = new JPanel();
 
-        JButton newButton = new JButton(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/newConnection.png")));
+        JButton newButton = new JButton(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/newConnection.png"))); 
         newButton.setBorderPainted(false);
         newButton.setFocusPainted(false);
         newButton.setContentAreaFilled(false);
@@ -121,9 +121,9 @@ public class HermesClient extends javax.swing.JFrame
         BHash.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/connect.png"))); // NOI18N
         BHash.setBorderPainted(false);
         BHash.setContentAreaFilled(false);
-        BHash.setMaximumSize(new java.awt.Dimension(20, 20));
-        BHash.setMinimumSize(new java.awt.Dimension(20, 20));
-        BHash.setPreferredSize(new java.awt.Dimension(20, 20));
+        BHash.setMaximumSize(new java.awt.Dimension(16, 16));
+        BHash.setMinimumSize(new java.awt.Dimension(16, 16));
+        BHash.setPreferredSize(new java.awt.Dimension(16, 16));
         Action action = new AbstractAction("doSomething")
         {
 
@@ -178,7 +178,7 @@ public class HermesClient extends javax.swing.JFrame
     {//GEN-HEADEREND:event_BHashActionPerformed
 
         String hash = JOptionPane.showInputDialog(this, "Input a hash", "arlnk://CHATROOM:127.0.0.1:14884|UYM");
-        System.out.println(hash);
+      
         if (hash != null)
         {
 
@@ -188,13 +188,13 @@ public class HermesClient extends javax.swing.JFrame
                 addChannel(c);
             } catch (IOException ex)
             {
-                System.err.println(ex.getMessage());
+                
             } catch (DataFormatException ex)
             {
-                System.err.println(ex.getMessage());
+                
             } catch (Exception ex)
             {
-                System.err.println(ex.getMessage());
+                
             }
         }
     }//GEN-LAST:event_BHashActionPerformed
@@ -224,7 +224,7 @@ public class HermesClient extends javax.swing.JFrame
         if (icon != null)
         {
             JLabel LIcon = new JLabel(icon);
-            d = new Dimension(21, 21);
+            d = new Dimension(16, 16);
             LIcon.setSize(d);
             LIcon.setPreferredSize(d);
             titlePanel.add(LIcon);
@@ -277,7 +277,9 @@ public class HermesClient extends javax.swing.JFrame
                     JPanel p = ((JPanel) TPChat.getTabComponentAt(index));
 
                     ((JLabel) p.getComponent(1)).setText(newName);
-
+                    p.repaint();
+                    TPChat.repaint();
+                    repaint();
                     // System.out.println("Icon: " + p.getComponent(0));
                     // System.out.println("Name: " + p.getComponent(1));
                 }
@@ -308,6 +310,7 @@ public class HermesClient extends javax.swing.JFrame
         int index = TPChat.indexOfComponent(cp);
         TPChat.setTabComponentAt(index, getTitlePanel(cp, channel.getName(), new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/chat.png")), closeButton));
         TPChat.setSelectedIndex(TPChat.getTabCount() - 2);
+        
         cp.connect();
 
     }
