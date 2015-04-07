@@ -52,7 +52,7 @@ public class HermesClient extends javax.swing.JFrame
     public HermesClient() throws UnknownHostException
     {
         initComponents();
-        
+
         ListPane lp = new ListPane();
 
         //
@@ -63,7 +63,31 @@ public class HermesClient extends javax.swing.JFrame
 
         TPChat.add(lp);
         int index = TPChat.indexOfComponent(lp);
-        TPChat.setTabComponentAt(index, getTitlePanel(TPChat, lp, "Channel List", new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/channel-list.png")), false));
+        TPChat.setTabComponentAt(index, getTitlePanel(lp, "Channel List", new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/channel-list.png")), null));
+
+        JPanel newTab = new JPanel();
+
+        JButton newButton = new JButton(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/newConnection.png")));
+        newButton.setBorderPainted(false);
+        newButton.setFocusPainted(false);
+        newButton.setContentAreaFilled(false);
+        newButton.setRolloverEnabled(true);
+        newButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/newConnection-over.png")));
+
+        newButton.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+               //Open Hash Dialog
+                //Decrypt the hash
+                //Connect to the channel 
+            }
+        });
+
+        TPChat.add(newTab);
+        index = TPChat.indexOfComponent(newTab);
+        TPChat.setTabComponentAt(index, getTitlePanel(newTab, null, null, newButton));
 
         Container glassPane = (Container) this.getGlassPane();
         glassPane.setVisible(true);
@@ -128,6 +152,14 @@ public class HermesClient extends javax.swing.JFrame
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/icon.png")).getImage());
 
+        TPChat.addChangeListener(new javax.swing.event.ChangeListener()
+        {
+            public void stateChanged(javax.swing.event.ChangeEvent evt)
+            {
+                TPChatStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -167,42 +199,50 @@ public class HermesClient extends javax.swing.JFrame
         }
     }//GEN-LAST:event_BHashActionPerformed
 
-    private JPanel getTitlePanel(final JTabbedPane tabbedPane, final JPanel panel, String title, ImageIcon icon, boolean withClose)
+    private void TPChatStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_TPChatStateChanged
+    {//GEN-HEADEREND:event_TPChatStateChanged
+
+        /*  if (!(TPChat.getSelectedIndex() == 0 && TPChat.getSelectedIndex() == (TPChat.getTabCount() - 1)));
+         { 
+         JPanel p = ((JPanel) TPChat.getTabComponentAt(TPChat.getSelectedIndex()));
+
+         if (p != null)
+         {
+         ((JLabel) p.getComponent(0)).setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/chat.png")));
+         }
+
+         // System.out.println("Icon: " + p.getComponent(0));
+         // System.out.println("Name: " + p.getComponent(1));
+         }*/
+    }//GEN-LAST:event_TPChatStateChanged
+
+    private JPanel getTitlePanel(final JPanel panel, String title, ImageIcon icon, JButton button)
     {
         JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 3, 0));
         titlePanel.setOpaque(false);
-
-        JLabel LIcon = new JLabel(icon);
-        Dimension d = new Dimension(21, 21);
-        LIcon.setSize(d);
-        LIcon.setPreferredSize(d);
-        titlePanel.add(LIcon);
-
-        JLabel titleLbl = new JLabel(title);
-        titleLbl.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        titlePanel.add(titleLbl);
-
-        if (withClose)
+        Dimension d;
+        if (icon != null)
         {
-            JButton closeButton = new JButton(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/close.png")));
-            closeButton.setBorderPainted(false);
-            closeButton.setFocusPainted(false);
-            closeButton.setContentAreaFilled(false);
-            closeButton.setRolloverEnabled(true);
-            closeButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/close-over.png")));
+            JLabel LIcon = new JLabel(icon);
+            d = new Dimension(21, 21);
+            LIcon.setSize(d);
+            LIcon.setPreferredSize(d);
+            titlePanel.add(LIcon);
+        }
+
+        if (title != null)
+        {
+            JLabel titleLbl = new JLabel(title);
+            titleLbl.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+            titlePanel.add(titleLbl);
+        }
+
+        if (button != null)
+        {
             d = new Dimension(16, 16);
-            closeButton.setSize(d);
-            closeButton.setPreferredSize(d);
-            closeButton.addMouseListener(new MouseAdapter()
-            {
-                @Override
-                public void mouseClicked(MouseEvent e)
-                {
-                    tabbedPane.remove(panel);
-                    ((ChannelPane) panel).close();
-                }
-            });
-            titlePanel.add(closeButton);
+            button.setSize(d);
+            button.setPreferredSize(d);
+            titlePanel.add(button);
         }
 
         return titlePanel;
@@ -216,30 +256,58 @@ public class HermesClient extends javax.swing.JFrame
             @Override
             public void onTextRecived(ChannelPane source)
             {
+                int index = TPChat.indexOfComponent(source);
+                if (index != -1 && TPChat.getSelectedIndex() != index)
+                {
+                    JPanel p = ((JPanel) TPChat.getTabComponentAt(index));
 
+                    ((JLabel) p.getComponent(0)).setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/chat-new.png")));
+
+                    // System.out.println("Icon: " + p.getComponent(0));
+                    // System.out.println("Name: " + p.getComponent(1));
+                }
             }
 
             @Override
-            public void onNameChange(ChannelPane source,String newName)
+            public void onNameChange(ChannelPane source, String newName)
             {
                 int index = TPChat.indexOfComponent(source);
                 if (index != -1)
                 {
                     JPanel p = ((JPanel) TPChat.getTabComponentAt(index));
-                    
+
                     ((JLabel) p.getComponent(1)).setText(newName);
 
-                   // System.out.println("Icon: " + p.getComponent(0));
-                   // System.out.println("Name: " + p.getComponent(1));
+                    // System.out.println("Icon: " + p.getComponent(0));
+                    // System.out.println("Name: " + p.getComponent(1));
                 }
             }
         };
-        
-        ChannelPane cp = new ChannelPane(user, channel,events);
-        TPChat.add(cp);
+
+        final ChannelPane cp = new ChannelPane(user, channel, events);
+        JButton closeButton = new JButton(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/close.png")));
+        closeButton.setBorderPainted(false);
+        closeButton.setFocusPainted(false);
+        closeButton.setContentAreaFilled(false);
+        closeButton.setRolloverEnabled(true);
+        closeButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/close-over.png")));
+        Dimension d = new Dimension(16, 16);
+        closeButton.setSize(d);
+        closeButton.setPreferredSize(d);
+        closeButton.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                TPChat.remove(cp);
+                ((ChannelPane) cp).close();
+            }
+        });
+
+        TPChat.add(cp, TPChat.getTabCount() - 1);
         int index = TPChat.indexOfComponent(cp);
-        TPChat.setTabComponentAt(index, getTitlePanel(TPChat, cp, channel.getName(), new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/chat.png")), true));
-        TPChat.setSelectedIndex(TPChat.getTabCount() - 1);
+        TPChat.setTabComponentAt(index, getTitlePanel(cp, channel.getName(), new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/chat.png")), closeButton));
+        TPChat.setSelectedIndex(TPChat.getTabCount() - 2);
         cp.connect();
 
     }

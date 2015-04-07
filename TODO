@@ -1,3 +1,6 @@
 * Add Emoticon support (show emoticons on chat, show emoticon dialog)
 * Sanitace String befor Formating
 * Add channel list support (Show the list channel on the Tab, conect to room on dobuble click, export hash?)
+* Make Color Selection dialog not modal
+* Add config dialog
+* Make new Tab work correctly
