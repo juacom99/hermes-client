@@ -24,7 +24,7 @@ import com.hermes.client.events.HIClientEvents;
 import com.hermes.common.AresFormater;
 import com.hermes.common.HChannel;
 import com.hermes.common.HUser;
-import hermes.events.ChannelPanEvents;
+import hermes.events.ChannelPaneEvents;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
@@ -60,10 +60,10 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
     private MainChatPane main;
     private String url;
     private HashMap<String, ChatPane> privates;
-    private ChannelPanEvents event;
+    private ChannelPaneEvents event;
     private HChannel channel;
 
-    public ChannelPane(HCUser user, HChannel channel,ChannelPanEvents event) throws IOException, Exception
+    public ChannelPane(HCUser user, HChannel channel,ChannelPaneEvents event) throws IOException, Exception
     {
         initComponents();
         this.channel=channel;
