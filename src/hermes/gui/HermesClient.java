@@ -56,7 +56,7 @@ public class HermesClient extends javax.swing.JFrame
         ListPane lp = new ListPane();
 
         //
-        user = new HCUser("Ħεямεѕ", "ABCDEFGHIJKLMNOP", (short) 155, HLineType.HLNone, HBrowsable.Browsable, (byte) 30, HGender.Male, HLocation.Uruguay, "Montevideo", InetAddress.getByName("167.62.91.249"), (short) 14884, InetAddress.getByName("10.1.20.56"), InetAddress.getByName("8.8.8.8"), (short) 80, (byte) 12, (byte) 34, (byte) 5);
+        user = new HCUser("Ħεямεѕ", "QWERTYUIOPASDFGH", (short) 155, HLineType.HLNone, HBrowsable.Browsable, (byte) 30, HGender.Male, HLocation.Uruguay, "Montevideo", InetAddress.getByName("167.62.91.249"), (short) 14884, InetAddress.getByName("10.1.20.56"), InetAddress.getByName("8.8.8.8"), (short) 80, (byte) 12, (byte) 34, (byte) 5);
 
         user.setAvatar(new ImageIcon("./avatar.png"));
         user.setPersonalMessage("https://github.com/juacom99/hermes-client");
@@ -202,7 +202,7 @@ public class HermesClient extends javax.swing.JFrame
     private void TPChatStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_TPChatStateChanged
     {//GEN-HEADEREND:event_TPChatStateChanged
 
-        /*  if (!(TPChat.getSelectedIndex() == 0 && TPChat.getSelectedIndex() == (TPChat.getTabCount() - 1)));
+         if ((TPChat.getSelectedIndex() != 0 ) && TPChat.getSelectedIndex() != (TPChat.getTabCount() - 1))
          { 
          JPanel p = ((JPanel) TPChat.getTabComponentAt(TPChat.getSelectedIndex()));
 
@@ -213,7 +213,7 @@ public class HermesClient extends javax.swing.JFrame
 
          // System.out.println("Icon: " + p.getComponent(0));
          // System.out.println("Name: " + p.getComponent(1));
-         }*/
+         }
     }//GEN-LAST:event_TPChatStateChanged
 
     private JPanel getTitlePanel(final JPanel panel, String title, ImageIcon icon, JButton button)

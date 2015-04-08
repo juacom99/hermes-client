@@ -32,9 +32,10 @@ public class ListPane extends javax.swing.JPanel
     {
 
         BUpdate = new javax.swing.JButton();
-        TFFilter = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        TFFilter = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         BUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/update.png"))); // NOI18N
         BUpdate.setBorderPainted(false);
@@ -45,10 +46,6 @@ public class ListPane extends javax.swing.JPanel
         BUpdate.setPreferredSize(new java.awt.Dimension(24, 19));
         BUpdate.setRequestFocusEnabled(false);
         BUpdate.setRolloverEnabled(false);
-
-        TFFilter.setMaximumSize(new java.awt.Dimension(340, 24));
-        TFFilter.setMinimumSize(new java.awt.Dimension(340, 24));
-        TFFilter.setPreferredSize(new java.awt.Dimension(340, 24));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][]
@@ -73,17 +70,36 @@ public class ListPane extends javax.swing.JPanel
         });
         jScrollPane1.setViewportView(jTable1);
 
+        TFFilter.setMaximumSize(new java.awt.Dimension(340, 24));
+        TFFilter.setMinimumSize(new java.awt.Dimension(340, 24));
+        TFFilter.setPreferredSize(new java.awt.Dimension(340, 24));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/filter.png"))); // NOI18N
+        jLabel1.setMaximumSize(new java.awt.Dimension(16, 13));
+        jLabel1.setMinimumSize(new java.awt.Dimension(16, 13));
+        jLabel1.setPreferredSize(new java.awt.Dimension(16, 13));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 766, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(TFFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(TFFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(7, 7, 7)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -92,6 +108,7 @@ public class ListPane extends javax.swing.JPanel
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BUpdate;
     private javax.swing.JTextField TFFilter;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
