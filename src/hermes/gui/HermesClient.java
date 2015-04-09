@@ -62,7 +62,7 @@ public class HermesClient extends javax.swing.JFrame
 
         TPChat.add(lp);
         int index = TPChat.indexOfComponent(lp);
-        TPChat.setTabComponentAt(index, getTitlePanel(lp, "      Channel List",null , null));//new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/channel-list.png"))
+        TPChat.setTabComponentAt(index, getTitlePanel(lp, "Channel List",new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/channel-list.png")) , null));
 
         JPanel newTab = new JPanel();
         JButton bNewTab = new JButton(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/newConnection.png")));
