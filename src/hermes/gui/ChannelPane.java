@@ -170,8 +170,6 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
                 TPTabs.setTabComponentAt(index, getTitlePanel(TPTabs, cp, userName));
             }
         }
-
-        TPTabs.setSelectedIndex(TPTabs.getTabCount() - 1);
     }
 
     /**

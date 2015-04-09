@@ -47,14 +47,14 @@ public class HermesClient extends javax.swing.JFrame
      * Creates new form NewJFrame
      */
     private HCUser user;
+    
 
     public HermesClient() throws UnknownHostException
     {
         initComponents();
         
         ListPane lp = new ListPane();
-
-        //
+        
         user = new HCUser("Ħεямεѕ", "QWERTYUIOPASDFGH", (short) 155, HLineType.HLNone, HBrowsable.Browsable, (byte) 30, HGender.Male, HLocation.Uruguay, "Montevideo", InetAddress.getByName("167.62.91.249"), (short) 14884, InetAddress.getByName("10.1.20.56"), InetAddress.getByName("8.8.8.8"), (short) 80, (byte) 12, (byte) 34, (byte) 5);
 
         user.setAvatar(new ImageIcon("./avatar.png"));
@@ -91,7 +91,7 @@ public class HermesClient extends javax.swing.JFrame
             }
 
         };
-        action.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control H"));
+        action.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control T"));
 
         bNewTab.getActionMap().put("OpenHashDialog", action);
         bNewTab.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(

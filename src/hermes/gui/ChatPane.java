@@ -16,7 +16,6 @@ import javax.swing.JFileChooser;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.StyledEditorKit;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
@@ -61,7 +60,7 @@ public class ChatPane extends javax.swing.JPanel
             }
         });
         EPChat.setEditorKit(kit);
-        EPChat.setDocument(doc);
+        EPChat.setDocument(doc);      
     }
 
     public void write(String s)
@@ -83,7 +82,7 @@ public class ChatPane extends javax.swing.JPanel
         }
     }
 
-    
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
