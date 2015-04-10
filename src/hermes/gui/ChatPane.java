@@ -6,6 +6,7 @@
 package hermes.gui;
 
 import com.hermes.common.AresFormater;
+import java.awt.Color;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
@@ -40,6 +41,8 @@ public class ChatPane extends javax.swing.JPanel
         
         EPChat.setComponentPopupMenu(PMMenu);
 
+        EPChat.setSelectedTextColor(Color.WHITE);
+        EPChat.setSelectionColor(new Color(150,150,120));
         EPChat.addHyperlinkListener(new HyperlinkListener()
         {
 
@@ -59,6 +62,7 @@ public class ChatPane extends javax.swing.JPanel
                 }
             }
         });
+        
         EPChat.setEditorKit(kit);
         EPChat.setDocument(doc);      
     }
@@ -67,8 +71,6 @@ public class ChatPane extends javax.swing.JPanel
     {
         try
         {
-            
-            
             String str = AresFormater.getInstance().toHTML(s);
             kit.insertHTML(doc, doc.getLength(), str, 0, 0,null);
 
@@ -96,7 +98,7 @@ public class ChatPane extends javax.swing.JPanel
 
         PMMenu = new javax.swing.JPopupMenu();
         MISave = new javax.swing.JMenuItem();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
         EPChat = new javax.swing.JEditorPane();
 
         MISave.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
@@ -111,22 +113,20 @@ public class ChatPane extends javax.swing.JPanel
         PMMenu.add(MISave);
 
         EPChat.setEditable(false);
-        EPChat.setContentType("\"text/html\""); // NOI18N
+        EPChat.setContentType("text/html"); // NOI18N
         EPChat.getDocument().putProperty("char-set","UTF-8");
         EPChat.setFont(new java.awt.Font("Serif", 0, 12)); // NOI18N
-        jScrollPane1.setViewportView(EPChat);
+        jScrollPane2.setViewportView(EPChat);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 699, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 699, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -156,6 +156,6 @@ public class ChatPane extends javax.swing.JPanel
     protected javax.swing.JEditorPane EPChat;
     private javax.swing.JMenuItem MISave;
     private javax.swing.JPopupMenu PMMenu;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

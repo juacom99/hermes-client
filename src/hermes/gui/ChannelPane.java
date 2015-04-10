@@ -102,7 +102,7 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
 
                     try
                     {
-                        addPrivate(u.getUsername());
+                        addPrivate(u.getUsername(),true);
                     }
                     catch (Exception ex)
                     {
@@ -147,7 +147,7 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         return titlePanel;
     }
 
-    private void addPrivate(String userName) throws Exception
+    private void addPrivate(String userName,boolean giveFocus) throws Exception
     {
         ChatPane cp;
 
@@ -170,6 +170,11 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
                 TPTabs.setTabComponentAt(index, getTitlePanel(TPTabs, cp, userName));
             }
         }
+        
+         if(giveFocus)
+            {
+                TPTabs.setSelectedIndex(TPTabs.getTabCount()-1);
+            }
     }
 
     /**
@@ -372,9 +377,8 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
     {//GEN-HEADEREND:event_TFInputKeyPressed
         if (evt.getKeyCode() == 10)
         {
-            String text = TFInput.getText().replace(((char) 2) + "6", "" + AresFormater.BOLD_CHARACTER);
-            text = text.replaceAll(((char) 2) + "7", "" + AresFormater.UNDERLINE_CHARACTER);
-            text = text.replaceAll(((char) 2) + "9", "" + AresFormater.ITALIC_CHARACTER);
+            String text = TFInput.getText();
+            
             if (TPTabs.getSelectedIndex() == 0)
             {
                 try
@@ -404,8 +408,8 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
                 client.sendPM(to, text);
 
                 ChatPane cp = ((ChatPane) TPTabs.getComponentAt(TPTabs.getSelectedIndex()));
-                cp.write(AresFormater.getInstance().toHTML(AresFormater.BOLD_CHARACTER + "Me:"));
-                cp.write(AresFormater.getInstance().toHTML("        " + text));
+                cp.write(AresFormater.BOLD_CHARACTER + "Me:");
+                cp.write("        " + text);
 
             }
 
@@ -566,10 +570,10 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
     {
         try
         {
-            addPrivate(evt.getSender());
+            addPrivate(evt.getSender(),false);
             ChatPane cp = privates.get(evt.getSender());
-            cp.write(AresFormater.getInstance().toHTML(AresFormater.BOLD_CHARACTER + evt.getSender() + ":"));
-            cp.write(AresFormater.getInstance().toHTML("        " + evt.getText()));
+            cp.write(AresFormater.BOLD_CHARACTER + evt.getSender() + ":");
+            cp.write("        " + evt.getText());
             event.onTextRecived(this);
         }
         catch (Exception ex)
