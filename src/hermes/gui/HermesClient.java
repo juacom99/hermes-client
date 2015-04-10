@@ -62,16 +62,16 @@ public class HermesClient extends javax.swing.JFrame
 
         TPChat.add(lp);
         int index = TPChat.indexOfComponent(lp);
-        TPChat.setTabComponentAt(index, getTitlePanel(lp, "Channel List",new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/channel-list.png")) , null));
+        TPChat.setTabComponentAt(index, getTitlePanel(lp, "Channel List",new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/channel-list.png")) , null,3));
 
         JPanel newTab = new JPanel();
         JButton bNewTab = new JButton(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/newConnection.png")));
-        bNewTab.setBorderPainted(false);
+       bNewTab.setBorderPainted(false);
         bNewTab.setFocusPainted(false);
         bNewTab.setContentAreaFilled(false);
         bNewTab.setRolloverEnabled(true);
         bNewTab.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/newConnection-over.png")));
-
+        bNewTab.setSize(24,16);
         bNewTab.addMouseListener(new MouseAdapter()
         {
             @Override
@@ -92,15 +92,15 @@ public class HermesClient extends javax.swing.JFrame
 
         };
         action.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control T"));
-
         bNewTab.getActionMap().put("OpenHashDialog", action);
-        bNewTab.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-                (KeyStroke) action.getValue(Action.ACCELERATOR_KEY), "OpenHashDialog");
+        bNewTab.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put((KeyStroke) action.getValue(Action.ACCELERATOR_KEY), "OpenHashDialog");
         bNewTab.addActionListener(action);
 
         TPChat.add(newTab);
         index = TPChat.indexOfComponent(newTab);
-        TPChat.setTabComponentAt(index, getTitlePanel(newTab, null, null, bNewTab));
+        TPChat.setTabComponentAt(index, getTitlePanel(newTab, null, null, bNewTab,0));
+       
+        TPChat.setEnabledAt(index,false);
 
         Container glassPane = (Container) this.getGlassPane();
         glassPane.setBackground(Color.red);
@@ -205,17 +205,17 @@ public class HermesClient extends javax.swing.JFrame
         }
     }//GEN-LAST:event_TPChatStateChanged
 
-    private JPanel getTitlePanel(final JPanel panel, String title, ImageIcon icon, JButton button)
+    private JPanel getTitlePanel(final JPanel panel, String title, ImageIcon icon, JButton button, int margin)
     {
-        JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 3, 0));
+        JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, margin, 0));
         titlePanel.setOpaque(false);
         Dimension d;
         if (icon != null)
         {
             JLabel LIcon = new JLabel(icon);
-            d = new Dimension(16, 16);
+           /* d = new Dimension(16, 16);
             LIcon.setSize(d);
-            LIcon.setPreferredSize(d);
+            LIcon.setPreferredSize(d);*/
             titlePanel.add(LIcon);
         }
 
@@ -290,20 +290,43 @@ public class HermesClient extends javax.swing.JFrame
             @Override
             public void mouseClicked(MouseEvent e)
             {
+                int index=TPChat.getSelectedIndex()-1;
                 TPChat.remove(cp);
                 ((ChannelPane) cp).close();
+                TPChat.setSelectedIndex(index);
+                
             }
         });
+        
+          Action action = new AbstractAction("closeTab")
+        {
+
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                 int index=TPChat.getSelectedIndex()-1;
+                TPChat.remove(cp);
+                ((ChannelPane) cp).close();
+                TPChat.setSelectedIndex(index);
+            }
+
+        };
+        action.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control W"));
+        closeButton.getActionMap().put("closeTab", action);
+        closeButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put((KeyStroke) action.getValue(Action.ACCELERATOR_KEY), "closeTab");
+        closeButton.addActionListener(action);
 
         TPChat.add(cp, TPChat.getTabCount() - 1);
         int index = TPChat.indexOfComponent(cp);
-        TPChat.setTabComponentAt(index, getTitlePanel(cp, channel.getName(), new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/chat.png")), closeButton));
+        TPChat.setTabComponentAt(index, getTitlePanel(cp, channel.getName(), new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/chat.png")), closeButton,3));
         TPChat.setSelectedIndex(TPChat.getTabCount() - 2);
 
         cp.connect();
 
     }
 
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BConfig;
     private javax.swing.JTabbedPane TPChat;
