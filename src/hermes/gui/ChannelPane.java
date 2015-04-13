@@ -198,8 +198,8 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         BUnderline = new javax.swing.JButton();
         BForeground = new javax.swing.JButton();
         BBackground = new javax.swing.JButton();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(25, 20), new java.awt.Dimension(25, 20), new java.awt.Dimension(25, 32767));
-        BEmoticons = new javax.swing.JButton();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 20), new java.awt.Dimension(10, 20), new java.awt.Dimension(10, 32767));
+        jButton1 = new javax.swing.JButton();
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         LURL = new javax.swing.JLabel();
         TPTabs = new javax.swing.JTabbedPane();
@@ -309,13 +309,15 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         jToolBar1.add(BBackground);
         jToolBar1.add(filler1);
 
-        BEmoticons.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/emoti.png"))); // NOI18N
-        BEmoticons.setToolTipText("");
-        BEmoticons.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        BEmoticons.setMaximumSize(new java.awt.Dimension(19, 19));
-        BEmoticons.setMinimumSize(new java.awt.Dimension(20, 20));
-        BEmoticons.setPreferredSize(new java.awt.Dimension(20, 20));
-        jToolBar1.add(BEmoticons);
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/emoti.png"))); // NOI18N
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setLabel("");
+        jButton1.setMaximumSize(new java.awt.Dimension(20, 20));
+        jButton1.setMinimumSize(new java.awt.Dimension(20, 20));
+        jButton1.setPreferredSize(new java.awt.Dimension(20, 20));
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton1);
         jToolBar1.add(filler4);
 
         LURL.setMaximumSize(null);
@@ -540,7 +542,6 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BBackground;
     private javax.swing.JButton BBold;
-    private javax.swing.JButton BEmoticons;
     private javax.swing.JButton BForeground;
     private javax.swing.JButton BItalic;
     private javax.swing.JButton BUnderline;
@@ -552,6 +553,7 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
     private javax.swing.Box.Filler filler4;
+    private javax.swing.JButton jButton1;
     private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
