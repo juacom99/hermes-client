@@ -91,7 +91,7 @@ public class HermesClient extends javax.swing.JFrame
             }
 
         };
-        action.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control T"));
+        action.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control N"));
         bNewTab.getActionMap().put("OpenHashDialog", action);
         bNewTab.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put((KeyStroke) action.getValue(Action.ACCELERATOR_KEY), "OpenHashDialog");
         bNewTab.addActionListener(action);

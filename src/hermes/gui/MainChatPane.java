@@ -50,6 +50,8 @@ public class MainChatPane extends ChatPane
             }
         });
 
+        SPUsers.setHorizontalScrollBar(null);
+
         LUsers.setModel(new DefaultListModel<HUser>());
         LUsers.setFixedCellHeight(58);
         LUsers.setCellRenderer(new UserRenderer());

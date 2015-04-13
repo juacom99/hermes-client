@@ -198,7 +198,7 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         BUnderline = new javax.swing.JButton();
         BForeground = new javax.swing.JButton();
         BBackground = new javax.swing.JButton();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(30, 20), new java.awt.Dimension(30, 20), new java.awt.Dimension(30, 32767));
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(25, 20), new java.awt.Dimension(25, 20), new java.awt.Dimension(25, 32767));
         BEmoticons = new javax.swing.JButton();
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         LURL = new javax.swing.JLabel();
