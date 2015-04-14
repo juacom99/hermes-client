@@ -5,6 +5,22 @@
  */
 package hermes.gui;
 
+import com.hermes.client.HCChannelDownloader;
+import com.hermes.client.events.ChannelListClickedEvent;
+import com.hermes.client.events.HChannelListEvents;
+import com.hermes.common.HChannel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author jomartinez
@@ -15,10 +31,96 @@ public class ListPane extends javax.swing.JPanel
     /**
      * Creates new form List
      */
-    public ListPane()
+    private HCChannelDownloader downloader;
+    private TableRowSorter<DefaultTableModel> sorter;
+
+    public ListPane(final ChannelListClickedEvent evt) throws IOException
     {
         initComponents();
+        sorter = new TableRowSorter<DefaultTableModel>(((DefaultTableModel) TChannels.getModel()));
+        TChannels.setRowSorter(sorter);
+        TFFilter.getDocument().addDocumentListener(new DocumentListener()
+        {
+            public void changedUpdate(DocumentEvent e)
+            {
+                RowFilter<DefaultTableModel, Object> rf = null;
+                //declare a row filter for your table model
+                try
+                {
+                    rf = RowFilter.regexFilter("(?i)" + TFFilter.getText(), 1, 5);
+
+                } catch (java.util.regex.PatternSyntaxException ex)
+                {
+                    ex.printStackTrace();
+                    return;
+                }
+                sorter.setRowFilter(rf);
+            }
+
+            public void insertUpdate(DocumentEvent e)
+            {
+                RowFilter<DefaultTableModel, Object> rf = null;
+                try
+                {
+                    rf = RowFilter.regexFilter("(?i)" + TFFilter.getText(), 1, 5);
+                } catch (java.util.regex.PatternSyntaxException ex)
+                {
+                    ex.printStackTrace();
+                    return;
+                }
+                sorter.setRowFilter(rf);
+            }
+
+            public void removeUpdate(DocumentEvent e)
+            {
+                if (TFFilter.getText().length() == 0)
+                {
+                    sorter.setRowFilter(null);
+                } else
+                {
+                    RowFilter<DefaultTableModel, Object> rf = null;
+                    try
+                    {
+                        rf = RowFilter.regexFilter("(?i)" + TFFilter.getText(), 1, 5);
+                    } catch (java.util.regex.PatternSyntaxException ex)
+                    {
+                        ex.printStackTrace();
+                        return;
+                    }
+                    sorter.setRowFilter(rf);
+                }
+            }
+        });
+        TChannels.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mousePressed(MouseEvent e)
+            {
+                int row = TChannels.rowAtPoint(e.getPoint());
+                HChannel selectedChannel =downloader.get((int) TChannels.getValueAt(row, 0)) ;
+                if (e.getClickCount() % 2 == 0 && e.getButton() == MouseEvent.BUTTON1)
+                {
+                        evt.channelListClick(selectedChannel);
+                }                
+            }
+        });
         TFFilter.requestFocus();
+        downloader = new HCChannelDownloader(new File("ChatroomIPs.dat"));
+        downloader.addEventListener(new HChannelListEvents()
+        {
+
+            @Override
+            public void onNewChannel(HChannel channel, int index)
+            {
+                Object[] row =
+                {
+                    index, channel.getName(), channel.getServerVersion(), channel.getUserCount(), channel.getLanguage(), channel.getTopic()
+                };
+
+                ((DefaultTableModel) TChannels.getModel()).addRow(row);
+            }
+        });
+        downloader.start();
     }
 
     /**
@@ -33,7 +135,7 @@ public class ListPane extends javax.swing.JPanel
 
         BUpdate = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TChannels = new javax.swing.JTable();
         TFFilter = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
@@ -47,37 +149,64 @@ public class ListPane extends javax.swing.JPanel
         BUpdate.setRequestFocusEnabled(false);
         BUpdate.setRolloverEnabled(false);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TChannels.setAutoCreateRowSorter(true);
+        TChannels.setFont(new java.awt.Font("Serif", 0, 12)); // NOI18N
+        TChannels.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][]
             {
 
             },
             new String []
             {
-                "Name", "Server Version", "User Count", "Language", "Topic"
+                "Id", "Name", "Server Version", "User Count", "Language", "Topic"
             }
         )
         {
             Class[] types = new Class []
             {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean []
+            {
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex)
             {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex)
+            {
+                return canEdit [columnIndex];
+            }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TChannels);
+        if (TChannels.getColumnModel().getColumnCount() > 0)
+        {
+            TChannels.getColumnModel().getColumn(0).setMinWidth(0);
+            TChannels.getColumnModel().getColumn(0).setPreferredWidth(0);
+            TChannels.getColumnModel().getColumn(0).setMaxWidth(0);
+            TChannels.getColumnModel().getColumn(1).setMinWidth(260);
+            TChannels.getColumnModel().getColumn(1).setPreferredWidth(260);
+            TChannels.getColumnModel().getColumn(1).setMaxWidth(260);
+            TChannels.getColumnModel().getColumn(2).setMinWidth(170);
+            TChannels.getColumnModel().getColumn(2).setPreferredWidth(170);
+            TChannels.getColumnModel().getColumn(2).setMaxWidth(170);
+            TChannels.getColumnModel().getColumn(3).setMinWidth(100);
+            TChannels.getColumnModel().getColumn(3).setPreferredWidth(100);
+            TChannels.getColumnModel().getColumn(3).setMaxWidth(100);
+            TChannels.getColumnModel().getColumn(4).setMinWidth(80);
+            TChannels.getColumnModel().getColumn(4).setPreferredWidth(80);
+            TChannels.getColumnModel().getColumn(4).setMaxWidth(80);
+            TChannels.getColumnModel().getColumn(5).setCellRenderer(new TopicRenderer());
+        }
 
         TFFilter.setMaximumSize(new java.awt.Dimension(340, 24));
         TFFilter.setMinimumSize(new java.awt.Dimension(340, 24));
         TFFilter.setPreferredSize(new java.awt.Dimension(340, 24));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/filter.png"))); // NOI18N
-        jLabel1.setMaximumSize(new java.awt.Dimension(16, 13));
-        jLabel1.setMinimumSize(new java.awt.Dimension(16, 13));
-        jLabel1.setPreferredSize(new java.awt.Dimension(16, 13));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -107,9 +236,9 @@ public class ListPane extends javax.swing.JPanel
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BUpdate;
+    private javax.swing.JTable TChannels;
     private javax.swing.JTextField TFFilter;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

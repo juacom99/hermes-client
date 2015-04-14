@@ -5,7 +5,9 @@
  */
 package hermes.gui;
 
+import com.hermes.client.HCChannelDownloader;
 import com.hermes.client.HCUser;
+import com.hermes.client.events.ChannelListClickedEvent;
 import com.hermes.common.HChannel;
 import com.hermes.common.HHash;
 import com.hermes.common.constants.HBrowsable;
@@ -23,6 +25,8 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.zip.DataFormatException;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -34,6 +38,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.KeyStroke;
 
 /**
@@ -47,14 +53,27 @@ public class HermesClient extends javax.swing.JFrame
      * Creates new form NewJFrame
      */
     private HCUser user;
-    
 
-    public HermesClient() throws UnknownHostException
+    public HermesClient() throws UnknownHostException, IOException
     {
         initComponents();
-        
-        ListPane lp = new ListPane();
-        
+
+        ListPane lp = new ListPane(new ChannelListClickedEvent()
+        {
+
+            @Override
+            public void channelListClick(HChannel channel)
+            {
+                try
+                {
+                    addChannel(channel);
+                } catch (Exception ex)
+                {
+                    Logger.getLogger(HermesClient.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+
         user = new HCUser("Ħεямεѕ", "QWERTYUIOPASDFGH", (short) 155, HLineType.HLNone, HBrowsable.Browsable, (byte) 30, HGender.Male, HLocation.Uruguay, "Montevideo", InetAddress.getByName("167.62.91.249"), (short) 14884, InetAddress.getByName("10.1.20.56"), InetAddress.getByName("8.8.8.8"), (short) 80, (byte) 12, (byte) 34, (byte) 5);
 
         user.setAvatar(new ImageIcon("./avatar.png"));
@@ -62,16 +81,16 @@ public class HermesClient extends javax.swing.JFrame
 
         TPChat.add(lp);
         int index = TPChat.indexOfComponent(lp);
-        TPChat.setTabComponentAt(index, getTitlePanel(lp, "Channel List",new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/channel-list.png")) , null,3));
+        TPChat.setTabComponentAt(index, getTitlePanel(lp, "Channel List", new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/channel-list.png")), null, 3));
 
         JPanel newTab = new JPanel();
         JButton bNewTab = new JButton(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/newConnection.png")));
-       bNewTab.setBorderPainted(false);
+        bNewTab.setBorderPainted(false);
         bNewTab.setFocusPainted(false);
         bNewTab.setContentAreaFilled(false);
         bNewTab.setRolloverEnabled(true);
         bNewTab.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/newConnection-over.png")));
-        bNewTab.setSize(24,16);
+        bNewTab.setSize(24, 16);
         bNewTab.addMouseListener(new MouseAdapter()
         {
             @Override
@@ -98,19 +117,19 @@ public class HermesClient extends javax.swing.JFrame
 
         TPChat.add(newTab);
         index = TPChat.indexOfComponent(newTab);
-        TPChat.setTabComponentAt(index, getTitlePanel(newTab, null, null, bNewTab,0));
-       
-        TPChat.setEnabledAt(index,false);
+        TPChat.setTabComponentAt(index, getTitlePanel(newTab, null, null, bNewTab, 0));
+
+        TPChat.setEnabledAt(index, false);
 
         Container glassPane = (Container) this.getGlassPane();
         glassPane.setBackground(Color.red);
-        
+
         glassPane.setVisible(true);
-        
-        FlowLayout fl=new FlowLayout(FlowLayout.RIGHT);
+
+        FlowLayout fl = new FlowLayout(FlowLayout.RIGHT);
         fl.setVgap(2);
         glassPane.setLayout(fl);
-       
+
         glassPane.add(BConfig);
     }
 
@@ -161,9 +180,9 @@ public class HermesClient extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private  void BNewTabActionPerformed()
+    private void BNewTabActionPerformed()
     {
-         String hash = JOptionPane.showInputDialog(this, "Input a hash", "arlnk://CHATROOM:127.0.0.1:14884|UYM");
+        String hash = JOptionPane.showInputDialog(this, "Input a hash", "arlnk://CHATROOM:127.0.0.1:14884|UYM");
 
         if (hash != null)
         {
@@ -172,25 +191,22 @@ public class HermesClient extends javax.swing.JFrame
             {
                 HChannel c = HHash.getInstance().decode(hash);
                 addChannel(c);
-            }
-            catch (IOException ex)
+            } catch (IOException ex)
             {
 
-            }
-            catch (DataFormatException ex)
+            } catch (DataFormatException ex)
             {
 
-            }
-            catch (Exception ex)
+            } catch (Exception ex)
             {
 
             }
         }
     }
-    
+
     private void TPChatStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_TPChatStateChanged
     {//GEN-HEADEREND:event_TPChatStateChanged
-        
+
         if ((TPChat.getSelectedIndex() != 0) && TPChat.getSelectedIndex() != (TPChat.getTabCount() - 1))
         {
             JPanel p = ((JPanel) TPChat.getTabComponentAt(TPChat.getSelectedIndex()));
@@ -213,9 +229,9 @@ public class HermesClient extends javax.swing.JFrame
         if (icon != null)
         {
             JLabel LIcon = new JLabel(icon);
-           /* d = new Dimension(16, 16);
-            LIcon.setSize(d);
-            LIcon.setPreferredSize(d);*/
+            /* d = new Dimension(16, 16);
+             LIcon.setSize(d);
+             LIcon.setPreferredSize(d);*/
             titlePanel.add(LIcon);
         }
 
@@ -290,21 +306,21 @@ public class HermesClient extends javax.swing.JFrame
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                int index=TPChat.getSelectedIndex()-1;
+                int index = TPChat.getSelectedIndex() - 1;
                 TPChat.remove(cp);
                 ((ChannelPane) cp).close();
                 TPChat.setSelectedIndex(index);
-                
+
             }
         });
-        
-          Action action = new AbstractAction("closeTab")
+
+        Action action = new AbstractAction("closeTab")
         {
 
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                 int index=TPChat.getSelectedIndex()-1;
+                int index = TPChat.getSelectedIndex() - 1;
                 TPChat.remove(cp);
                 ((ChannelPane) cp).close();
                 TPChat.setSelectedIndex(index);
@@ -318,15 +334,14 @@ public class HermesClient extends javax.swing.JFrame
 
         TPChat.add(cp, TPChat.getTabCount() - 1);
         int index = TPChat.indexOfComponent(cp);
-        TPChat.setTabComponentAt(index, getTitlePanel(cp, channel.getName(), new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/chat.png")), closeButton,3));
+        TPChat.setTabComponentAt(index, getTitlePanel(cp, channel.getName(), new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/chat.png")), closeButton, 3));
         TPChat.setSelectedIndex(TPChat.getTabCount() - 2);
 
         cp.connect();
 
     }
 
-    
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BConfig;
     private javax.swing.JTabbedPane TPChat;
