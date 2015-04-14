@@ -41,8 +41,7 @@ public class ChatPane extends javax.swing.JPanel
         
         EPChat.setComponentPopupMenu(PMMenu);
 
-        EPChat.setSelectedTextColor(Color.WHITE);
-        EPChat.setSelectionColor(new Color(150,150,120));
+        EPChat.setSelectionColor(new Color(224,227,206));
         EPChat.addHyperlinkListener(new HyperlinkListener()
         {
 

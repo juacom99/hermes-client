@@ -16,7 +16,6 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
-import sun.swing.DefaultLookup;
 
 /**
  *
@@ -72,8 +71,8 @@ public class TopicRenderer extends javax.swing.JPanel implements TableCellRender
         if(isSelected)
         {
           
-           EPTopic.setForeground(DefaultLookup.getColor(this, ui, "Table.dropCellForeground")); 
-           EPTopic.setBackground(DefaultLookup.getColor(this, ui, "Table.dropCellBackground"));
+           EPTopic.setForeground(table.getSelectionForeground()); 
+           EPTopic.setBackground(table.getSelectionBackground());
         }
         else
         {

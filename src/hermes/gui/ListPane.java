@@ -8,9 +8,9 @@ package hermes.gui;
 import com.hermes.client.HCChannelDownloader;
 import com.hermes.client.events.ChannelListClickedEvent;
 import com.hermes.client.events.HChannelListEvents;
+import com.hermes.common.AresFormater;
 import com.hermes.common.HChannel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import com.hermes.common.constants.HLanguage;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -106,6 +106,7 @@ public class ListPane extends javax.swing.JPanel
         });
         TFFilter.requestFocus();
         downloader = new HCChannelDownloader(new File("ChatroomIPs.dat"));
+                
         downloader.addEventListener(new HChannelListEvents()
         {
 
@@ -114,7 +115,7 @@ public class ListPane extends javax.swing.JPanel
             {
                 Object[] row =
                 {
-                    index, channel.getName(), channel.getServerVersion(), channel.getUserCount(), channel.getLanguage(), channel.getTopic()
+                    index, channel.getName(), channel.getTopic(),channel.getLanguage(),channel.getUserCount() 
                 };
 
                 ((DefaultTableModel) TChannels.getModel()).addRow(row);
@@ -150,7 +151,7 @@ public class ListPane extends javax.swing.JPanel
         BUpdate.setRolloverEnabled(false);
 
         TChannels.setAutoCreateRowSorter(true);
-        TChannels.setFont(new java.awt.Font("Serif", 0, 12)); // NOI18N
+        TChannels.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         TChannels.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][]
             {
@@ -158,17 +159,17 @@ public class ListPane extends javax.swing.JPanel
             },
             new String []
             {
-                "Id", "Name", "Server Version", "User Count", "Language", "Topic"
+                "Id", "Name", "Topic", "Language", "Users"
             }
         )
         {
             Class[] types = new Class []
             {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean []
             {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex)
@@ -190,16 +191,13 @@ public class ListPane extends javax.swing.JPanel
             TChannels.getColumnModel().getColumn(1).setMinWidth(260);
             TChannels.getColumnModel().getColumn(1).setPreferredWidth(260);
             TChannels.getColumnModel().getColumn(1).setMaxWidth(260);
-            TChannels.getColumnModel().getColumn(2).setMinWidth(170);
-            TChannels.getColumnModel().getColumn(2).setPreferredWidth(170);
-            TChannels.getColumnModel().getColumn(2).setMaxWidth(170);
-            TChannels.getColumnModel().getColumn(3).setMinWidth(100);
-            TChannels.getColumnModel().getColumn(3).setPreferredWidth(100);
-            TChannels.getColumnModel().getColumn(3).setMaxWidth(100);
-            TChannels.getColumnModel().getColumn(4).setMinWidth(80);
-            TChannels.getColumnModel().getColumn(4).setPreferredWidth(80);
-            TChannels.getColumnModel().getColumn(4).setMaxWidth(80);
-            TChannels.getColumnModel().getColumn(5).setCellRenderer(new TopicRenderer());
+            TChannels.getColumnModel().getColumn(2).setCellRenderer(new TopicRenderer());
+            TChannels.getColumnModel().getColumn(3).setMinWidth(80);
+            TChannels.getColumnModel().getColumn(3).setPreferredWidth(80);
+            TChannels.getColumnModel().getColumn(3).setMaxWidth(80);
+            TChannels.getColumnModel().getColumn(4).setMinWidth(50);
+            TChannels.getColumnModel().getColumn(4).setPreferredWidth(50);
+            TChannels.getColumnModel().getColumn(4).setMaxWidth(50);
         }
 
         TFFilter.setMaximumSize(new java.awt.Dimension(340, 24));

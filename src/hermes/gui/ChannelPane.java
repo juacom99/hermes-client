@@ -80,7 +80,7 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
 
         if (channel.getTopic() != null)
         {
-            LTopic.setText(AresFormater.getInstance().toHTML(channel.getTopic()));
+            LTopic.setText("<html>"+AresFormater.getInstance().toHTML(channel.getTopic()));
         }
 
         TFInput.requestFocus();
@@ -218,6 +218,8 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         LTopic.setText("TOPIC");
 
         TFInput.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        TFInput.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        TFInput.setSelectionColor(new java.awt.Color(224, 227, 206));
         TFInput.addKeyListener(new java.awt.event.KeyAdapter()
         {
             public void keyPressed(java.awt.event.KeyEvent evt)
@@ -312,7 +314,6 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/emoti.png"))); // NOI18N
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setLabel("");
         jButton1.setMaximumSize(new java.awt.Dimension(20, 20));
         jButton1.setMinimumSize(new java.awt.Dimension(20, 20));
         jButton1.setPreferredSize(new java.awt.Dimension(20, 20));

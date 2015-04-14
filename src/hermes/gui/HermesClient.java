@@ -152,6 +152,13 @@ public class HermesClient extends javax.swing.JFrame
         BConfig.setMaximumSize(new java.awt.Dimension(20, 20));
         BConfig.setMinimumSize(new java.awt.Dimension(20, 20));
         BConfig.setPreferredSize(new java.awt.Dimension(20, 20));
+        BConfig.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                BConfigActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Hermes-Client");
@@ -220,6 +227,15 @@ public class HermesClient extends javax.swing.JFrame
             // System.out.println("Name: " + p.getComponent(1));
         }
     }//GEN-LAST:event_TPChatStateChanged
+
+    private void BConfigActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BConfigActionPerformed
+    {//GEN-HEADEREND:event_BConfigActionPerformed
+        ConfigDialog cf=new ConfigDialog(user,this, true);
+        
+        cf.setLocation(BConfig.getX()-cf.getWidth(),BConfig.getY()+12);
+        cf.setVisible(true);
+        cf.setUndecorated(true);
+    }//GEN-LAST:event_BConfigActionPerformed
 
     private JPanel getTitlePanel(final JPanel panel, String title, ImageIcon icon, JButton button, int margin)
     {
