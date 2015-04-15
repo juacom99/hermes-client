@@ -34,10 +34,12 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRootPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
@@ -230,11 +232,20 @@ public class HermesClient extends javax.swing.JFrame
 
     private void BConfigActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BConfigActionPerformed
     {//GEN-HEADEREND:event_BConfigActionPerformed
-        ConfigDialog cf=new ConfigDialog(user,this, true);
+        ConfigDialog cf=new ConfigDialog(user,this, false);
+        cf.setModal(true);
+         JRootPane rootPane = ((JDialog) cf).getRootPane();
+        rootPane.setWindowDecorationStyle(JRootPane.NONE);
         
-        cf.setLocation(BConfig.getX()-cf.getWidth(),BConfig.getY()+12);
+        cf.setLocation(BConfig.getX()-cf.getWidth()-30,BConfig.getY()+20);
         cf.setVisible(true);
-        cf.setUndecorated(true);
+        
+        if(cf.getOption()==JOptionPane.YES_OPTION)
+        {
+           // user=cf.getUser();
+        }
+        
+        
     }//GEN-LAST:event_BConfigActionPerformed
 
     private JPanel getTitlePanel(final JPanel panel, String title, ImageIcon icon, JButton button, int margin)

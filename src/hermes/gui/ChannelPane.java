@@ -213,6 +213,13 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         jScrollPane1.setViewportView(jList1);
 
         setToolTipText("");
+        addComponentListener(new java.awt.event.ComponentAdapter()
+        {
+            public void componentShown(java.awt.event.ComponentEvent evt)
+            {
+                formComponentShown(evt);
+            }
+        });
 
         LTopic.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         LTopic.setText("TOPIC");
@@ -514,6 +521,11 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
             TFInput.requestFocus();
         }
     }//GEN-LAST:event_BForegroundActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_formComponentShown
+    {//GEN-HEADEREND:event_formComponentShown
+      TFInput.requestFocusInWindow();
+    }//GEN-LAST:event_formComponentShown
 
     public void close()
     {

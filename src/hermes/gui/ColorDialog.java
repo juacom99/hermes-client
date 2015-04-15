@@ -6,18 +6,14 @@
 package hermes.gui;
 
 import com.hermes.common.AresFormater;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.BorderFactory;
 import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.KeyStroke;
-import javax.swing.border.LineBorder;
 
 /**
  *
