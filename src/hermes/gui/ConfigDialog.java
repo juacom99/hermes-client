@@ -1,15 +1,17 @@
 package hermes.gui;
 
+import com.hermes.client.HCUser;
 import com.hermes.common.HUser;
 import com.hermes.common.constants.HBrowsable;
 import com.hermes.common.constants.HGender;
 import com.hermes.common.constants.HLineType;
 import com.hermes.common.constants.HLocation;
+import hermes.util.ConfigReader;
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.geom.GeneralPath;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -28,6 +30,7 @@ public class ConfigDialog extends javax.swing.JDialog
      * Creates new form ConfigDialog
      */
     private JOptionPane optionPane;
+    private HCUser user;
     
     public ConfigDialog(HUser user,java.awt.Frame parent, boolean modal)
     {
@@ -103,7 +106,7 @@ public class ConfigDialog extends javax.swing.JDialog
 
         LAge.setText("Age:");
 
-        SAge.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
+        SAge.setModel(new javax.swing.SpinnerNumberModel(Byte.valueOf((byte)0), Byte.valueOf((byte)0), Byte.valueOf((byte)100), Byte.valueOf((byte)1)));
 
         LGender.setText("Gender:");
 
@@ -117,11 +120,11 @@ public class ConfigDialog extends javax.swing.JDialog
 
         LSharedCount.setText("Shared Count:");
 
-        SShared.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
+        SShared.setModel(new javax.swing.SpinnerNumberModel(Short.valueOf((short)0), Short.valueOf((short)0), null, Short.valueOf((short)1)));
 
         LPort.setText("Port:");
 
-        SPort.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
+        SPort.setModel(new javax.swing.SpinnerNumberModel(Short.valueOf((short)0), Short.valueOf((short)0), null, Short.valueOf((short)1)));
 
         BAcept.setText("Acept");
         BAcept.addActionListener(new java.awt.event.ActionListener()
@@ -148,25 +151,21 @@ public class ConfigDialog extends javax.swing.JDialog
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BAcept))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(BAcept)
+                    .addComponent(BCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(LAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(LUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(LCountry)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(LCountry)
+                            .addComponent(LUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LRegion))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(CBCountry, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -184,16 +183,13 @@ public class ConfigDialog extends javax.swing.JDialog
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(SShared, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(CBLLineType, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(SPort, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(135, 135, 135))))
+                                .addComponent(SPort, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(55, 55, 55)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(LGender)
-                                    .addComponent(LAge)
-                                    .addComponent(LRegion))
+                                    .addComponent(LAge))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(SAge, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -204,7 +200,7 @@ public class ConfigDialog extends javax.swing.JDialog
                                 .addComponent(LPersonalmessage)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(TFPersonalMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,7 +276,26 @@ public class ConfigDialog extends javax.swing.JDialog
 
     private void BAceptActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BAceptActionPerformed
     {//GEN-HEADEREND:event_BAceptActionPerformed
-        //do something with the form
+        
+        HBrowsable broswable=HBrowsable.Not_Browsable;
+        if(CBBrowsable.isSelected())
+        {
+            broswable=HBrowsable.Browsable;
+        }
+
+        user=new HCUser(TFUsername.getText(),(Short)SShared.getValue(),(HLineType)CBLLineType.getSelectedItem(),broswable,(byte)SAge.getValue(),(HGender)CBGender.getSelectedItem() ,(HLocation)CBCountry.getSelectedItem() ,null, null, (short)SPort.getValue(), null, null,(short) 0,(byte)0,(byte)0,(byte)0);
+        user.setRegion(TFRegion.getText());
+        user.setAvatar((ImageIcon) LAvatar.getIcon());
+        try
+        {
+            ConfigReader.getInstance().save(user);
+        } catch (IOException ex)
+        {
+            Logger.getLogger(ConfigDialog.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException ex)
+        {
+            Logger.getLogger(ConfigDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
         optionPane.setValue(new Integer(JOptionPane.YES_OPTION));
         dispose();
     }//GEN-LAST:event_BAceptActionPerformed
@@ -289,6 +304,11 @@ public class ConfigDialog extends javax.swing.JDialog
     public int getOption()
     {
         return (int)optionPane.getValue();
+    }
+    
+    public HCUser getUser()
+    {
+        return user;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BAcept;

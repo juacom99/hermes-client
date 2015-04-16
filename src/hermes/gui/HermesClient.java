@@ -5,7 +5,6 @@
  */
 package hermes.gui;
 
-import com.hermes.client.HCChannelDownloader;
 import com.hermes.client.HCUser;
 import com.hermes.client.events.ChannelListClickedEvent;
 import com.hermes.common.HChannel;
@@ -15,6 +14,7 @@ import com.hermes.common.constants.HGender;
 import com.hermes.common.constants.HLineType;
 import com.hermes.common.constants.HLocation;
 import hermes.events.ChannelPaneEvents;
+import hermes.util.ConfigReader;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -22,9 +22,12 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.DataFormatException;
@@ -56,7 +59,7 @@ public class HermesClient extends javax.swing.JFrame
      */
     private HCUser user;
 
-    public HermesClient() throws UnknownHostException, IOException
+    public HermesClient() throws UnknownHostException, IOException, NoSuchAlgorithmException
     {
         initComponents();
 
@@ -76,10 +79,16 @@ public class HermesClient extends javax.swing.JFrame
             }
         });
 
-        user = new HCUser("Ħεямεѕ", "QWERTYUIOPASDFGH", (short) 155, HLineType.HLNone, HBrowsable.Browsable, (byte) 30, HGender.Male, HLocation.Uruguay, "Montevideo", InetAddress.getByName("167.62.91.249"), (short) 14884, InetAddress.getByName("10.1.20.56"), InetAddress.getByName("8.8.8.8"), (short) 80, (byte) 12, (byte) 34, (byte) 5);
+        
+        
+        user = ConfigReader.getInstance().getUser();//new HCUser("Ħεямεѕ", "QWERTYUIOPASDFGH", (short) 155, HLineType.HLNone, HBrowsable.Browsable, (byte) 30, HGender.Male, HLocation.Uruguay, "Montevideo", InetAddress.getByName("167.62.91.249"), (short) 14884, InetAddress.getByName("10.1.20.56"), InetAddress.getByName("8.8.8.8"), (short) 80, (byte) 12, (byte) 34, (byte) 5);
+               
 
-        user.setAvatar(new ImageIcon("./avatar.png"));
+       
         user.setPersonalMessage("https://github.com/juacom99/hermes-client");
+        
+        
+       
 
         TPChat.add(lp);
         int index = TPChat.indexOfComponent(lp);
@@ -242,7 +251,7 @@ public class HermesClient extends javax.swing.JFrame
         
         if(cf.getOption()==JOptionPane.YES_OPTION)
         {
-           // user=cf.getUser();
+            user=cf.getUser();
         }
         
         

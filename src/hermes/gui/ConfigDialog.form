@@ -24,15 +24,10 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="BAcept" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="BCancel" min="-2" pref="20" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="BAcept" min="-2" max="-2" attributes="0"/>
+                  <Component id="BCancel" min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
           </Group>
@@ -41,13 +36,11 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="LAvatar" min="-2" pref="48" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="LUsername" min="-2" pref="63" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                              <Component id="LCountry" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="LCountry" min="-2" max="-2" attributes="0"/>
+                          <Component id="LUsername" min="-2" pref="77" max="-2" attributes="0"/>
+                          <Component id="LRegion" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -70,10 +63,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="SShared" min="-2" pref="73" max="-2" attributes="0"/>
                               <Component id="CBLLineType" min="-2" pref="208" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="SPort" min="-2" pref="73" max="-2" attributes="0"/>
-                                  <EmptySpace min="135" pref="135" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="SPort" alignment="0" min="-2" pref="73" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -82,7 +72,6 @@
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="LGender" min="-2" max="-2" attributes="0"/>
                                   <Component id="LAge" min="-2" max="-2" attributes="0"/>
-                                  <Component id="LRegion" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -100,7 +89,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="71" max="32767" attributes="0"/>
+              <EmptySpace pref="77" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -125,8 +114,8 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="TFRegion" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="LRegion" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="TFRegion" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="LRegion" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -217,7 +206,7 @@
     <Component class="javax.swing.JSpinner" name="SAge">
       <Properties>
         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="0" maximum="100" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+          <SpinnerModel initial="0" maximum="100" minimum="0" numberType="java.lang.Byte" stepSize="1" type="number"/>
         </Property>
       </Properties>
     </Component>
@@ -273,7 +262,7 @@
     <Component class="javax.swing.JSpinner" name="SShared">
       <Properties>
         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="0" maximum="100" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+          <SpinnerModel initial="0" minimum="0" numberType="java.lang.Short" stepSize="1" type="number"/>
         </Property>
       </Properties>
     </Component>
@@ -285,7 +274,7 @@
     <Component class="javax.swing.JSpinner" name="SPort">
       <Properties>
         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="0" maximum="100" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+          <SpinnerModel initial="0" minimum="0" numberType="java.lang.Short" stepSize="1" type="number"/>
         </Property>
       </Properties>
     </Component>
