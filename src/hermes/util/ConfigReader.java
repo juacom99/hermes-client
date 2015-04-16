@@ -17,6 +17,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.file.Files;
+import java.nio.file.attribute.FileAttribute;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
@@ -24,6 +26,7 @@ import java.util.Random;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -36,31 +39,47 @@ public class ConfigReader
     private String path;
     private static ConfigReader instance;
 
-    public ConfigReader(String path) throws IOException, NoSuchAlgorithmException
+    public ConfigReader(String path) throws NoSuchAlgorithmException, IOException
     {
+        this.path=path;
         File configFile = new File(path);
         config = new Properties();
+        
         try
         {
             config.load(new FileReader(configFile));
-        } catch (IOException ex)
+        }
+        catch (IOException ex)
         {
-            String anonTail=UUID.randomUUID().toString().replaceAll("-","").substring(0,8);
-            config.put("username","anon_"+anonTail);
-            config.put("guid", UUID.randomUUID().toString().replaceAll("-","").substring(0,16));
-            config.put("country", HLocation.UnKnown.getValue());
+            String anonTail = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 8);
+            config.put("username", "anon_" + anonTail);
+            config.put("guid", UUID.randomUUID().toString().replaceAll("-", "").substring(0, 16));
+            config.put("country", HLocation.UnKnown.getValue()+"");
             config.put("region", "");
-            config.put("age", 0);
-            config.put("gender",HGender.Unknow.getValue());
+            config.put("age", 0+"");
+            config.put("gender", HGender.Unknow.getValue()+"");
             config.put("personalMessage", "");
             config.put("avatar", "./avatar.png");
-            config.put("browsable", HBrowsable.Not_Browsable.getValue());
-            config.put("lineType",HLineType.HLNone.getValue());
-            config.put("sharedCount", 0);
-            config.put("dataPort", 4000);
+            config.put("browsable", HBrowsable.Not_Browsable.getValue()+"");
+            config.put("lineType", HLineType.HLNone.getValue()+"");
+            config.put("sharedCount", "0");
+            config.put("dataPort", "4000");
 
-            String fileSep = System.getProperty("file.separator");
-            config.store(new FileWriter(path), "");
+            configFile.getParentFile().mkdirs(); 
+         
+         
+           
+           
+           try
+           {
+                config.store(new FileWriter(configFile), "");
+           }
+           catch(IOException IoEx)
+           {
+               System.err.println(IoEx);
+           }
+          
+           
         }
     }
 
@@ -68,51 +87,54 @@ public class ConfigReader
     {
         if (instance == null)
         {
-            String fileSep = System.getProperty("file.separator");
+            String fileSep = File.separator;
             instance = new ConfigReader(System.getProperty("user.home") + fileSep + ".hermes" + fileSep + "client" + fileSep + "hermes.conf");
         }
         return instance;
     }
 
-     public HCUser getUser() throws UnknownHostException
-     {
-        HLocation country=HLocation.get(Byte.parseByte(config.getProperty("country")));
-        HGender gender=HGender.get(Byte.parseByte(config.getProperty("gender")));
-        HBrowsable browsable=HBrowsable.get(Byte.parseByte(config.getProperty("browsable")));
-        HLineType linetype=HLineType.getValue(Integer.parseInt(config.getProperty("lineType")));
-        
-         Random rnd=new Random();
-         
-         byte[] bPublicIp=new byte[4];
-         byte[] bPrivateIp=new byte[4];
-         byte[] bNodeIp=new byte[4];
-         byte[] bUploaded=new byte[3];
-         
-         rnd.nextBytes(bPublicIp);
-         rnd.nextBytes(bPrivateIp);
-         rnd.nextBytes(bNodeIp);
-         rnd.nextBytes(bUploaded);
-         
-         return new HCUser(config.getProperty("username"), Short.parseShort(config.getProperty("sharedCount")), linetype, browsable, Byte.parseByte(config.getProperty("age")), gender, country,config.getProperty("region") ,InetAddress.getByAddress(bPublicIp),Short.parseShort(config.getProperty("dataPort")), InetAddress.getByAddress(bPrivateIp), InetAddress.getByAddress(bNodeIp),(short)rnd.nextInt(), bUploaded[0],bUploaded[1],bUploaded[2]);
-     }
-     
-     
-     public void save(HCUser user) throws IOException
-     {
-          config.put("username",user.getUsername());
-          config.put("guid", user.getGuid());
-            config.put("country",user.getCountry().getValue());
-            config.put("region", user.getRegion());
-            config.put("age", user.getAge());
-            config.put("gender",user.getGender().getValue());
-            config.put("personalMessage",user.getPersonalMessage());
-            config.put("avatar",user.getAvatar().getImage().getSource() );
-            config.put("browsable",user.getBrowsable().getValue());
-            config.put("lineType",user.getLinetype().getValue());
-            config.put("sharedCount",user.getFilecount());
-            config.put("dataPort", user.getDataport());
+    public HCUser getUser() throws UnknownHostException
+    {
+        HLocation country = HLocation.get(Byte.parseByte(config.getProperty("country")));
+        HGender gender = HGender.get(Byte.parseByte(config.getProperty("gender")));
+        HBrowsable browsable = HBrowsable.get(Byte.parseByte(config.getProperty("browsable")));
+        HLineType linetype = HLineType.getValue(Integer.parseInt(config.getProperty("lineType")));
 
-            String fileSep = System.getProperty("file.separator");
-            config.store(new FileWriter(path), "");
-     }
+        Random rnd = new Random();
+
+        byte[] bPublicIp = new byte[4];
+        byte[] bPrivateIp = new byte[4];
+        byte[] bNodeIp = new byte[4];
+        byte[] bUploaded = new byte[3];
+
+        rnd.nextBytes(bPublicIp);
+        rnd.nextBytes(bPrivateIp);
+        rnd.nextBytes(bNodeIp);
+        rnd.nextBytes(bUploaded);
+        
+        HCUser ret=new HCUser(config.getProperty("username"), Short.parseShort(config.getProperty("sharedCount")), linetype, browsable, Byte.parseByte(config.getProperty("age")), gender, country, config.getProperty("region"), InetAddress.getByAddress(bPublicIp), Short.parseShort(config.getProperty("dataPort")), InetAddress.getByAddress(bPrivateIp), InetAddress.getByAddress(bNodeIp), (short) rnd.nextInt(), bUploaded[0], bUploaded[1], bUploaded[2]);
+        
+        ret.setPersonalMessage(config.getProperty("personalMessage"));
+        ret.setAvatar(new ImageIcon(config.getProperty("avatar")));
+        return ret;
+    }
+
+    public void save(HCUser user) throws IOException
+    {
+        config.put("username", user.getUsername());
+        config.put("guid", user.getGuid());
+        config.put("country", user.getCountry().getValue()+"");
+        config.put("region", user.getRegion());
+        config.put("age", user.getAge()+"");
+        config.put("gender", user.getGender().getValue()+"");
+        config.put("personalMessage", user.getPersonalMessage());
+        config.put("avatar", user.getAvatar().getImage().getSource().toString());
+        config.put("browsable", user.getBrowsable().getValue()+"");
+        config.put("lineType", user.getLinetype().getValue()+"");
+        config.put("sharedCount", user.getFilecount()+"");
+        config.put("dataPort", user.getDataport()+"");
+
+        String fileSep = File.separator;
+        config.store(new FileWriter(path), "");
+    }
 }

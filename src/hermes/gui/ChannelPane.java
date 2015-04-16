@@ -27,6 +27,7 @@ import com.hermes.common.HUser;
 import hermes.events.ChannelPaneEvents;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -176,6 +177,13 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
             }
     }
 
+    
+    public void update(HCUser newUser)
+    {
+        client.setUser(newUser);
+        client.actionPerformed(new ActionEvent(newUser,43,""));
+        client.sendPersonalMessage(newUser.getPersonalMessage());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

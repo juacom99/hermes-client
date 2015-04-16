@@ -83,6 +83,7 @@ public class HermesClient extends javax.swing.JFrame
         
         user = ConfigReader.getInstance().getUser();//new HCUser("Ħεямεѕ", "QWERTYUIOPASDFGH", (short) 155, HLineType.HLNone, HBrowsable.Browsable, (byte) 30, HGender.Male, HLocation.Uruguay, "Montevideo", InetAddress.getByName("167.62.91.249"), (short) 14884, InetAddress.getByName("10.1.20.56"), InetAddress.getByName("8.8.8.8"), (short) 80, (byte) 12, (byte) 34, (byte) 5);
                
+        user.setAvatar(new ImageIcon("./avatar.png"));
 
        
         user.setPersonalMessage("https://github.com/juacom99/hermes-client");
@@ -251,7 +252,12 @@ public class HermesClient extends javax.swing.JFrame
         
         if(cf.getOption()==JOptionPane.YES_OPTION)
         {
-            user=cf.getUser();
+            this.user=cf.getUser();
+            
+            for(int i=1;i<TPChat.getTabCount()-1;i++)
+            {
+                ((ChannelPane)TPChat.getComponentAt(i)).update(user);
+            }
         }
         
         

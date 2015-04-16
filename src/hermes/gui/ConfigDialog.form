@@ -23,36 +23,9 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="BAcept" min="-2" max="-2" attributes="0"/>
-                  <Component id="BCancel" min="-2" pref="20" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-          </Group>
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="LAvatar" min="-2" pref="48" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="LCountry" min="-2" max="-2" attributes="0"/>
-                          <Component id="LUsername" min="-2" pref="77" max="-2" attributes="0"/>
-                          <Component id="LRegion" alignment="1" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="CBCountry" min="-2" pref="206" max="-2" attributes="0"/>
-                          <Component id="TFUsername" min="-2" pref="206" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                      <Component id="CBBrowsable" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="LSharedCount" min="-2" max="-2" attributes="0"/>
@@ -66,30 +39,53 @@
                               <Component id="SPort" alignment="0" min="-2" pref="73" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="LGender" min="-2" max="-2" attributes="0"/>
-                                  <Component id="LAge" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="LAvatar" min="-2" pref="48" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="1" attributes="0">
+                                                      <Component id="LCountry" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="LRegion" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                                  <Component id="LUsername" min="-2" pref="53" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="LAge" min="-2" max="-2" attributes="0"/>
+                                      <Component id="LGender" min="-2" max="-2" attributes="0"/>
+                                      <Component id="LPersonalmessage" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="CBCountry" min="-2" pref="206" max="-2" attributes="0"/>
+                                      <Component id="TFUsername" min="-2" pref="206" max="-2" attributes="0"/>
+                                      <Component id="TFRegion" min="-2" pref="206" max="-2" attributes="0"/>
+                                      <Component id="SAge" alignment="0" min="-2" pref="73" max="-2" attributes="0"/>
+                                      <Component id="CBGender" alignment="0" min="-2" pref="206" max="-2" attributes="0"/>
+                                      <Component id="TFPersonalMessage" alignment="0" min="-2" pref="206" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="SAge" min="-2" pref="73" max="-2" attributes="0"/>
-                                  <Component id="CBGender" min="-2" pref="206" max="-2" attributes="0"/>
-                                  <Component id="TFRegion" alignment="0" min="-2" pref="206" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="LPersonalmessage" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="TFPersonalMessage" min="-2" pref="206" max="-2" attributes="0"/>
+                              <Component id="BCancel" alignment="1" min="-2" pref="20" max="-2" attributes="0"/>
+                              <Component id="BAcept" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
+                      <Component id="CBBrowsable" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace pref="77" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -132,9 +128,9 @@
                   <Component id="LPersonalmessage" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="TFPersonalMessage" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="CBBrowsable" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="LLineType" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="CBLLineType" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -149,9 +145,9 @@
                   <Component id="LPort" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="SPort" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="BAcept" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -234,7 +230,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="CBBrowsable">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Browsable:      "/>
+        <Property name="text" type="java.lang.String" value="Browsable:"/>
         <Property name="actionCommand" type="java.lang.String" value="Browsable:"/>
         <Property name="horizontalTextPosition" type="int" value="2"/>
       </Properties>
@@ -260,11 +256,10 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JSpinner" name="SShared">
-      <Properties>
-        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="0" minimum="0" numberType="java.lang.Short" stepSize="1" type="number"/>
-        </Property>
-      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JSpinner()"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="final SpinnerNumberModel countSpinnerModel = new SpinnerNumberModel(((short)0),((short)0),Short.MAX_VALUE,((short)1));&#xa;SShared.setModel(countSpinnerModel);"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="LPort">
       <Properties>
@@ -272,11 +267,11 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JSpinner" name="SPort">
-      <Properties>
-        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="0" minimum="0" numberType="java.lang.Short" stepSize="1" type="number"/>
-        </Property>
-      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JSpinner()"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="final SpinnerNumberModel smPort = new SpinnerNumberModel(((short)0),((short)0),Short.MAX_VALUE,((short)1));"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="SPort.setModel(smPort);"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="BAcept">
       <Properties>
