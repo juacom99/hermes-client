@@ -8,11 +8,13 @@ package hermes.gui;
 import com.hermes.client.HCChannelDownloader;
 import com.hermes.client.events.ChannelListClickedEvent;
 import com.hermes.client.events.HChannelListEvents;
+import com.hermes.client.events.HClientEvent;
 import com.hermes.common.HChannel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -121,6 +123,20 @@ public class ListPane extends javax.swing.JPanel
 
                 ((DefaultTableModel) TChannels.getModel()).addRow(row);
             }
+
+            @Override
+            public void onDownloadStart(HClientEvent evt)
+            {
+               BRefresh.setEnabled(false);
+            }
+
+            @Override
+            public void onDownloadFinish(HClientEvent evt)
+            {
+                BRefresh.setEnabled(true);
+            }
+            
+            
         });
         downloader.start();
     }
@@ -140,6 +156,7 @@ public class ListPane extends javax.swing.JPanel
         TChannels = new javax.swing.JTable();
         TFFilter = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        BRefresh = new javax.swing.JButton();
 
         BUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/update.png"))); // NOI18N
         BUpdate.setBorderPainted(false);
@@ -207,13 +224,26 @@ public class ListPane extends javax.swing.JPanel
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/filter.png"))); // NOI18N
 
+        BRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/refresh.png"))); // NOI18N
+        BRefresh.setBorderPainted(false);
+        BRefresh.setContentAreaFilled(false);
+        BRefresh.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                BRefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 766, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(BRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(TFFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -223,17 +253,27 @@ public class ListPane extends javax.swing.JPanel
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(TFFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(7, 7, 7)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(TFFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
+                    .addComponent(BRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BRefreshActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BRefreshActionPerformed
+    {//GEN-HEADEREND:event_BRefreshActionPerformed
+        downloader.restart();
+        ((DefaultTableModel) TChannels.getModel()).setRowCount(0);
+        downloader.start();
+    }//GEN-LAST:event_BRefreshActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BRefresh;
     private javax.swing.JButton BUpdate;
     private javax.swing.JTable TChannels;
     private javax.swing.JTextField TFFilter;

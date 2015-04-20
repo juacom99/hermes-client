@@ -127,8 +127,16 @@ public class ConfigReader
         config.put("region", user.getRegion());
         config.put("age", user.getAge()+"");
         config.put("gender", user.getGender().getValue()+"");
-        config.put("personalMessage", user.getPersonalMessage());
-        config.put("avatar", user.getAvatar().getImage().getSource().toString());
+        
+        if(user.getPersonalMessage()!=null)
+        {
+            config.put("personalMessage", user.getPersonalMessage());
+        }
+        else
+        {
+            config.put("personalMessage", "");
+        }
+        config.put("avatar",path);
         config.put("browsable", user.getBrowsable().getValue()+"");
         config.put("lineType", user.getLinetype().getValue()+"");
         config.put("sharedCount", user.getFilecount()+"");

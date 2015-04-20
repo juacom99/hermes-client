@@ -183,6 +183,7 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         client.setUser(newUser);
         client.actionPerformed(new ActionEvent(newUser,43,""));
         client.sendPersonalMessage(newUser.getPersonalMessage());
+        client.sendAvatar();
     }
     /**
      * This method is called from within the constructor to initialize the form.

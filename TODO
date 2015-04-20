@@ -1,4 +1,4 @@
 * Add Emoticon support (show emoticons on chat, show emoticon dialog)
 * Make Color Selection dialog not modal
-* Add config dialog
 * Fix Link and image format error
+* Add contextual menu in userlist(copy nick to input, kill, ban, muzzle if you are admin, ignore)

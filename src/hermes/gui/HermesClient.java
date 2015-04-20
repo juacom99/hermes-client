@@ -244,11 +244,13 @@ public class HermesClient extends javax.swing.JFrame
     {//GEN-HEADEREND:event_BConfigActionPerformed
         ConfigDialog cf=new ConfigDialog(user,this, false);
         cf.setModal(true);
-         JRootPane rootPane = ((JDialog) cf).getRootPane();
+        JRootPane rootPane = ((JDialog) cf).getRootPane();
         rootPane.setWindowDecorationStyle(JRootPane.NONE);
         
-        cf.setLocation(BConfig.getX()-cf.getWidth()-30,BConfig.getY()+20);
+        cf.setLocation(BConfig.getLocationOnScreen().x-cf.getWidth()-5,BConfig.getLocationOnScreen().y+10);
         cf.setVisible(true);
+        
+        
         
         if(cf.getOption()==JOptionPane.YES_OPTION)
         {
