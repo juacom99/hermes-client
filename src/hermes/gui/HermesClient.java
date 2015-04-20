@@ -82,14 +82,7 @@ public class HermesClient extends javax.swing.JFrame
         
         
         user = ConfigReader.getInstance().getUser();//new HCUser("Ħεямεѕ", "QWERTYUIOPASDFGH", (short) 155, HLineType.HLNone, HBrowsable.Browsable, (byte) 30, HGender.Male, HLocation.Uruguay, "Montevideo", InetAddress.getByName("167.62.91.249"), (short) 14884, InetAddress.getByName("10.1.20.56"), InetAddress.getByName("8.8.8.8"), (short) 80, (byte) 12, (byte) 34, (byte) 5);
-               
-        user.setAvatar(new ImageIcon("./avatar.png"));
-
-       
-        user.setPersonalMessage("https://github.com/juacom99/hermes-client");
         
-        
-       
 
         TPChat.add(lp);
         int index = TPChat.indexOfComponent(lp);
@@ -328,7 +321,7 @@ public class HermesClient extends javax.swing.JFrame
                     ((JLabel) p.getComponent(1)).setText(newName);
                     p.repaint();
                     TPChat.repaint();
-                    repaint();
+                    
                     // System.out.println("Icon: " + p.getComponent(0));
                     // System.out.println("Name: " + p.getComponent(1));
                 }
