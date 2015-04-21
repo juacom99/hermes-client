@@ -43,8 +43,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 import javax.swing.KeyStroke;
 
 /**
@@ -208,10 +206,10 @@ public class HermesClient extends javax.swing.JFrame
 
             } catch (DataFormatException ex)
             {
-
+                System.err.println(ex);
             } catch (Exception ex)
             {
-
+                    System.err.println(ex);
             }
         }
     }

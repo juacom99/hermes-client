@@ -208,7 +208,7 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         BForeground = new javax.swing.JButton();
         BBackground = new javax.swing.JButton();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 20), new java.awt.Dimension(10, 20), new java.awt.Dimension(10, 32767));
-        jButton1 = new javax.swing.JButton();
+        BEmoticon = new javax.swing.JButton();
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         LURL = new javax.swing.JLabel();
         TPTabs = new javax.swing.JTabbedPane();
@@ -234,6 +234,8 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         LTopic.setText("TOPIC");
 
         TFInput.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        TFInput.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1)));
+        TFInput.setMargin(new java.awt.Insets(2, 50, 2, 2));
         TFInput.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         TFInput.setSelectionColor(new java.awt.Color(224, 227, 206));
         TFInput.addKeyListener(new java.awt.event.KeyAdapter()
@@ -327,14 +329,21 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         jToolBar1.add(BBackground);
         jToolBar1.add(filler1);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/emoti.png"))); // NOI18N
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setMaximumSize(new java.awt.Dimension(20, 20));
-        jButton1.setMinimumSize(new java.awt.Dimension(20, 20));
-        jButton1.setPreferredSize(new java.awt.Dimension(20, 20));
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton1);
+        BEmoticon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/emoti.png"))); // NOI18N
+        BEmoticon.setFocusable(false);
+        BEmoticon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BEmoticon.setMaximumSize(new java.awt.Dimension(20, 20));
+        BEmoticon.setMinimumSize(new java.awt.Dimension(20, 20));
+        BEmoticon.setPreferredSize(new java.awt.Dimension(20, 20));
+        BEmoticon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BEmoticon.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                BEmoticonActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(BEmoticon);
         jToolBar1.add(filler4);
 
         LURL.setMaximumSize(null);
@@ -359,12 +368,11 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(406, 406, 406)
-                        .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE))
+                        .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(TFInput)
-                        .addGap(12, 12, 12)))
+                        .addComponent(TFInput, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
@@ -536,6 +544,11 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
       TFInput.requestFocusInWindow();
     }//GEN-LAST:event_formComponentShown
 
+    private void BEmoticonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BEmoticonActionPerformed
+    {//GEN-HEADEREND:event_BEmoticonActionPerformed
+        
+    }//GEN-LAST:event_BEmoticonActionPerformed
+
     public void close()
     {
         try
@@ -564,6 +577,7 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BBackground;
     private javax.swing.JButton BBold;
+    private javax.swing.JButton BEmoticon;
     private javax.swing.JButton BForeground;
     private javax.swing.JButton BItalic;
     private javax.swing.JButton BUnderline;
@@ -575,7 +589,6 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
     private javax.swing.Box.Filler filler4;
-    private javax.swing.JButton jButton1;
     private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
