@@ -200,6 +200,7 @@ public class ListPane extends javax.swing.JPanel
                 return canEdit [columnIndex];
             }
         });
+        TChannels.setRowHeight(25);
         jScrollPane1.setViewportView(TChannels);
         if (TChannels.getColumnModel().getColumnCount() > 0)
         {
