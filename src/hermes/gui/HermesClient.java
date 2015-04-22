@@ -5,14 +5,11 @@
  */
 package hermes.gui;
 
+import hermes.gui.dialogs.ConfigDialog;
 import com.hermes.client.HCUser;
 import com.hermes.client.events.ChannelListClickedEvent;
 import com.hermes.common.HChannel;
 import com.hermes.common.HHash;
-import com.hermes.common.constants.HBrowsable;
-import com.hermes.common.constants.HGender;
-import com.hermes.common.constants.HLineType;
-import com.hermes.common.constants.HLocation;
 import hermes.events.ChannelPaneEvents;
 import hermes.util.ConfigReader;
 import java.awt.Color;
@@ -22,12 +19,9 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.DataFormatException;
@@ -44,6 +38,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -264,9 +259,9 @@ public class HermesClient extends javax.swing.JFrame
         if (icon != null)
         {
             JLabel LIcon = new JLabel(icon);
-            /* d = new Dimension(16, 16);
+            d = new Dimension(9, 8);
              LIcon.setSize(d);
-             LIcon.setPreferredSize(d);*/
+             LIcon.setPreferredSize(d);
             titlePanel.add(LIcon);
         }
 
@@ -279,7 +274,7 @@ public class HermesClient extends javax.swing.JFrame
 
         if (button != null)
         {
-            d = new Dimension(16, 16);
+            d = new Dimension(8, 8);
             button.setSize(d);
             button.setPreferredSize(d);
             titlePanel.add(button);
@@ -333,7 +328,7 @@ public class HermesClient extends javax.swing.JFrame
         closeButton.setContentAreaFilled(false);
         closeButton.setRolloverEnabled(true);
         closeButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/close-over.png")));
-        Dimension d = new Dimension(16, 16);
+        Dimension d = new Dimension(8, 8);
         closeButton.setSize(d);
         closeButton.setPreferredSize(d);
         closeButton.addMouseListener(new MouseAdapter()

@@ -5,6 +5,7 @@
  */
 package hermes.gui;
 
+import hermes.gui.renderers.TopicRenderer;
 import com.hermes.client.HCChannelDownloader;
 import com.hermes.client.events.ChannelListClickedEvent;
 import com.hermes.client.events.HChannelListEvents;

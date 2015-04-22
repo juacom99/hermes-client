@@ -5,6 +5,7 @@
  */
 package hermes.gui;
 
+import hermes.util.DesktopApi;
 import com.hermes.common.AresFormater;
 import java.awt.Color;
 import java.io.FileOutputStream;

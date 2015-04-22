@@ -5,6 +5,7 @@
  */
 package hermes.gui;
 
+import hermes.gui.renderers.UserRenderer;
 import com.hermes.common.HUser;
 import java.awt.event.MouseAdapter;
 import javax.swing.DefaultListModel;

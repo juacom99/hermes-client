@@ -1,4 +1,4 @@
-package hermes.gui;
+package hermes.util;
 
 
 

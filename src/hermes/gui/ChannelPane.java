@@ -5,6 +5,8 @@
  */
 package hermes.gui;
 
+import hermes.util.DesktopApi;
+import hermes.gui.dialogs.ColorDialog;
 import com.hermes.client.HCUser;
 import com.hermes.client.HClient;
 import com.hermes.client.events.HClientAckEvent;
@@ -25,6 +27,7 @@ import com.hermes.common.AresFormater;
 import com.hermes.common.HChannel;
 import com.hermes.common.HUser;
 import hermes.events.ChannelPaneEvents;
+import hermes.gui.dialogs.EmoticonsDialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -546,7 +549,26 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
 
     private void BEmoticonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BEmoticonActionPerformed
     {//GEN-HEADEREND:event_BEmoticonActionPerformed
+        EmoticonsDialog ed=new EmoticonsDialog(null, true);
         
+        JRootPane rootPane = ((JDialog) ed).getRootPane();
+        rootPane.setWindowDecorationStyle(JRootPane.NONE);
+        
+        ed.setLocation(BEmoticon.getLocationOnScreen().x-ed.getWidth()+90,BEmoticon.getLocationOnScreen().y-120);
+        ed.setVisible(true);
+        
+        if(ed.getSelected()!=null)
+        {
+            try
+            {
+                TFInput.getDocument().insertString(TFInput.getCaretPosition(), ed.getSelected(), null);
+            }
+            catch (BadLocationException ex)
+            {
+                Logger.getLogger(ChannelPane.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            TFInput.requestFocus();
+        }
     }//GEN-LAST:event_BEmoticonActionPerformed
 
     public void close()
