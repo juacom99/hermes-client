@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package hermes.gui;
 
-import hermes.util.DesktopApi;
-import hermes.gui.dialogs.ColorDialog;
 import com.hermes.client.HCUser;
 import com.hermes.client.HClient;
 import com.hermes.client.events.HClientAckEvent;
@@ -27,10 +26,11 @@ import com.hermes.common.AresFormater;
 import com.hermes.common.HChannel;
 import com.hermes.common.HUser;
 import hermes.events.ChannelPaneEvents;
+import hermes.gui.dialogs.ColorDialog;
 import hermes.gui.dialogs.EmoticonsDialog;
+import hermes.util.DesktopApi;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -53,23 +53,23 @@ import javax.swing.text.BadLocationException;
  *
  * @author jomartinez
  */
-public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
+public class Panel extends javax.swing.JPanel implements HIClientEvents
 {
 
     /**
-     * Creates new form Channel
+     * Creates new form Panel
      */
-    private HClient client;
-    private MainChatPane main;
+     private HClient client;
+     private MainChatPane main;
     private String url;
     private HashMap<String, ChatPane> privates;
     private ChannelPaneEvents event;
     private HChannel channel;
-
-    public ChannelPane(HCUser user, HChannel channel,ChannelPaneEvents event) throws IOException, Exception
+    
+    public Panel(HCUser user, HChannel channel,ChannelPaneEvents event) throws IOException
     {
         initComponents();
-        this.channel=channel;
+         this.channel=channel;
         this.event=event;
         
         jToolBar1.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
@@ -119,75 +119,6 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
 
     }
 
-    private JPanel getTitlePanel(final JTabbedPane tabbedPane, final JPanel panel, String title)
-    {
-        JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 3, 0));
-        titlePanel.setOpaque(false);
-
-        JLabel titleLbl = new JLabel(title);
-        titleLbl.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        titlePanel.add(titleLbl);
-
-        JButton closeButton = new JButton(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/close.png")));
-        closeButton.setBorderPainted(false);
-        closeButton.setFocusPainted(false);
-        closeButton.setContentAreaFilled(false);
-        closeButton.setRolloverEnabled(true);
-        closeButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/close-over.png")));
-        Dimension d = new Dimension(16, 16);
-        closeButton.setSize(d);
-        closeButton.setPreferredSize(d);
-        closeButton.addMouseListener(new MouseAdapter()
-        {
-            @Override
-            public void mouseClicked(MouseEvent e)
-            {
-                tabbedPane.remove(panel);
-            }
-        });
-        titlePanel.add(closeButton);
-
-        return titlePanel;
-    }
-
-    private void addPrivate(String userName,boolean giveFocus) throws Exception
-    {
-        ChatPane cp;
-
-        if (!privates.containsKey(userName))
-        {
-            cp = new ChatPane();
-            TPTabs.add(cp, userName);
-            privates.put(userName, cp);
-            int index = TPTabs.indexOfComponent(cp);
-            TPTabs.setTabComponentAt(index, getTitlePanel(TPTabs, cp, userName));
-        }
-        else
-        {
-            cp = privates.get(userName);
-
-            if (TPTabs.indexOfComponent(cp) == -1)
-            {
-                TPTabs.add(cp, userName);
-                int index = TPTabs.indexOfComponent(cp);
-                TPTabs.setTabComponentAt(index, getTitlePanel(TPTabs, cp, userName));
-            }
-        }
-        
-         if(giveFocus)
-            {
-                TPTabs.setSelectedIndex(TPTabs.getTabCount()-1);
-            }
-    }
-
-    
-    public void update(HCUser newUser)
-    {
-        client.setUser(newUser);
-        client.actionPerformed(new ActionEvent(newUser,43,""));
-        client.sendPersonalMessage(newUser.getPersonalMessage());
-        client.sendAvatar();
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -198,12 +129,10 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
     private void initComponents()
     {
 
+        jSplitPane1 = new javax.swing.JSplitPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
-        LTopic = new javax.swing.JLabel();
-        TFInput = new javax.swing.JTextField();
-        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
-        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
+        jPanel1 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         BBold = new javax.swing.JButton();
         BItalic = new javax.swing.JButton();
@@ -215,43 +144,17 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         LURL = new javax.swing.JLabel();
         TPTabs = new javax.swing.JTabbedPane();
+        TFInput = new javax.swing.JTextField();
+        LTopic = new javax.swing.JLabel();
 
-        jList1.setModel(new javax.swing.AbstractListModel()
-        {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
+        jSplitPane1.setDividerLocation(700);
+
         jScrollPane1.setViewportView(jList1);
 
-        setToolTipText("");
-        addComponentListener(new java.awt.event.ComponentAdapter()
-        {
-            public void componentShown(java.awt.event.ComponentEvent evt)
-            {
-                formComponentShown(evt);
-            }
-        });
-
-        LTopic.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        LTopic.setText("TOPIC");
-
-        TFInput.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        TFInput.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1)));
-        TFInput.setMargin(new java.awt.Insets(2, 50, 2, 2));
-        TFInput.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        TFInput.setSelectionColor(new java.awt.Color(224, 227, 206));
-        TFInput.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyPressed(java.awt.event.KeyEvent evt)
-            {
-                TFInputKeyPressed(evt);
-            }
-        });
+        jSplitPane1.setRightComponent(jScrollPane1);
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
-        jToolBar1.setAlignmentY(0.5F);
         jToolBar1.setMinimumSize(new java.awt.Dimension(10, 31));
         jToolBar1.setPreferredSize(new java.awt.Dimension(148, 22));
 
@@ -360,91 +263,49 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         });
         jToolBar1.add(LURL);
 
-        TPTabs.setBackground(new java.awt.Color(255, 255, 255));
-        TPTabs.setFont(new java.awt.Font("Serif", 0, 12)); // NOI18N
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE))
+                    .addComponent(TFInput, javax.swing.GroupLayout.Alignment.LEADING))
+                .addContainerGap())
+            .addComponent(TPTabs)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(TPTabs, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TFInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10))
+        );
+
+        jSplitPane1.setLeftComponent(jPanel1);
+
+        LTopic.setText("Topic");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(406, 406, 406)
-                        .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(TFInput, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LTopic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addComponent(TPTabs)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 911, Short.MAX_VALUE)
+            .addComponent(LTopic, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(LTopic, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addComponent(TPTabs, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
-                .addGap(10, 10, 10)
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(filler3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TFInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(LTopic, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void TFInputKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_TFInputKeyPressed
-    {//GEN-HEADEREND:event_TFInputKeyPressed
-        if (evt.getKeyCode() == 10)
-        {
-            String text = TFInput.getText();
-            
-            if (TPTabs.getSelectedIndex() == 0)
-            {
-                try
-                {
-                    if (text.startsWith("/me"))
-                    {
-                        client.sendEmote(text.substring(3));
-                    }
-                    else if (text.startsWith("/") || text.startsWith("#"))
-                    {
-                        client.sendCommand(text.substring(1));
-                    }
-                    else
-                    {
-                        client.sendMessage(text);
-                    }
-
-                }
-                catch (IOException ex)
-                {
-                    Logger.getLogger(ChannelPane.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            else
-            {
-                String to = TPTabs.getTitleAt(TPTabs.getSelectedIndex());
-                client.sendPM(to, text);
-
-                ChatPane cp = ((ChatPane) TPTabs.getComponentAt(TPTabs.getSelectedIndex()));
-                cp.write(AresFormater.BOLD_CHARACTER + "Me:");
-                cp.write("        " + text);
-
-            }
-
-            TFInput.setText("");
-        }
-    }//GEN-LAST:event_TFInputKeyPressed
 
     private void BBoldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BBoldActionPerformed
     {//GEN-HEADEREND:event_BBoldActionPerformed
@@ -485,39 +346,6 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         }
     }//GEN-LAST:event_BUnderlineActionPerformed
 
-    private void LURLMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_LURLMouseClicked
-    {//GEN-HEADEREND:event_LURLMouseClicked
-        try
-        {
-
-            DesktopApi.browse(new URI(this.url));
-        }
-        catch (URISyntaxException ex)
-        {
-            Logger.getLogger(ChannelPane.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_LURLMouseClicked
-
-    private void BBackgroundActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BBackgroundActionPerformed
-    {//GEN-HEADEREND:event_BBackgroundActionPerformed
-        ColorDialog c = new ColorDialog(null, false);
-        c.setModal(true);
-        c.setLocation((int) BBackground.getLocationOnScreen().getX() - 50, (int) BBackground.getLocationOnScreen().getY() - 125);       
-        c.setVisible(true);
-        if (c.getColorCode() != null)
-        {
-            try
-            {
-                TFInput.getDocument().insertString(TFInput.getCaretPosition(), AresFormater.BACKGROUND_CHARACTER + c.getColorCode(), null);
-            }
-            catch (BadLocationException ex)
-            {
-                Logger.getLogger(ChannelPane.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            TFInput.requestFocus();
-        }
-    }//GEN-LAST:event_BBackgroundActionPerformed
-
     private void BForegroundActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BForegroundActionPerformed
     {//GEN-HEADEREND:event_BForegroundActionPerformed
         ColorDialog c = new ColorDialog(null, false);
@@ -538,21 +366,36 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         }
     }//GEN-LAST:event_BForegroundActionPerformed
 
-    private void formComponentShown(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_formComponentShown
-    {//GEN-HEADEREND:event_formComponentShown
-      TFInput.requestFocusInWindow();
-    }//GEN-LAST:event_formComponentShown
+    private void BBackgroundActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BBackgroundActionPerformed
+    {//GEN-HEADEREND:event_BBackgroundActionPerformed
+        ColorDialog c = new ColorDialog(null, false);
+        c.setModal(true);
+        c.setLocation((int) BBackground.getLocationOnScreen().getX() - 50, (int) BBackground.getLocationOnScreen().getY() - 125);
+        c.setVisible(true);
+        if (c.getColorCode() != null)
+        {
+            try
+            {
+                TFInput.getDocument().insertString(TFInput.getCaretPosition(), AresFormater.BACKGROUND_CHARACTER + c.getColorCode(), null);
+            }
+            catch (BadLocationException ex)
+            {
+                Logger.getLogger(ChannelPane.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            TFInput.requestFocus();
+        }
+    }//GEN-LAST:event_BBackgroundActionPerformed
 
     private void BEmoticonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BEmoticonActionPerformed
     {//GEN-HEADEREND:event_BEmoticonActionPerformed
         EmoticonsDialog ed=new EmoticonsDialog(null, true);
-        
+
         JRootPane rootPane = ((JDialog) ed).getRootPane();
         rootPane.setWindowDecorationStyle(JRootPane.NONE);
-        
+
         ed.setLocation(BEmoticon.getLocationOnScreen().x-ed.getWidth()+90,BEmoticon.getLocationOnScreen().y-120);
         ed.setVisible(true);
-        
+
         if(ed.getSelected()!=null)
         {
             try
@@ -567,7 +410,82 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         }
     }//GEN-LAST:event_BEmoticonActionPerformed
 
-    public void close()
+    private void LURLMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_LURLMouseClicked
+    {//GEN-HEADEREND:event_LURLMouseClicked
+        try
+        {
+
+            DesktopApi.browse(new URI(this.url));
+        }
+        catch (URISyntaxException ex)
+        {
+            Logger.getLogger(ChannelPane.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_LURLMouseClicked
+
+
+    private JPanel getTitlePanel(final JTabbedPane tabbedPane, final JPanel panel, String title)
+    {
+        JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 3, 0));
+        titlePanel.setOpaque(false);
+
+        JLabel titleLbl = new JLabel(title);
+        titleLbl.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        titlePanel.add(titleLbl);
+
+        JButton closeButton = new JButton(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/close.png")));
+        closeButton.setBorderPainted(false);
+        closeButton.setFocusPainted(false);
+        closeButton.setContentAreaFilled(false);
+        closeButton.setRolloverEnabled(true);
+        closeButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/close-over.png")));
+        Dimension d = new Dimension(16, 16);
+        closeButton.setSize(d);
+        closeButton.setPreferredSize(d);
+        closeButton.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                tabbedPane.remove(panel);
+            }
+        });
+        titlePanel.add(closeButton);
+
+        return titlePanel;
+    }
+
+    private void addPrivate(String userName,boolean giveFocus) throws Exception
+    {
+        ChatPane cp;
+
+        if (!privates.containsKey(userName))
+        {
+            cp = new ChatPane();
+            TPTabs.add(cp, userName);
+            privates.put(userName, cp);
+            int index = TPTabs.indexOfComponent(cp);
+            TPTabs.setTabComponentAt(index, getTitlePanel(TPTabs, cp, userName));
+        }
+        else
+        {
+            cp = privates.get(userName);
+
+            if (TPTabs.indexOfComponent(cp) == -1)
+            {
+                TPTabs.add(cp, userName);
+                int index = TPTabs.indexOfComponent(cp);
+                TPTabs.setTabComponentAt(index, getTitlePanel(TPTabs, cp, userName));
+            }
+        }
+        
+         if(giveFocus)
+            {
+                TPTabs.setSelectedIndex(TPTabs.getTabCount()-1);
+            }
+    }
+
+     public void close()
     {
         try
         {
@@ -578,22 +496,8 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
             Logger.getLogger(ChannelPane.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    
-    public void addtoInput(String s)
-    {
-        try
-            {
-                TFInput.getDocument().insertString(TFInput.getCaretPosition(), s, null);
-            }
-            catch (BadLocationException ex)
-            {
-                Logger.getLogger(ChannelPane.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            TFInput.requestFocus();
-    }
-    
-    public void connect()
+     
+      public void connect()
     {
         main.write(AresFormater.FOREGROUND_CHARACTER + "02Connecting to host, please wait...");
         try
@@ -605,27 +509,9 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
             onDisconnect(e);
         } 
     }
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BBackground;
-    private javax.swing.JButton BBold;
-    private javax.swing.JButton BEmoticon;
-    private javax.swing.JButton BForeground;
-    private javax.swing.JButton BItalic;
-    private javax.swing.JButton BUnderline;
-    private javax.swing.JLabel LTopic;
-    private javax.swing.JLabel LURL;
-    private javax.swing.JTextField TFInput;
-    private javax.swing.JTabbedPane TPTabs;
-    private javax.swing.Box.Filler filler1;
-    private javax.swing.Box.Filler filler2;
-    private javax.swing.Box.Filler filler3;
-    private javax.swing.Box.Filler filler4;
-    private javax.swing.JList jList1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JToolBar jToolBar1;
-    // End of variables declaration//GEN-END:variables
-
-    @Override
+      
+      
+       @Override
     public void onPublicMessage(HClientMessageEvent evt)
     {
         main.write(AresFormater.FOREGROUND_CHARACTER + "01" + evt.getSender() + "> " + AresFormater.FOREGROUND_CHARACTER + "12" + evt.getText());
@@ -734,4 +620,24 @@ public class ChannelPane extends javax.swing.JPanel implements HIClientEvents
         main.write(AresFormater.FOREGROUND_CHARACTER + "02Logged in, retrieving user's list...");
         event.onNameChange(this,evt.getChannelName());
     }
+    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BBackground;
+    private javax.swing.JButton BBold;
+    private javax.swing.JButton BEmoticon;
+    private javax.swing.JButton BForeground;
+    private javax.swing.JButton BItalic;
+    private javax.swing.JButton BUnderline;
+    private javax.swing.JLabel LTopic;
+    private javax.swing.JLabel LURL;
+    private javax.swing.JTextField TFInput;
+    private javax.swing.JTabbedPane TPTabs;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler4;
+    private javax.swing.JList jList1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JToolBar jToolBar1;
+    // End of variables declaration//GEN-END:variables
 }

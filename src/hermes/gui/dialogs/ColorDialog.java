@@ -13,6 +13,7 @@ import javax.swing.Action;
 import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
 
 /**
@@ -33,6 +34,7 @@ public class ColorDialog extends javax.swing.JDialog
         initComponents();
         setSize(120, 120);
         getRootPane().setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.darkGray, java.awt.Color.black));
+        getRootPane().setWindowDecorationStyle(JRootPane.NONE);
         colorCode = null;
         KeyStroke stroke = KeyStroke.getKeyStroke("ESCAPE");
         Action actionListener = new AbstractAction()
@@ -93,22 +95,10 @@ public class ColorDialog extends javax.swing.JDialog
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
-        addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyPressed(java.awt.event.KeyEvent evt)
-            {
-                formKeyPressed(evt);
-            }
-        });
         getContentPane().setLayout(new java.awt.GridLayout(4, 4));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void formKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_formKeyPressed
-    {//GEN-HEADEREND:event_formKeyPressed
-        System.out.println(evt.getKeyCode() + " " + evt.getKeyChar() + " " + evt.getExtendedKeyCode());
-    }//GEN-LAST:event_formKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

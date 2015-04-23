@@ -5,6 +5,18 @@
  */
 package hermes.gui.dialogs;
 
+import com.hermes.common.HChannel;
+import com.hermes.common.HHash;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
+import javax.swing.KeyStroke;
+
 /**
  *
  * @author joaquin
@@ -15,10 +27,31 @@ public class HashDialog extends javax.swing.JDialog
     /**
      * Creates new form HashDialog
      */
-    public HashDialog(java.awt.Frame parent, boolean modal)
+     public static final int         ACEPT_OPTION = 0;
+    public static final int         CANCEL_OPTION = 2;
+    
+    private int closeOption;
+    private HChannel channel;
+    
+    public HashDialog(java.awt.Frame parent, boolean modal,String defaultHash)
     {
         super(parent, modal);
-        initComponents();
+        initComponents();        
+        getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+         getRootPane().setBorder(javax.swing.BorderFactory.createLineBorder(new Color(179,179,179)));
+        TAHash.setText(defaultHash);
+        KeyStroke stroke = KeyStroke.getKeyStroke("ESCAPE");
+        Action actionListener = new AbstractAction()
+        {
+            public void actionPerformed(ActionEvent actionEvent)
+            {
+                BCloseActionPerformed(new ActionEvent(this, 12, ""));
+            }
+        };
+        InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(stroke, "ESCAPE");
+        rootPane.getActionMap().put("ESCAPE", actionListener);
+        TAHash.requestFocus();
         
     }
 
@@ -33,66 +66,122 @@ public class HashDialog extends javax.swing.JDialog
     {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        TAHash = new javax.swing.JTextArea();
+        BConnect = new javax.swing.JButton();
+        LTitle = new javax.swing.JLabel();
+        BClose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(269, 175));
+        setMinimumSize(new java.awt.Dimension(269, 175));
         setResizable(false);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        TAHash.setColumns(20);
+        TAHash.setLineWrap(true);
+        TAHash.setRows(5);
+        jScrollPane1.setViewportView(TAHash);
 
-        jButton1.setText("Connect");
+        BConnect.setText("Connect");
+        BConnect.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                BConnectActionPerformed(evt);
+            }
+        });
 
-        jLabel1.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Connecting to Channel");
+        LTitle.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
+        LTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        LTitle.setText("Connecting to Channel");
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/close.png"))); // NOI18N
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jButton2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/close-over.png"))); // NOI18N
+        BClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/close.png"))); // NOI18N
+        BClose.setBorderPainted(false);
+        BClose.setContentAreaFilled(false);
+        BClose.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/close-over.png"))); // NOI18N
+        BClose.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                BCloseActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(248, 248, 248)
+                                .addComponent(BClose, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+                                    .addComponent(LTitle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, 0)
+                        .addComponent(BConnect)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
+                .addComponent(BClose, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18))
+                .addComponent(LTitle)
+                .addGap(10, 10, 10)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(BConnect)
+                .addGap(10, 10, 10))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BCloseActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BCloseActionPerformed
+    {//GEN-HEADEREND:event_BCloseActionPerformed
+        closeOption=CANCEL_OPTION;
+        dispose();
+    }//GEN-LAST:event_BCloseActionPerformed
+
+    private void BConnectActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BConnectActionPerformed
+    {//GEN-HEADEREND:event_BConnectActionPerformed
+        String hash=TAHash.getText();
+        
+       
+        try
+        {
+            channel=  HHash.getInstance().decode(hash);
+            closeOption=ACEPT_OPTION;
+            dispose();
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(this,"Invalid Hash, Plese rewrite it.","Error",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_BConnectActionPerformed
+
+    public HChannel getChannel()
+    {
+        return channel;
+    }
+
+    public int getCloseOption()
+    {
+        return closeOption;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton BClose;
+    private javax.swing.JButton BConnect;
+    private javax.swing.JLabel LTitle;
+    private javax.swing.JTextArea TAHash;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }

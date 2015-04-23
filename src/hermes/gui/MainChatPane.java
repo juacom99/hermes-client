@@ -5,8 +5,9 @@
  */
 package hermes.gui;
 
-import hermes.gui.renderers.UserRenderer;
 import com.hermes.common.HUser;
+import hermes.gui.renderers.UserRenderer;
+import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import javax.swing.DefaultListModel;
 import javax.swing.border.EmptyBorder;
@@ -37,10 +38,22 @@ public class MainChatPane extends ChatPane
     private void initComponents()
     {
 
+        PMMenu = new javax.swing.JPopupMenu();
+        MCopyUsername = new javax.swing.JMenuItem();
         SPSplitter = new javax.swing.JSplitPane();
         SPUsers = new javax.swing.JScrollPane();
         LUsers = new javax.swing.JList();
         SPChat = new javax.swing.JScrollPane();
+
+        MCopyUsername.setText("Copy username");
+        MCopyUsername.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                MCopyUsernameActionPerformed(evt);
+            }
+        });
+        PMMenu.add(MCopyUsername);
 
         SPSplitter.setDividerLocation(976);
         SPSplitter.addComponentListener(new java.awt.event.ComponentAdapter()
@@ -56,7 +69,15 @@ public class MainChatPane extends ChatPane
         LUsers.setModel(new DefaultListModel<HUser>());
         LUsers.setFixedCellHeight(58);
         LUsers.setCellRenderer(new UserRenderer());
+        LUsers.setComponentPopupMenu(PMMenu);
         LUsers.setBorder(new EmptyBorder(10,10, 10, 10));
+        LUsers.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                LUsersMouseClicked(evt);
+            }
+        });
         SPUsers.setViewportView(LUsers);
 
         SPSplitter.setRightComponent(SPUsers);
@@ -81,6 +102,19 @@ public class MainChatPane extends ChatPane
         SPSplitter.setDividerLocation(0.85);
     }//GEN-LAST:event_SPSplitterComponentResized
 
+    private void MCopyUsernameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_MCopyUsernameActionPerformed
+    {//GEN-HEADEREND:event_MCopyUsernameActionPerformed
+        
+       
+     
+       
+    }//GEN-LAST:event_MCopyUsernameActionPerformed
+
+    private void LUsersMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_LUsersMouseClicked
+    {//GEN-HEADEREND:event_LUsersMouseClicked
+        LUsers.setSelectedIndex(LUsers.locationToIndex(evt.getPoint()));
+    }//GEN-LAST:event_LUsersMouseClicked
+
 
     public void updateusers()
     {
@@ -104,6 +138,8 @@ public class MainChatPane extends ChatPane
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList LUsers;
+    private javax.swing.JMenuItem MCopyUsername;
+    private javax.swing.JPopupMenu PMMenu;
     private javax.swing.JScrollPane SPChat;
     private javax.swing.JSplitPane SPSplitter;
     private javax.swing.JScrollPane SPUsers;

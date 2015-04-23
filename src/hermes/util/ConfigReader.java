@@ -17,15 +17,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.nio.file.Files;
-import java.nio.file.attribute.FileAttribute;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
 import java.util.Random;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 /**
@@ -136,7 +131,14 @@ public class ConfigReader
         {
             config.put("personalMessage", "");
         }
-        config.put("avatar",path);
+        if(user.getAvatar()!=null)
+        {
+            config.put("avatar",user.getAvatar().getDescription());
+        }
+        else
+        {
+            config.put("avatar","");
+        }        
         config.put("browsable", user.getBrowsable().getValue()+"");
         config.put("lineType", user.getLinetype().getValue()+"");
         config.put("sharedCount", user.getFilecount()+"");

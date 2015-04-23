@@ -11,11 +11,16 @@ import com.hermes.client.events.ChannelListClickedEvent;
 import com.hermes.client.events.HChannelListEvents;
 import com.hermes.client.events.HClientEvent;
 import com.hermes.common.HChannel;
+import com.hermes.common.HHash;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-import javax.swing.JTable;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -34,6 +39,7 @@ public class ListPane extends javax.swing.JPanel
      */
     private HCChannelDownloader downloader;
     private TableRowSorter<DefaultTableModel> sorter;
+    private HChannel selectedChannel;
 
     public ListPane(final ChannelListClickedEvent evt) throws IOException
     {
@@ -50,7 +56,8 @@ public class ListPane extends javax.swing.JPanel
                 {
                     rf = RowFilter.regexFilter("(?i)" + TFFilter.getText(), 1, 5);
 
-                } catch (java.util.regex.PatternSyntaxException ex)
+                }
+                catch (java.util.regex.PatternSyntaxException ex)
                 {
                     ex.printStackTrace();
                     return;
@@ -65,7 +72,8 @@ public class ListPane extends javax.swing.JPanel
                 try
                 {
                     rf = RowFilter.regexFilter("(?i)" + TFFilter.getText(), 1, 5);
-                } catch (java.util.regex.PatternSyntaxException ex)
+                }
+                catch (java.util.regex.PatternSyntaxException ex)
                 {
                     ex.printStackTrace();
                     return;
@@ -79,13 +87,15 @@ public class ListPane extends javax.swing.JPanel
                 if (TFFilter.getText().length() == 0)
                 {
                     sorter.setRowFilter(null);
-                } else
+                }
+                else
                 {
                     RowFilter<DefaultTableModel, Object> rf = null;
                     try
                     {
                         rf = RowFilter.regexFilter("(?i)" + TFFilter.getText(), 1, 5);
-                    } catch (java.util.regex.PatternSyntaxException ex)
+                    }
+                    catch (java.util.regex.PatternSyntaxException ex)
                     {
                         ex.printStackTrace();
                         return;
@@ -97,20 +107,21 @@ public class ListPane extends javax.swing.JPanel
         });
         TChannels.addMouseListener(new MouseAdapter()
         {
+            
+            
             @Override
             public void mousePressed(MouseEvent e)
             {
                 int row = TChannels.rowAtPoint(e.getPoint());
-                HChannel selectedChannel =downloader.get((int) TChannels.getValueAt(row, 0)) ;
+                selectedChannel = downloader.get((int) TChannels.getValueAt(row, 0));
                 if (e.getClickCount() % 2 == 0 && e.getButton() == MouseEvent.BUTTON1)
                 {
-                        evt.channelListClick(selectedChannel);
-                }                
+                    evt.channelListClick(selectedChannel);
+                }
             }
         });
         TFFilter.requestFocus();
         downloader = new HCChannelDownloader(new File("ChatroomIPs.dat"));
-                
         downloader.addEventListener(new HChannelListEvents()
         {
 
@@ -119,7 +130,7 @@ public class ListPane extends javax.swing.JPanel
             {
                 Object[] row =
                 {
-                    index, channel.getName(), channel.getTopic(),channel.getLanguage(),channel.getUserCount() 
+                    index, channel.getName(), channel.getTopic(), channel.getLanguage(), channel.getUserCount()
                 };
 
                 ((DefaultTableModel) TChannels.getModel()).addRow(row);
@@ -128,7 +139,7 @@ public class ListPane extends javax.swing.JPanel
             @Override
             public void onDownloadStart(HClientEvent evt)
             {
-               BRefresh.setEnabled(false);
+                BRefresh.setEnabled(false);
             }
 
             @Override
@@ -136,8 +147,7 @@ public class ListPane extends javax.swing.JPanel
             {
                 BRefresh.setEnabled(true);
             }
-            
-            
+
         });
         downloader.start();
     }
@@ -153,6 +163,8 @@ public class ListPane extends javax.swing.JPanel
     {
 
         BUpdate = new javax.swing.JButton();
+        PMMenu = new javax.swing.JPopupMenu();
+        MIExport = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         TChannels = new javax.swing.JTable();
         TFFilter = new javax.swing.JTextField();
@@ -168,6 +180,16 @@ public class ListPane extends javax.swing.JPanel
         BUpdate.setPreferredSize(new java.awt.Dimension(24, 19));
         BUpdate.setRequestFocusEnabled(false);
         BUpdate.setRolloverEnabled(false);
+
+        MIExport.setText("Export Hash");
+        MIExport.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                MIExportActionPerformed(evt);
+            }
+        });
+        PMMenu.add(MIExport);
 
         TChannels.setAutoCreateRowSorter(true);
         TChannels.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -201,6 +223,7 @@ public class ListPane extends javax.swing.JPanel
                 return canEdit [columnIndex];
             }
         });
+        TChannels.setComponentPopupMenu(PMMenu);
         TChannels.setRowHeight(25);
         jScrollPane1.setViewportView(TChannels);
         if (TChannels.getColumnModel().getColumnCount() > 0)
@@ -255,12 +278,11 @@ public class ListPane extends javax.swing.JPanel
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(TFFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
-                    .addComponent(BRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(TFFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -273,10 +295,30 @@ public class ListPane extends javax.swing.JPanel
         downloader.start();
     }//GEN-LAST:event_BRefreshActionPerformed
 
+    private void MIExportActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_MIExportActionPerformed
+    {//GEN-HEADEREND:event_MIExportActionPerformed
+        StringSelection stringSelection = null;
+        try
+        {
+            stringSelection = new StringSelection(HHash.getInstance().encode(selectedChannel));
+        }
+        catch (UnknownHostException ex)
+        {
+            Logger.getLogger(ListPane.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(ListPane.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+    }//GEN-LAST:event_MIExportActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BRefresh;
     private javax.swing.JButton BUpdate;
+    private javax.swing.JMenuItem MIExport;
+    private javax.swing.JPopupMenu PMMenu;
     private javax.swing.JTable TChannels;
     private javax.swing.JTextField TFFilter;
     private javax.swing.JLabel jLabel1;
