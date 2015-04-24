@@ -221,7 +221,7 @@ public class HermesClient extends javax.swing.JFrame
             
             for(int i=1;i<TPChat.getTabCount()-1;i++)
             {
-                ((ChannelPane)TPChat.getComponentAt(i)).update(user);
+                ((Panel)TPChat.getComponentAt(i)).update(user);
             }
         }
         
@@ -266,7 +266,7 @@ public class HermesClient extends javax.swing.JFrame
         {
 
             @Override
-            public void onTextRecived(ChannelPane source)
+            public void onTextRecived(Panel source)
             {
                 int index = TPChat.indexOfComponent(source);
                 if (index != -1 && TPChat.getSelectedIndex() != index)
@@ -278,7 +278,7 @@ public class HermesClient extends javax.swing.JFrame
             }
 
             @Override
-            public void onNameChange(ChannelPane source, String newName)
+            public void onNameChange(Panel source, String newName)
             {
                 int index = TPChat.indexOfComponent(source);
                 if (index != -1)
@@ -292,7 +292,7 @@ public class HermesClient extends javax.swing.JFrame
             }
         };
 
-        final ChannelPane cp = new ChannelPane(user, channel, events);
+        final Panel cp = new Panel(user, channel, events);
         JButton closeButton = new JButton(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/close.png")));
         closeButton.setBorderPainted(false);
         closeButton.setFocusPainted(false);
@@ -309,7 +309,7 @@ public class HermesClient extends javax.swing.JFrame
             {
                 int index = TPChat.getSelectedIndex() - 1;
                 TPChat.remove(cp);
-                ((ChannelPane) cp).close();
+                ((Panel) cp).close();
                 TPChat.setSelectedIndex(index);
 
             }
@@ -323,7 +323,7 @@ public class HermesClient extends javax.swing.JFrame
             {
                 int index = TPChat.getSelectedIndex() - 1;
                 TPChat.remove(cp);
-                ((ChannelPane) cp).close();
+                ((Panel) cp).close();
                 TPChat.setSelectedIndex(index);
             }
 

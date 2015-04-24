@@ -5,7 +5,7 @@
  */
 package hermes.events;
 
-import hermes.gui.ChannelPane;
+import hermes.gui.Panel;
 
 /**
  *
@@ -13,8 +13,8 @@ import hermes.gui.ChannelPane;
  */
 public interface ChannelPaneEvents 
 {
-    public void onTextRecived(ChannelPane source);
+    public void onTextRecived(Panel source);
     
-    public void onNameChange(ChannelPane source,String newName);    
+    public void onNameChange(Panel source,String newName);    
     
 }
