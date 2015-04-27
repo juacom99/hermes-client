@@ -130,6 +130,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
 
         PMUserListMenu = new javax.swing.JPopupMenu();
         MICopy = new javax.swing.JMenuItem();
+        MIIgnore_Unignore = new javax.swing.JMenuItem();
         SPSplitter = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
         TBBar = new javax.swing.JToolBar();
@@ -159,6 +160,16 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
             }
         });
         PMUserListMenu.add(MICopy);
+
+        MIIgnore_Unignore.setText("jMenuItem1");
+        MIIgnore_Unignore.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                MIIgnore_UnignoreActionPerformed(evt);
+            }
+        });
+        PMUserListMenu.add(MIIgnore_Unignore);
 
         SPSplitter.setDividerLocation(976);
         SPSplitter.addComponentListener(new java.awt.event.ComponentAdapter()
@@ -300,10 +311,10 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(TBBar, javax.swing.GroupLayout.DEFAULT_SIZE, 953, Short.MAX_VALUE))
+                        .addComponent(TBBar, javax.swing.GroupLayout.DEFAULT_SIZE, 955, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(TFInput, javax.swing.GroupLayout.DEFAULT_SIZE, 951, Short.MAX_VALUE)))
+                        .addComponent(TFInput, javax.swing.GroupLayout.DEFAULT_SIZE, 955, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -312,12 +323,12 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(TPTabs, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
+                .addComponent(TPTabs, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
                 .addGap(10, 10, 10)
                 .addComponent(TBBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(TFInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
+                .addContainerGap())
         );
 
         SPSplitter.setLeftComponent(jPanel1);
@@ -340,7 +351,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(SPUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+            .addComponent(SPUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
             .addComponent(filler2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
@@ -348,7 +359,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SPUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
+                .addComponent(SPUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
         );
 
@@ -362,21 +373,18 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(SPSplitter)
-                .addGap(10, 10, 10))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(LTopic, javax.swing.GroupLayout.DEFAULT_SIZE, 1227, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(LTopic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(SPSplitter)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(SPSplitter))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(LTopic, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(628, Short.MAX_VALUE)))
+                .addComponent(LTopic)
+                .addGap(10, 10, 10)
+                .addComponent(SPSplitter, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -563,6 +571,11 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
             }
             TFInput.requestFocus();
     }//GEN-LAST:event_MICopyActionPerformed
+
+    private void MIIgnore_UnignoreActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_MIIgnore_UnignoreActionPerformed
+    {//GEN-HEADEREND:event_MIIgnore_UnignoreActionPerformed
+        client.ignore(((HCUser)LUsers.getSelectedValue()));
+    }//GEN-LAST:event_MIIgnore_UnignoreActionPerformed
 
      private void updateusers()
     {
@@ -807,6 +820,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
     private javax.swing.JLabel LURL;
     private javax.swing.JList LUsers;
     private javax.swing.JMenuItem MICopy;
+    private javax.swing.JMenuItem MIIgnore_Unignore;
     private javax.swing.JPopupMenu PMUserListMenu;
     private javax.swing.JSplitPane SPSplitter;
     private javax.swing.JScrollPane SPUsers;
