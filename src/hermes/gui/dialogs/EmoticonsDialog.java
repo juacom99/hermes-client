@@ -42,7 +42,7 @@ public class EmoticonsDialog extends javax.swing.JDialog
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                selected=((JButton)e.getSource()).getName().replaceAll("\\?","").replaceAll("\\\\\\)",")").replaceAll("\\\\\\(","(");
+                selected=((JButton)e.getSource()).getName().replaceAll("\\\\|\\?|-",""); //.replaceAll("\\?","").replaceAll("\\\\\\)",")").replaceAll("\\\\\\(","(");
                 dispose();
             }
         };

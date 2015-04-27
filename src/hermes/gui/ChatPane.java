@@ -33,7 +33,7 @@ public class ChatPane extends javax.swing.JPanel
      */
     private HTMLDocument doc;
     private HTMLEditorKit kit;
-
+    
     public ChatPane()
     {
         initComponents();
@@ -41,15 +41,15 @@ public class ChatPane extends javax.swing.JPanel
         this.kit = new HTMLEditorKit();
         
         EPChat.setComponentPopupMenu(PMMenu);
-
-        EPChat.setSelectionColor(new Color(224,227,206));
+        
+        EPChat.setSelectionColor(new Color(224, 227, 206));
         EPChat.addHyperlinkListener(new HyperlinkListener()
         {
-
+            
             @Override
             public void hyperlinkUpdate(HyperlinkEvent e)
             {
-
+                
                 if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED)
                 {
                     try
@@ -57,24 +57,24 @@ public class ChatPane extends javax.swing.JPanel
                         DesktopApi.browse(new URI(e.getURL().toString()));
                     } catch (URISyntaxException ex)
                     {
-                        Logger.getLogger(ChatPane.class.getName()).log(Level.SEVERE,null, ex);
+                        Logger.getLogger(ChatPane.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
         });
         
         EPChat.setEditorKit(kit);
-        EPChat.setDocument(doc);      
+        EPChat.setDocument(doc);        
     }
-
+    
     public void write(String s)
     {
         try
         {
             String str = AresFormater.getInstance().toHTML(s);
-            kit.insertHTML(doc, doc.getLength(), str, 0, 0,null);
-
-           EPChat.select(doc.getLength(), doc.getLength());
+            kit.insertHTML(doc, doc.getLength(), "<p>" + str + "</p>", 0, 0, null);
+            
+            EPChat.select(doc.getLength(), doc.getLength());
         } catch (BadLocationException ex)
         {
             Logger.getLogger(ChatPane.class.getName()).log(Level.SEVERE, null, ex);
@@ -83,8 +83,6 @@ public class ChatPane extends javax.swing.JPanel
             Logger.getLogger(ChatPane.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -102,6 +100,7 @@ public class ChatPane extends javax.swing.JPanel
         EPChat = new javax.swing.JEditorPane();
 
         MISave.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
+        MISave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/save.png"))); // NOI18N
         MISave.setText("Save to..");
         MISave.addActionListener(new java.awt.event.ActionListener()
         {
@@ -132,15 +131,17 @@ public class ChatPane extends javax.swing.JPanel
 
     private void MISaveActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_MISaveActionPerformed
     {//GEN-HEADEREND:event_MISaveActionPerformed
-        JFileChooser fc=new JFileChooser();
+        JFileChooser fc = new JFileChooser();
         
-        int option=fc.showSaveDialog(this);
+        int option = fc.showSaveDialog(this);
         
-        if(option==JFileChooser.APPROVE_OPTION)
+        if (option == JFileChooser.APPROVE_OPTION)
         {
             try
             {
+                doc.getStyleSheet().addRule("p{margin:0px;font-family: monospace;}");
                 kit.write(new FileOutputStream(fc.getSelectedFile().getPath()), doc, 0, doc.getLength());
+                doc.getStyleSheet().removeStyle("p");
             } catch (IOException ex)
             {
                 Logger.getLogger(ChatPane.class.getName()).log(Level.SEVERE, null, ex);

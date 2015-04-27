@@ -7,8 +7,9 @@ package hermes.gui;
 
 import hermes.gui.dialogs.ConfigDialog;
 import com.hermes.client.HCUser;
-import com.hermes.client.events.ChannelListClickedEvent;
+import hermes.events.ChannelListClickedEvent;
 import com.hermes.common.HChannel;
+import com.hermes.common.HHash;
 import hermes.events.ChannelPaneEvents;
 import hermes.gui.dialogs.HashDialog;
 import hermes.util.ConfigReader;
@@ -24,6 +25,7 @@ import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.zip.DataFormatException;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.BorderFactory;
@@ -49,7 +51,7 @@ public class HermesClient extends javax.swing.JFrame
     private HCUser user;
     private JButton bNewTab;
 
-    public HermesClient() throws UnknownHostException, IOException, NoSuchAlgorithmException
+    public HermesClient() throws UnknownHostException, IOException, NoSuchAlgorithmException, DataFormatException
     {
         initComponents();
 
@@ -68,12 +70,9 @@ public class HermesClient extends javax.swing.JFrame
                 }
             }
         });
-
-        
         
         user = ConfigReader.getInstance().getUser();
         
-
         TPChat.add(lp);
         int index = TPChat.indexOfComponent(lp);
         TPChat.setTabComponentAt(index, getTitlePanel(lp, "Channel List", new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/channel-list.png")), null, 3));
@@ -335,7 +334,7 @@ public class HermesClient extends javax.swing.JFrame
 
         TPChat.add(cp, TPChat.getTabCount() - 1);
         int index = TPChat.indexOfComponent(cp);
-        TPChat.setTabComponentAt(index, getTitlePanel(cp, channel.getName(), new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/chat.png")), closeButton, 3));
+        TPChat.setTabComponentAt(index, getTitlePanel(cp, channel.getName(), new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/chat.png")), closeButton, 6));
         TPChat.setSelectedIndex(TPChat.getTabCount() - 2);
 
         cp.connect();

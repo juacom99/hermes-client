@@ -7,8 +7,9 @@ package hermes.gui;
 
 import hermes.gui.renderers.TopicRenderer;
 import com.hermes.client.HCChannelDownloader;
-import com.hermes.client.events.ChannelListClickedEvent;
+import hermes.events.ChannelListClickedEvent;
 import com.hermes.client.events.HChannelListEvents;
+
 import com.hermes.client.events.HClientEvent;
 import com.hermes.common.HChannel;
 import com.hermes.common.HHash;
@@ -46,6 +47,7 @@ public class ListPane extends javax.swing.JPanel
         initComponents();
         sorter = new TableRowSorter<DefaultTableModel>(((DefaultTableModel) TChannels.getModel()));
         TChannels.setRowSorter(sorter);
+        TChannels.putClientProperty("terminateEditOnFocusLost", true);
         TFFilter.getDocument().addDocumentListener(new DocumentListener()
         {
             public void changedUpdate(DocumentEvent e)
@@ -63,7 +65,7 @@ public class ListPane extends javax.swing.JPanel
                     return;
                 }
                 sorter.setRowFilter(rf);
-                TChannels.repaint();
+                //TChannels.repaint();
             }
 
             public void insertUpdate(DocumentEvent e)
@@ -79,7 +81,7 @@ public class ListPane extends javax.swing.JPanel
                     return;
                 }
                 sorter.setRowFilter(rf);
-                TChannels.repaint();
+               // TChannels.repaint();
             }
 
             public void removeUpdate(DocumentEvent e)
@@ -101,7 +103,7 @@ public class ListPane extends javax.swing.JPanel
                         return;
                     }
                     sorter.setRowFilter(rf);
-                    TChannels.repaint();
+                   // TChannels.repaint();
                 }
             }
         });

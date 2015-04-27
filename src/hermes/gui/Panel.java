@@ -12,13 +12,12 @@ import com.hermes.client.events.HClientAckEvent;
 import com.hermes.client.events.HClientAvatarEvent;
 import com.hermes.client.events.HClientEmoteEvent;
 import com.hermes.client.events.HClientEvent;
-import com.hermes.client.events.HClientJoinEvent;
 import com.hermes.client.events.HClientMessageEvent;
 import com.hermes.client.events.HClientNoSuchEvent;
-import com.hermes.client.events.HClientPartEvent;
 import com.hermes.client.events.HClientPersonalMessageEvent;
 import com.hermes.client.events.HClientTopicEvent;
 import com.hermes.client.events.HClientUrlEvent;
+import com.hermes.client.events.HClientUserEvent;
 import com.hermes.client.events.HClientUserListevent;
 import com.hermes.client.events.HClientUserUpdateEvent;
 import com.hermes.client.events.HIClientEvents;
@@ -151,7 +150,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         LTopic = new javax.swing.JLabel();
 
-        MICopy.setText("Copy username to clipboard");
+        MICopy.setText("Copy");
         MICopy.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -298,28 +297,32 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(TBBar, javax.swing.GroupLayout.DEFAULT_SIZE, 955, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(TBBar, javax.swing.GroupLayout.DEFAULT_SIZE, 953, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(TFInput, javax.swing.GroupLayout.DEFAULT_SIZE, 951, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addComponent(TPTabs)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(TFInput, javax.swing.GroupLayout.DEFAULT_SIZE, 975, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(TPTabs))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(TPTabs, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TPTabs, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
                 .addComponent(TBBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(568, Short.MAX_VALUE)
-                    .addComponent(TFInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
+                .addGap(10, 10, 10)
+                .addComponent(TFInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10))
         );
 
         SPSplitter.setLeftComponent(jPanel1);
+
+        SPUsers.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         LUsers.setModel(new DefaultListModel<HCUser>());
         LUsers.setCellRenderer(new UserRenderer());
@@ -337,7 +340,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(SPUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+            .addComponent(SPUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
             .addComponent(filler2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
@@ -345,7 +348,8 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SPUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE))
+                .addComponent(SPUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
+                .addGap(10, 10, 10))
         );
 
         SPSplitter.setRightComponent(jPanel2);
@@ -357,19 +361,22 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(SPSplitter, javax.swing.GroupLayout.DEFAULT_SIZE, 1227, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(SPSplitter)
+                .addGap(10, 10, 10))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(LTopic, javax.swing.GroupLayout.DEFAULT_SIZE, 1227, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(10, 10, 10)
                 .addComponent(SPSplitter))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addComponent(LTopic, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 601, Short.MAX_VALUE)))
+                    .addContainerGap()
+                    .addComponent(LTopic, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(628, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -566,6 +573,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
     {
         ((DefaultListModel<HUser>)LUsers.getModel()).addElement(usr);
         LUsers.repaint();
+        SPUsers.repaint();
     }
     
     private void removeUser(HUser usr)
@@ -702,14 +710,14 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
     }
 
     @Override
-    public void onJoin(HClientJoinEvent evt)
+    public void onJoin(HClientUserEvent evt)
     {
         addUser(evt.getUser());
         main.write(AresFormater.FOREGROUND_CHARACTER + "03" + evt.getUser() + " has join the channel");
     }
 
     @Override
-    public void onPart(HClientPartEvent evt)
+    public void onPart(HClientUserEvent evt)
     {
 
        main.write(AresFormater.FOREGROUND_CHARACTER + "07" + evt.getUser() + " has part the channel");
@@ -779,6 +787,14 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         main.write(AresFormater.FOREGROUND_CHARACTER + "02Logged in, retrieving user's list...");
         event.onNameChange(this,evt.getChannelName());
     }
+
+    @Override
+    public void onUserIsIgnorinYou(HClientUserEvent evt)
+    {
+        ((ChatPane)TPTabs.getSelectedComponent()).write(AresFormater.FOREGROUND_CHARACTER +"04"+evt.getUser()+" is ignoring you");
+    }
+    
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BBackground;
