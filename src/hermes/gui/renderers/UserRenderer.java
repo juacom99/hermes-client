@@ -9,7 +9,6 @@ import com.hermes.common.HUser;
 import com.hermes.common.constants.HAdminLevel;
 import java.awt.Color;
 import java.awt.Component;
-import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
@@ -45,6 +44,8 @@ public class UserRenderer extends javax.swing.JPanel implements ListCellRenderer
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 1, 5, 1));
 
+        LAvatar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+
         LUsername.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         LUsername.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         LUsername.setMaximumSize(new java.awt.Dimension(10, 21));
@@ -52,12 +53,14 @@ public class UserRenderer extends javax.swing.JPanel implements ListCellRenderer
         LUsername.setPreferredSize(new java.awt.Dimension(10, 21));
 
         LPersonalMessage.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        LPersonalMessage.setForeground(new java.awt.Color(102, 102, 102));
         LPersonalMessage.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         LPersonalMessage.setMaximumSize(new java.awt.Dimension(2, 21));
         LPersonalMessage.setMinimumSize(new java.awt.Dimension(2, 21));
         LPersonalMessage.setPreferredSize(new java.awt.Dimension(2, 21));
 
         LASL.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        LASL.setForeground(new java.awt.Color(102, 102, 102));
         LASL.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         LASL.setMaximumSize(new java.awt.Dimension(2, 21));
         LASL.setMinimumSize(new java.awt.Dimension(2, 21));
@@ -67,11 +70,12 @@ public class UserRenderer extends javax.swing.JPanel implements ListCellRenderer
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(5, 5, 5)
                 .addComponent(LAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                    .addComponent(LUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
                     .addComponent(LPersonalMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(LASL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
@@ -103,12 +107,12 @@ public class UserRenderer extends javax.swing.JPanel implements ListCellRenderer
     {
         if(isSelected)
         {
-            setBackground(new Color(195,195,195));
+            setBackground(new Color(224,227,206));
             setForeground(list.getSelectionForeground());
         }
         else
         {
-            setBackground(Color.WHITE);
+            setBackground(new Color(248,248,248));
         }
         if(value.getAvatar()!=null)
         {
@@ -140,7 +144,7 @@ public class UserRenderer extends javax.swing.JPanel implements ListCellRenderer
         LUsername.validate();
         
         LPersonalMessage.setText(value.getPersonalMessage());
-        String asl=value.getAge()+"/"+value.getGender()+"/";
+        String asl=value.getAge()+" - "+value.getGender()+" - ";
         
         if(value.getRegion().trim().equals(""))
         {
@@ -148,7 +152,7 @@ public class UserRenderer extends javax.swing.JPanel implements ListCellRenderer
         }
         else
         {
-            asl+=value.getRegion()+","+value.getCountry();
+            asl+=value.getRegion().trim()+", "+value.getCountry().toString().trim();
         }
         
         LASL.setText(asl);
