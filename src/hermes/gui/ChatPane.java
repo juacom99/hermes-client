@@ -111,7 +111,11 @@ public class ChatPane extends javax.swing.JPanel
         });
         PMMenu.add(MISave);
 
+        jScrollPane2.setBorder(null);
+
         EPChat.setEditable(false);
+        EPChat.setBackground(new java.awt.Color(248, 248, 248));
+        EPChat.setBorder(null);
         EPChat.setContentType("text/html"); // NOI18N
         EPChat.getDocument().putProperty("char-set","UTF-8");
         EPChat.setFont(new java.awt.Font("Serif", 0, 12)); // NOI18N

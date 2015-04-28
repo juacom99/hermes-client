@@ -23,6 +23,7 @@ import com.hermes.client.events.HIClientEvents;
 import com.hermes.common.AresFormater;
 import com.hermes.common.HChannel;
 import com.hermes.common.HUser;
+import com.hermes.common.constants.HAdminLevel;
 import hermes.events.ChannelPaneEvents;
 import hermes.gui.dialogs.ColorDialog;
 import hermes.gui.dialogs.EmoticonsDialog;
@@ -30,7 +31,6 @@ import hermes.gui.renderers.UserRenderer;
 import hermes.util.DesktopApi;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -107,7 +107,8 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
                     try
                     {
                         addPrivate(u.getUsername(), true);
-                    } catch (Exception ex)
+                    }
+                    catch (Exception ex)
                     {
                         Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -154,16 +155,16 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
 
         PMUserListMenu.addPopupMenuListener(new javax.swing.event.PopupMenuListener()
         {
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt)
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt)
             {
-                PMUserListMenuPopupMenuWillBecomeVisible(evt);
             }
             public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt)
             {
                 PMUserListMenuPopupMenuWillBecomeInvisible(evt);
             }
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt)
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt)
             {
+                PMUserListMenuPopupMenuWillBecomeVisible(evt);
             }
         });
 
@@ -187,6 +188,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         });
         PMUserListMenu.add(MIIgnore_Unignore);
 
+        SPSplitter.setBorder(null);
         SPSplitter.setDividerLocation(976);
         SPSplitter.addComponentListener(new java.awt.event.ComponentAdapter()
         {
@@ -339,7 +341,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(TPTabs, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
+                .addComponent(TPTabs, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
                 .addGap(10, 10, 10)
                 .addComponent(TBBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
@@ -349,8 +351,11 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
 
         SPSplitter.setLeftComponent(jPanel1);
 
+        SPUsers.setBorder(null);
         SPUsers.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
+        LUsers.setBackground(new java.awt.Color(248, 248, 248));
+        LUsers.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         LUsers.setModel(new DefaultListModel<HCUser>());
         LUsers.setCellRenderer(new UserRenderer());
         LUsers.setComponentPopupMenu(PMUserListMenu);
@@ -367,7 +372,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(SPUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+            .addComponent(SPUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
             .addComponent(filler2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
@@ -375,7 +380,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SPUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
+                .addComponent(SPUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
         );
 
@@ -400,7 +405,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
                 .addGap(10, 10, 10)
                 .addComponent(LTopic)
                 .addGap(10, 10, 10)
-                .addComponent(SPSplitter, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE))
+                .addComponent(SPSplitter))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -410,7 +415,8 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         {
             TFInput.getDocument().insertString(TFInput.getCaretPosition(), "" + ((char) 2) + ((int) AresFormater.BOLD_CHARACTER), null);
             TFInput.requestFocus();
-        } catch (BadLocationException ex)
+        }
+        catch (BadLocationException ex)
         {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -422,7 +428,8 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         {
             TFInput.getDocument().insertString(TFInput.getCaretPosition(), "" + ((char) 2) + ((int) AresFormater.ITALIC_CHARACTER), null);
             TFInput.requestFocus();
-        } catch (BadLocationException ex)
+        }
+        catch (BadLocationException ex)
         {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -434,7 +441,8 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         {
             TFInput.getDocument().insertString(TFInput.getCaretPosition(), "" + ((char) 2) + ((int) AresFormater.UNDERLINE_CHARACTER), null);
             TFInput.requestFocus();
-        } catch (BadLocationException ex)
+        }
+        catch (BadLocationException ex)
         {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -451,7 +459,8 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
             try
             {
                 TFInput.getDocument().insertString(TFInput.getCaretPosition(), AresFormater.FOREGROUND_CHARACTER + c.getColorCode(), null);
-            } catch (BadLocationException ex)
+            }
+            catch (BadLocationException ex)
             {
                 Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -470,7 +479,8 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
             try
             {
                 TFInput.getDocument().insertString(TFInput.getCaretPosition(), AresFormater.BACKGROUND_CHARACTER + c.getColorCode(), null);
-            } catch (BadLocationException ex)
+            }
+            catch (BadLocationException ex)
             {
                 Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -493,7 +503,8 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
             try
             {
                 TFInput.getDocument().insertString(TFInput.getCaretPosition(), ed.getSelected(), null);
-            } catch (BadLocationException ex)
+            }
+            catch (BadLocationException ex)
             {
                 Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -507,7 +518,8 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         {
 
             DesktopApi.browse(new URI(this.url));
-        } catch (URISyntaxException ex)
+        }
+        catch (URISyntaxException ex)
         {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -526,19 +538,23 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
                     if (text.startsWith("/me"))
                     {
                         client.sendEmote(text.substring(3));
-                    } else if (text.startsWith("/") || text.startsWith("#"))
+                    }
+                    else if (text.startsWith("/") || text.startsWith("#"))
                     {
                         client.sendCommand(text.substring(1));
-                    } else
+                    }
+                    else
                     {
                         client.sendMessage(text);
                     }
 
-                } catch (IOException ex)
+                }
+                catch (IOException ex)
                 {
                     Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } else
+            }
+            else
             {
                 String to = TPTabs.getTitleAt(TPTabs.getSelectedIndex());
                 client.sendPM(to, text);
@@ -569,7 +585,8 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         try
         {
             TFInput.getDocument().insertString(TFInput.getCaretPosition(), ((HCUser) LUsers.getSelectedValue()).getUsername(), null);
-        } catch (BadLocationException ex)
+        }
+        catch (BadLocationException ex)
         {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -581,68 +598,127 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         client.ignore(((HCUser) LUsers.getSelectedValue()));
     }//GEN-LAST:event_MIIgnore_UnignoreActionPerformed
 
-    private void PMUserListMenuPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt)//GEN-FIRST:event_PMUserListMenuPopupMenuWillBecomeVisible
-    {//GEN-HEADEREND:event_PMUserListMenuPopupMenuWillBecomeVisible
-        final HCUser usr = (HCUser) LUsers.getSelectedValue();
-        if (client.isIgnoring(usr))
-        {
-            ((JMenuItem) PMUserListMenu.getComponent(1)).setText("Unignore");
-        } else
-        {
-            ((JMenuItem) PMUserListMenu.getComponent(1)).setText("Ignore");
-        }
-
-        if (client.isAdmin())
-        {
-            PMUserListMenu.add(new JPopupMenu.Separator());
-            JMenuItem MIMuzzle = new JMenuItem("Muzzle " + usr.getUsername());
-            MIMuzzle.addActionListener(new ActionListener()
-            {
-
-                @Override
-                public void actionPerformed(ActionEvent e)
-                {
-                    client.sendCommand("muzzle " + usr.getUsername());
-                }
-            });
-            PMUserListMenu.add(MIMuzzle);
-            JMenuItem MIKill = new JMenuItem("Kill " + usr.getUsername());
-            MIKill.addActionListener(new ActionListener()
-            {
-
-                @Override
-                public void actionPerformed(ActionEvent e)
-                {
-                    client.sendCommand("kill " + usr.getUsername());
-                }
-            });
-            PMUserListMenu.add(MIKill);
-            JMenuItem MIBan = new JMenuItem("Ban " + usr.getUsername());
-            MIBan.addActionListener(new ActionListener()
-            {
-
-                @Override
-                public void actionPerformed(ActionEvent e)
-                {
-                    client.sendCommand("ban " + usr.getUsername());
-                }
-            });
-            PMUserListMenu.add(MIBan);
-        }
-    }//GEN-LAST:event_PMUserListMenuPopupMenuWillBecomeVisible
-
     private void PMUserListMenuPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt)//GEN-FIRST:event_PMUserListMenuPopupMenuWillBecomeInvisible
     {//GEN-HEADEREND:event_PMUserListMenuPopupMenuWillBecomeInvisible
-       if (client.isAdmin())
+        if (PMUserListMenu.getComponentCount() > 3)
         {
-            for(int i=0;i<5;i++)
+            
+            if (client.getAdminLevel() != HAdminLevel.Normal_User)
             {
-                PMUserListMenu.remove(2);
+                for(int i=0;i<4;i++)
+                {
+                    PMUserListMenu.remove(2);
+                }
             }
-          
+            if (client.getAdminLevel() == HAdminLevel.Host)
+            {
+                 for(int i=0;i<4;i++)
+                {
+                    PMUserListMenu.remove(2);
+                }
+            }
+             
         }
-        
+
     }//GEN-LAST:event_PMUserListMenuPopupMenuWillBecomeInvisible
+
+    private void PMUserListMenuPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt)//GEN-FIRST:event_PMUserListMenuPopupMenuWillBecomeVisible
+    {//GEN-HEADEREND:event_PMUserListMenuPopupMenuWillBecomeVisible
+
+        if (PMUserListMenu.getComponentCount() < 3)
+        {
+            final HCUser usr = (HCUser) LUsers.getSelectedValue();
+
+            if (client.getAdminLevel() != HAdminLevel.Normal_User)
+            {
+                JMenuItem MIMuzzle = new JMenuItem("Muzzle");
+                // MIMuzzle.setIcon();
+                MIMuzzle.addActionListener(new ActionListener()
+                {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        client.sendCommand("muzzle " + usr.getUsername());
+                    }
+                });
+
+                JMenuItem MIKill = new JMenuItem("Kill");
+                // MIKill.setIcon();
+                MIKill.addActionListener(new ActionListener()
+                {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        client.sendCommand("kill " + usr.getUsername());
+                    }
+                });
+
+                JMenuItem MIBan = new JMenuItem("Ban");
+                // MIBan.setIcon();
+                MIBan.addActionListener(new ActionListener()
+                {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        client.sendCommand("ban " + usr.getUsername());
+                    }
+                });
+
+                PMUserListMenu.add(new JPopupMenu.Separator());
+                PMUserListMenu.add(MIMuzzle);
+                PMUserListMenu.add(MIKill);
+                PMUserListMenu.add(MIBan);
+
+            }
+            if (client.getAdminLevel() == HAdminLevel.Host)
+            {
+                JMenuItem MIMuzzle = new JMenuItem("Host Muzzle");
+                // MIMuzzle.setIcon();
+                MIMuzzle.addActionListener(new ActionListener()
+                {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        client.sendCommand("hostmuzzle " + usr.getUsername());
+                    }
+                });
+
+                JMenuItem MIKill = new JMenuItem("Host Kill");
+                // MIKill.setIcon();
+                MIKill.addActionListener(new ActionListener()
+                {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        client.sendCommand("hostkill " + usr.getUsername());
+                    }
+                });
+
+                JMenuItem MIBan = new JMenuItem("Host Ban");
+                // MIBan.setIcon();
+                MIKill.addActionListener(new ActionListener()
+                {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        client.sendCommand("hostban " + usr.getUsername());
+                    }
+                });
+
+                PMUserListMenu.add(new JPopupMenu.Separator());
+                PMUserListMenu.add(MIMuzzle);
+                PMUserListMenu.add(MIKill);
+                PMUserListMenu.add(MIBan);
+            }
+        }
+
+    }//GEN-LAST:event_PMUserListMenuPopupMenuWillBecomeVisible
 
     private void updateusers()
     {
@@ -704,7 +780,8 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
             privates.put(userName, cp);
             int index = TPTabs.indexOfComponent(cp);
             TPTabs.setTabComponentAt(index, getTitlePanel(TPTabs, cp, userName));
-        } else
+        }
+        else
         {
             cp = privates.get(userName);
 
@@ -727,7 +804,8 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         try
         {
             client.disconnect();
-        } catch (IOException ex)
+        }
+        catch (IOException ex)
         {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -739,7 +817,8 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         try
         {
             client.connect(channel.getPublicIP(), channel.getPort());
-        } catch (IOException ex)
+        }
+        catch (IOException ex)
         {
             HClientEvent e = new HClientEvent();
             onDisconnect(e);
@@ -771,7 +850,8 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
             cp.write(AresFormater.BOLD_CHARACTER + evt.getSender() + ":");
             cp.write("        " + evt.getText());
             event.onTextRecived(this);
-        } catch (Exception ex)
+        }
+        catch (Exception ex)
         {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
