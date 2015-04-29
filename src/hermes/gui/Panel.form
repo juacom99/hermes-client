@@ -411,7 +411,7 @@
                       <Connection code="new DefaultListModel&lt;HCUser&gt;()" type="code"/>
                     </Property>
                     <Property name="cellRenderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="new UserRenderer()" type="code"/>
+                      <Connection code="new UserRenderer(false)" type="code"/>
                     </Property>
                     <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
                       <ComponentRef name="PMUserListMenu"/>

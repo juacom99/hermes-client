@@ -120,6 +120,11 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
 
     }
 
+    public HClient getClient()
+    {
+        return client;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -357,7 +362,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         LUsers.setBackground(new java.awt.Color(248, 248, 248));
         LUsers.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         LUsers.setModel(new DefaultListModel<HCUser>());
-        LUsers.setCellRenderer(new UserRenderer());
+        LUsers.setCellRenderer(new UserRenderer(false));
         LUsers.setComponentPopupMenu(PMUserListMenu);
         LUsers.addMouseListener(new java.awt.event.MouseAdapter()
         {

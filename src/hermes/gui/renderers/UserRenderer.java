@@ -7,6 +7,7 @@ package hermes.gui.renderers;
 
 import com.hermes.common.HUser;
 import com.hermes.common.constants.HAdminLevel;
+import hermes.gui.Panel;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JList;
@@ -22,9 +23,20 @@ public class UserRenderer extends javax.swing.JPanel implements ListCellRenderer
     /**
      * Creates new form UserRenderer
      */
-    public UserRenderer()
+    private boolean admin;
+
+    public UserRenderer(boolean admin)
     {
         initComponents();
+        BMuzzle.setVisible(false);
+        BKill.setVisible(false);
+        BBan.setVisible(false);
+        this.admin = admin;
+    }
+
+    public void setAdmin(boolean admin)
+    {
+        this.admin = admin;
     }
 
     /**
@@ -41,6 +53,10 @@ public class UserRenderer extends javax.swing.JPanel implements ListCellRenderer
         LUsername = new javax.swing.JLabel();
         LPersonalMessage = new javax.swing.JLabel();
         LASL = new javax.swing.JLabel();
+        BMuzzle = new javax.swing.JButton();
+        BKill = new javax.swing.JButton();
+        BBan = new javax.swing.JButton();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 1, 5, 1));
 
@@ -48,6 +64,7 @@ public class UserRenderer extends javax.swing.JPanel implements ListCellRenderer
 
         LUsername.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         LUsername.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        LUsername.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         LUsername.setMaximumSize(new java.awt.Dimension(10, 21));
         LUsername.setMinimumSize(new java.awt.Dimension(10, 21));
         LUsername.setPreferredSize(new java.awt.Dimension(10, 21));
@@ -55,6 +72,7 @@ public class UserRenderer extends javax.swing.JPanel implements ListCellRenderer
         LPersonalMessage.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         LPersonalMessage.setForeground(new java.awt.Color(102, 102, 102));
         LPersonalMessage.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        LPersonalMessage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         LPersonalMessage.setMaximumSize(new java.awt.Dimension(2, 21));
         LPersonalMessage.setMinimumSize(new java.awt.Dimension(2, 21));
         LPersonalMessage.setPreferredSize(new java.awt.Dimension(2, 21));
@@ -62,99 +80,159 @@ public class UserRenderer extends javax.swing.JPanel implements ListCellRenderer
         LASL.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         LASL.setForeground(new java.awt.Color(102, 102, 102));
         LASL.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        LASL.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         LASL.setMaximumSize(new java.awt.Dimension(2, 21));
         LASL.setMinimumSize(new java.awt.Dimension(2, 21));
         LASL.setPreferredSize(new java.awt.Dimension(2, 21));
+
+        BMuzzle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/muzzle.png"))); // NOI18N
+        BMuzzle.setBorderPainted(false);
+        BMuzzle.setContentAreaFilled(false);
+
+        BKill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/kill.png"))); // NOI18N
+        BKill.setBorderPainted(false);
+        BKill.setContentAreaFilled(false);
+
+        BBan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/ban.png"))); // NOI18N
+        BBan.setBorderPainted(false);
+        BBan.setContentAreaFilled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(LAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
                 .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
-                    .addComponent(LPersonalMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(LASL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(LAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(LUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BMuzzle, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(LASL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(LPersonalMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(BKill, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(BBan, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(10, 10, 10))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0))))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(LAvatar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
+                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(BMuzzle, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(5, 5, 5)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(LASL, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BKill, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BBan, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LPersonalMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(5, 5, 5))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(LUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(LPersonalMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(LASL, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(LAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BBan;
+    private javax.swing.JButton BKill;
+    private javax.swing.JButton BMuzzle;
     private javax.swing.JLabel LASL;
     private javax.swing.JLabel LAvatar;
     private javax.swing.JLabel LPersonalMessage;
     private javax.swing.JLabel LUsername;
+    private javax.swing.Box.Filler filler1;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public Component getListCellRendererComponent(JList<? extends HUser> list, HUser value, int index, boolean isSelected, boolean cellHasFocus)
     {
-        if(isSelected)
+        if (isSelected)
         {
-            setBackground(new Color(224,227,206));
+            setBackground(new Color(224, 227, 206));
             setForeground(list.getSelectionForeground());
+            
+            Panel p=(Panel) list.getParent().getParent().getParent().getParent().getParent();
+            if (p.getClient().getAdminLevel()!=HAdminLevel.Normal_User)
+            {
+                BMuzzle.setVisible(true);
+                BKill.setVisible(true);
+                BBan.setVisible(true);
+            }
+            else
+            {
+                BMuzzle.setVisible(false);
+                BKill.setVisible(false);
+                BBan.setVisible(false);
+            }
         }
         else
         {
-            setBackground(new Color(248,248,248));
+            setBackground(new Color(248, 248, 248));
+                BMuzzle.setVisible(false);
+                BKill.setVisible(false);
+                BBan.setVisible(false);
         }
-        if(value.getAvatar()!=null)
+        if (value.getAvatar() != null)
         {
-            LAvatar.setIcon(value.getAvatar());            
+            LAvatar.setIcon(value.getAvatar());
         }
         else
         {
-            LAvatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/noAvatar.png")));    
+            LAvatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/noAvatar.png")));
         }
-        
-       if(value.getLevel()==HAdminLevel.Moderator)
-       {
-           LUsername.setForeground(Color.BLUE);
-       }
-       else if( value.getLevel()==HAdminLevel.Administratior)
-       {
-           LUsername.setForeground(new Color(0,128,0));
-       }
-       else if( value.getLevel()==HAdminLevel.Host)
-       {
-           LUsername.setForeground(Color.RED);
-       }
-       else
-       {
+
+        if (value.getLevel() == HAdminLevel.Moderator)
+        {
+            LUsername.setForeground(Color.BLUE);
+        }
+        else if (value.getLevel() == HAdminLevel.Administratior)
+        {
+            LUsername.setForeground(new Color(0, 128, 0));
+        }
+        else if (value.getLevel() == HAdminLevel.Host)
+        {
+            LUsername.setForeground(Color.RED);
+        }
+        else
+        {
             LUsername.setForeground(Color.BLACK);
-       }
-        
+        }
+
         LUsername.setText(value.getUsername());
         LUsername.validate();
-        
+
         LPersonalMessage.setText(value.getPersonalMessage());
-        String asl=value.getAge()+" - "+value.getGender()+" - ";
-        
-        if(value.getRegion().trim().equals(""))
+        String asl = value.getAge() + " - " + value.getGender() + " - ";
+
+        if (value.getRegion().trim().equals(""))
         {
-            asl+=value.getCountry();
+            asl += value.getCountry();
         }
         else
         {
-            asl+=value.getRegion().trim()+", "+value.getCountry().toString().trim();
+            asl += value.getRegion().trim() + ", " + value.getCountry().toString().trim();
         }
-        
+
         LASL.setText(asl);
         return this;
     }
