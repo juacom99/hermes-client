@@ -10,6 +10,7 @@ import com.hermes.common.constants.HAdminLevel;
 import hermes.gui.Panel;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.ActionListener;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
@@ -23,20 +24,13 @@ public class UserRenderer extends javax.swing.JPanel implements ListCellRenderer
     /**
      * Creates new form UserRenderer
      */
-    private boolean admin;
 
-    public UserRenderer(boolean admin)
+    public UserRenderer()
     {
         initComponents();
         BMuzzle.setVisible(false);
         BKill.setVisible(false);
         BBan.setVisible(false);
-        this.admin = admin;
-    }
-
-    public void setAdmin(boolean admin)
-    {
-        this.admin = admin;
     }
 
     /**
@@ -64,7 +58,6 @@ public class UserRenderer extends javax.swing.JPanel implements ListCellRenderer
 
         LUsername.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         LUsername.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        LUsername.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         LUsername.setMaximumSize(new java.awt.Dimension(10, 21));
         LUsername.setMinimumSize(new java.awt.Dimension(10, 21));
         LUsername.setPreferredSize(new java.awt.Dimension(10, 21));
@@ -72,7 +65,6 @@ public class UserRenderer extends javax.swing.JPanel implements ListCellRenderer
         LPersonalMessage.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         LPersonalMessage.setForeground(new java.awt.Color(102, 102, 102));
         LPersonalMessage.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        LPersonalMessage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         LPersonalMessage.setMaximumSize(new java.awt.Dimension(2, 21));
         LPersonalMessage.setMinimumSize(new java.awt.Dimension(2, 21));
         LPersonalMessage.setPreferredSize(new java.awt.Dimension(2, 21));
@@ -80,7 +72,6 @@ public class UserRenderer extends javax.swing.JPanel implements ListCellRenderer
         LASL.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         LASL.setForeground(new java.awt.Color(102, 102, 102));
         LASL.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        LASL.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         LASL.setMaximumSize(new java.awt.Dimension(2, 21));
         LASL.setMinimumSize(new java.awt.Dimension(2, 21));
         LASL.setPreferredSize(new java.awt.Dimension(2, 21));
@@ -121,37 +112,47 @@ public class UserRenderer extends javax.swing.JPanel implements ListCellRenderer
                                     .addComponent(BKill, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(BBan, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(10, 10, 10))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0))))
+                    .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(BMuzzle, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(BMuzzle, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGap(5, 5, 5)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(LASL, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BKill, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BBan, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LPersonalMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(5, 5, 5))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(LAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addGap(0, 0, 0)
+                        .addComponent(LUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(1, 1, 1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(LASL, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BKill, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(1, 1, 1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BBan, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LPersonalMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(LAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public void addMuzzleActionListener(ActionListener al)
+    {
+        BMuzzle.addActionListener(al);
+    }
 
+    public void addKillActionListener(ActionListener al)
+    {
+        BKill.addActionListener(al);
+    }
+    
+    public void addBanActionListener(ActionListener al)
+    {
+        BBan.addActionListener(al);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BBan;
     private javax.swing.JButton BKill;

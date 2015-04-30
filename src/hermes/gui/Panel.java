@@ -118,6 +118,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
 
         });
 
+       
     }
 
     public HClient getClient()
@@ -160,16 +161,16 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
 
         PMUserListMenu.addPopupMenuListener(new javax.swing.event.PopupMenuListener()
         {
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt)
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt)
             {
+                PMUserListMenuPopupMenuWillBecomeVisible(evt);
             }
             public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt)
             {
                 PMUserListMenuPopupMenuWillBecomeInvisible(evt);
             }
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt)
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt)
             {
-                PMUserListMenuPopupMenuWillBecomeVisible(evt);
             }
         });
 
@@ -356,63 +357,95 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
 
         SPSplitter.setLeftComponent(jPanel1);
 
-        SPUsers.setBorder(null);
         SPUsers.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         LUsers.setBackground(new java.awt.Color(248, 248, 248));
         LUsers.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         LUsers.setModel(new DefaultListModel<HCUser>());
-        LUsers.setCellRenderer(new UserRenderer(false));
-        LUsers.setComponentPopupMenu(PMUserListMenu);
-        LUsers.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
+        UserRenderer ur=new UserRenderer();
+        ur.addMuzzleActionListener(new ActionListener()
             {
-                LUsersMouseClicked(evt);
-            }
-        });
-        SPUsers.setViewportView(LUsers);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(SPUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
-            .addComponent(filler2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SPUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
-                .addGap(10, 10, 10))
-        );
+                @Override
+                public void actionPerformed(ActionEvent e)
+                {
+                    HCUser usr = (HCUser) LUsers.getSelectedValue();
+                    client.sendCommand("muzzle " + usr.getUsername());
+                }
+            });
 
-        SPSplitter.setRightComponent(jPanel2);
+            ur.addKillActionListener(new ActionListener()
+                {
 
-        LTopic.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        LTopic.setText("TOPIC");
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        HCUser usr = (HCUser) LUsers.getSelectedValue();
+                        client.sendCommand("kill " + usr.getUsername());
+                    }
+                });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(LTopic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addComponent(SPSplitter)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(LTopic)
-                .addGap(10, 10, 10)
-                .addComponent(SPSplitter))
-        );
-    }// </editor-fold>//GEN-END:initComponents
+                ur.addBanActionListener(new ActionListener()
+                    {
+
+                        @Override
+                        public void actionPerformed(ActionEvent e)
+                        {
+                            HCUser usr = (HCUser) LUsers.getSelectedValue();
+                            client.sendCommand("ban " + usr.getUsername());
+                        }
+                    });
+                    LUsers.setCellRenderer(ur);
+                    LUsers.setComponentPopupMenu(PMUserListMenu);
+                    LUsers.addMouseListener(new java.awt.event.MouseAdapter()
+                    {
+                        public void mouseClicked(java.awt.event.MouseEvent evt)
+                        {
+                            LUsersMouseClicked(evt);
+                        }
+                    });
+                    SPUsers.setViewportView(LUsers);
+
+                    javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+                    jPanel2.setLayout(jPanel2Layout);
+                    jPanel2Layout.setHorizontalGroup(
+                        jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(SPUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+                        .addComponent(filler2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    );
+                    jPanel2Layout.setVerticalGroup(
+                        jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(SPUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
+                            .addGap(10, 10, 10))
+                    );
+
+                    SPSplitter.setRightComponent(jPanel2);
+
+                    LTopic.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+                    LTopic.setText("TOPIC");
+
+                    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+                    this.setLayout(layout);
+                    layout.setHorizontalGroup(
+                        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(LTopic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addContainerGap())
+                        .addComponent(SPSplitter)
+                    );
+                    layout.setVerticalGroup(
+                        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGap(10, 10, 10)
+                            .addComponent(LTopic)
+                            .addGap(10, 10, 10)
+                            .addComponent(SPSplitter))
+                    );
+                }// </editor-fold>//GEN-END:initComponents
 
     private void BBoldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BBoldActionPerformed
     {//GEN-HEADEREND:event_BBoldActionPerformed

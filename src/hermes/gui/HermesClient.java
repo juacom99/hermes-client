@@ -73,6 +73,12 @@ public class HermesClient extends javax.swing.JFrame
         
         user = ConfigReader.getInstance().getUser();
         
+        HChannel ch=HHash.getInstance().decode("arlnk://F5fPxdTq8eJeuqSVejGmq2YW41Vh1ulPgDQmFiNIy18CRXS7V1LSYkw0fKLQGtxcW/5CG0Y0qveVN0Ps63W/yp6a5IlktfQrrcrM7a/NMfdPZ4nFptUs");
+        
+        System.out.println( ch.getPublicIP()+":"+ch.getPort()+" "+ch.getName());
+        
+        
+        
         TPChat.add(lp);
         int index = TPChat.indexOfComponent(lp);
         TPChat.setTabComponentAt(index, getTitlePanel(lp, "Channel List", new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/channel-list.png")), null, 3));
