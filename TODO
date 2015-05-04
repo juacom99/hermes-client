@@ -1,3 +1,5 @@
 * Make Color Selection dialog not modal
 * Fix Link and image format error
-* Add contextual menu in userlist(copy nick to input, kill, ban, muzzle if you are admin, ignore)
+* make Client follow the redirection (or not)
+* Make Tab focus on input
+* make italic que tab where you get an unreaded new message

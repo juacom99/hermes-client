@@ -27,10 +27,7 @@ public class UserRenderer extends javax.swing.JPanel implements ListCellRenderer
 
     public UserRenderer()
     {
-        initComponents();
-        BMuzzle.setVisible(false);
-        BKill.setVisible(false);
-        BBan.setVisible(false);
+        initComponents();     
     }
 
     /**
@@ -47,9 +44,6 @@ public class UserRenderer extends javax.swing.JPanel implements ListCellRenderer
         LUsername = new javax.swing.JLabel();
         LPersonalMessage = new javax.swing.JLabel();
         LASL = new javax.swing.JLabel();
-        BMuzzle = new javax.swing.JButton();
-        BKill = new javax.swing.JButton();
-        BBan = new javax.swing.JButton();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 1, 5, 1));
@@ -76,18 +70,6 @@ public class UserRenderer extends javax.swing.JPanel implements ListCellRenderer
         LASL.setMinimumSize(new java.awt.Dimension(2, 21));
         LASL.setPreferredSize(new java.awt.Dimension(2, 21));
 
-        BMuzzle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/muzzle.png"))); // NOI18N
-        BMuzzle.setBorderPainted(false);
-        BMuzzle.setContentAreaFilled(false);
-
-        BKill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/kill.png"))); // NOI18N
-        BKill.setBorderPainted(false);
-        BKill.setContentAreaFilled(false);
-
-        BBan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/ban.png"))); // NOI18N
-        BBan.setBorderPainted(false);
-        BBan.setContentAreaFilled(false);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -100,63 +82,33 @@ public class UserRenderer extends javax.swing.JPanel implements ListCellRenderer
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(LUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(BMuzzle, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(LUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                                .addGap(10, 10, 10))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(LASL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(LPersonalMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(BKill, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(BBan, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(10, 10, 10))
+                                .addGap(10, 10, 10))))
                     .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(BMuzzle, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(LUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(1, 1, 1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LASL, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BKill, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(LUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BBan, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LPersonalMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(LASL, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(LPersonalMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, 0)
                 .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(LAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addComponent(LAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public void addMuzzleActionListener(ActionListener al)
-    {
-        BMuzzle.addActionListener(al);
-    }
-
-    public void addKillActionListener(ActionListener al)
-    {
-        BKill.addActionListener(al);
-    }
-    
-    public void addBanActionListener(ActionListener al)
-    {
-        BBan.addActionListener(al);
-    }
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BBan;
-    private javax.swing.JButton BKill;
-    private javax.swing.JButton BMuzzle;
     private javax.swing.JLabel LASL;
     private javax.swing.JLabel LAvatar;
     private javax.swing.JLabel LPersonalMessage;
@@ -171,27 +123,10 @@ public class UserRenderer extends javax.swing.JPanel implements ListCellRenderer
         {
             setBackground(new Color(224, 227, 206));
             setForeground(list.getSelectionForeground());
-            
-            Panel p=(Panel) list.getParent().getParent().getParent().getParent().getParent();
-            if (p.getClient().getAdminLevel()!=HAdminLevel.Normal_User)
-            {
-                BMuzzle.setVisible(true);
-                BKill.setVisible(true);
-                BBan.setVisible(true);
-            }
-            else
-            {
-                BMuzzle.setVisible(false);
-                BKill.setVisible(false);
-                BBan.setVisible(false);
-            }
         }
         else
         {
-            setBackground(new Color(248, 248, 248));
-                BMuzzle.setVisible(false);
-                BKill.setVisible(false);
-                BBan.setVisible(false);
+            setBackground(new Color(248, 248, 248));            
         }
         if (value.getAvatar() != null)
         {

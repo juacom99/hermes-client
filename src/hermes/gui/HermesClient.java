@@ -71,14 +71,12 @@ public class HermesClient extends javax.swing.JFrame
             }
         });
         
+        HChannel c=HHash.getInstance().decode("arlnk://F5fPxdTq8eJeuqSVejGmq2aElnri2T3eLQHXfjq6WClCb6vBfMpEIOjuQgoTBwuYl6EMbMYhGjcrzUnVnDWZ5RUiCVvs+P9w/U8rwTJh94g5PjNQWNCm1sXavk8DuGQB/vsQZENmX4Ft0NY0eU7WIwp5S0eOohd1u3DkaSIbVGX0P7VQXOX149tR201V++ymoPmn29q/PRj9zVxsuaIScg==");
+        
+        System.out.println(c.getPublicIP()+":"+c.getPort());
+        
         user = ConfigReader.getInstance().getUser();
-        
-        HChannel ch=HHash.getInstance().decode("arlnk://F5fPxdTq8eJeuqSVejGmq2YW41Vh1ulPgDQmFiNIy18CRXS7V1LSYkw0fKLQGtxcW/5CG0Y0qveVN0Ps63W/yp6a5IlktfQrrcrM7a/NMfdPZ4nFptUs");
-        
-        System.out.println( ch.getPublicIP()+":"+ch.getPort()+" "+ch.getName());
-        
-        
-        
+       
         TPChat.add(lp);
         int index = TPChat.indexOfComponent(lp);
         TPChat.setTabComponentAt(index, getTitlePanel(lp, "Channel List", new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/channel-list.png")), null, 3));
