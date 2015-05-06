@@ -1,5 +1,4 @@
 * Make Color Selection dialog not modal
 * Fix Link and image format error
 * make Client follow the redirection (or not)
-* Make Tab focus on input
 * make italic que tab where you get an unreaded new message

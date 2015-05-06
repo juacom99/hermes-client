@@ -5,6 +5,7 @@
  */
 package hermes.gui;
 
+import com.hermes.client.HCChannel;
 import hermes.gui.dialogs.ConfigDialog;
 import com.hermes.client.HCUser;
 import hermes.events.ChannelListClickedEvent;
@@ -21,6 +22,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
@@ -71,7 +73,10 @@ public class HermesClient extends javax.swing.JFrame
             }
         });
         
-        HChannel c=HHash.getInstance().decode("arlnk://F5fPxdTq8eJeuqSVejGmq2aElnri2T3eLQHXfjq6WClCb6vBfMpEIOjuQgoTBwuYl6EMbMYhGjcrzUnVnDWZ5RUiCVvs+P9w/U8rwTJh94g5PjNQWNCm1sXavk8DuGQB/vsQZENmX4Ft0NY0eU7WIwp5S0eOohd1u3DkaSIbVGX0P7VQXOX149tR201V++ymoPmn29q/PRj9zVxsuaIScg==");
+        HChannel c=HHash.getInstance().decode("arlnk://F5fPxdTq8eJeuqSVejGmq2ZyjqMXyRLhJ8wqOxMIFNKBj3KphKLyeR3DlQ6uPROTUHdzj+9unfDZiubNHoBR04fqo+bApdqqmv602r+nD/SR8A8DH9dyL7Sg3/LI+Zwmew7XeleXMg3r3MAYjeloDVqITvLpRiJsjbpLtF/iGHf0Sy7eXMxT07scowrsxfK5J/NX3NZR9F8gUDomdzo1X/XZlYzeUsxWd7njHu+a2uSF8Y1RQuGrnX8IXsvFztMAy0tnHpi/uCzj9Q==");
+        
+        HChannel hc=new HCChannel("Zona malvada*",InetAddress.getByName("186.55.79.251"),5000,InetAddress.getByName("127.0.0.1"),"");
+        System.out.println(HHash.getInstance().encode(hc));
         
         System.out.println(c.getPublicIP()+":"+c.getPort());
         
