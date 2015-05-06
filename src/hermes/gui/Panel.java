@@ -31,6 +31,7 @@ import hermes.gui.renderers.UserRenderer;
 import hermes.util.DesktopApi;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -313,6 +314,14 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
             }
         });
         TBBar.add(LURL);
+
+        TPTabs.addChangeListener(new javax.swing.event.ChangeListener()
+        {
+            public void stateChanged(javax.swing.event.ChangeEvent evt)
+            {
+                TPTabsStateChanged(evt);
+            }
+        });
 
         TFInput.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         TFInput.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true), javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1)));
@@ -725,6 +734,12 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
 
     }//GEN-LAST:event_PMUserListMenuPopupMenuWillBecomeVisible
 
+    private void TPTabsStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_TPTabsStateChanged
+    {//GEN-HEADEREND:event_TPTabsStateChanged
+       String title=TPTabs.getTitleAt(TPTabs.getSelectedIndex()).replaceAll("<html><i>","").replaceAll("<i/><html/>", "");
+       TPTabs.setTitleAt(TPTabs.getSelectedIndex(), title);
+    }//GEN-LAST:event_TPTabsStateChanged
+
     private void updateusers()
     {
         LUsers.repaint();
@@ -842,6 +857,13 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
     {
         main.write(AresFormater.FOREGROUND_CHARACTER + "01" + evt.getSender() + "> " + AresFormater.FOREGROUND_CHARACTER + "12" + evt.getText());
         event.onTextRecived(this);
+        
+        if ((TPTabs.getSelectedIndex() != 0))
+        {
+            TPTabs.setTitleAt(0,"<html><i>"+TPTabs.getTitleAt(0)+"<i/></html>");
+        }
+        
+        
     }
 
     @Override
@@ -854,6 +876,16 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
             cp.write(AresFormater.BOLD_CHARACTER + evt.getSender() + ":");
             cp.write("        " + evt.getText());
             event.onTextRecived(this);
+            
+            int index=TPTabs.indexOfComponent(cp);
+            
+            if(TPTabs.getSelectedIndex()!=index)
+            {
+                System.out.println(TPTabs.getTitleAt(index));
+                TPTabs.setTitleAt(index,"<html><i>"+TPTabs.getTitleAt(index)+"<i/><html/>");
+                System.out.println(TPTabs.getTitleAt(index));
+                System.out.println("****************************************************************************");
+            }
         }
         catch (Exception ex)
         {

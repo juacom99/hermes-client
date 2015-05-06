@@ -318,6 +318,9 @@
               </SubComponents>
             </Container>
             <Container class="javax.swing.JTabbedPane" name="TPTabs">
+              <Events>
+                <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="TPTabsStateChanged"/>
+              </Events>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
             </Container>
