@@ -128,7 +128,7 @@ public class ListPane extends javax.swing.JPanel
         {
 
             @Override
-            public void onNewChannel(HChannel channel, int index)
+            public void onNewChannel(HChannel channel, int index,int count)
             {
                 Object[] row =
                 {
@@ -136,6 +136,8 @@ public class ListPane extends javax.swing.JPanel
                 };
 
                 ((DefaultTableModel) TChannels.getModel()).addRow(row);
+                
+                evt.channelDownloaded(count);
             }
 
             @Override

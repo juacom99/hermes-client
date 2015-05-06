@@ -14,4 +14,6 @@ import com.hermes.common.HChannel;
 public interface ChannelListClickedEvent
 {
     public void channelListClick(HChannel channel);
+    
+    public void channelDownloaded(int count);
 }

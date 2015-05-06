@@ -119,14 +119,13 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
 
         });
 
-       
     }
 
     public HClient getClient()
     {
         return client;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -544,13 +543,17 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         if (evt.getKeyCode() == 10)
         {
             String text = TFInput.getText();
-
+            text = text.replace(((char) 2) + "6", "" + AresFormater.BOLD_CHARACTER);
+            text = text.replaceAll(((char) 2) + "7", "" + AresFormater.UNDERLINE_CHARACTER);
+            text = text.replaceAll(((char) 2) + "9", "" + AresFormater.ITALIC_CHARACTER);
+            
             if (TPTabs.getSelectedIndex() == 0)
             {
                 try
                 {
                     if (text.startsWith("/me"))
                     {
+
                         client.sendEmote(text.substring(3));
                     }
                     else if (text.startsWith("/") || text.startsWith("#"))
@@ -616,22 +619,22 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
     {//GEN-HEADEREND:event_PMUserListMenuPopupMenuWillBecomeInvisible
         if (PMUserListMenu.getComponentCount() > 3)
         {
-            
+
             if (client.getAdminLevel() != HAdminLevel.Normal_User)
             {
-                for(int i=0;i<4;i++)
+                for (int i = 0; i < 4; i++)
                 {
                     PMUserListMenu.remove(2);
                 }
             }
             if (client.getAdminLevel() == HAdminLevel.Host)
             {
-                 for(int i=0;i<4;i++)
+                for (int i = 0; i < 4; i++)
                 {
                     PMUserListMenu.remove(2);
                 }
             }
-             
+
         }
 
     }//GEN-LAST:event_PMUserListMenuPopupMenuWillBecomeInvisible
@@ -736,8 +739,20 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
 
     private void TPTabsStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_TPTabsStateChanged
     {//GEN-HEADEREND:event_TPTabsStateChanged
-       String title=TPTabs.getTitleAt(TPTabs.getSelectedIndex()).replaceAll("<html><i>","").replaceAll("<i/><html/>", "");
-       TPTabs.setTitleAt(TPTabs.getSelectedIndex(), title);
+        if (TPTabs.getSelectedIndex() == 0)
+        {
+            String title = TPTabs.getTitleAt(TPTabs.getSelectedIndex()).replaceAll("<html><i>", "").replaceAll("</i/></html>", "");
+            TPTabs.setTitleAt(TPTabs.getSelectedIndex(), title);
+        }
+        else
+        {
+            JPanel p = ((JPanel) TPTabs.getTabComponentAt(TPTabs.getSelectedIndex()));
+
+            JLabel lTitle = ((JLabel) p.getComponent(0));
+            lTitle.setFont(lTitle.getFont().deriveFont(Font.PLAIN, lTitle.getFont().getSize()));
+
+        }
+
     }//GEN-LAST:event_TPTabsStateChanged
 
     private void updateusers()
@@ -857,13 +872,12 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
     {
         main.write(AresFormater.FOREGROUND_CHARACTER + "01" + evt.getSender() + "> " + AresFormater.FOREGROUND_CHARACTER + "12" + evt.getText());
         event.onTextRecived(this);
-        
+
         if ((TPTabs.getSelectedIndex() != 0))
         {
-            TPTabs.setTitleAt(0,"<html><i>"+TPTabs.getTitleAt(0)+"<i/></html>");
+            TPTabs.setTitleAt(0, "<html><i>" + TPTabs.getTitleAt(0) + "</i></html>");
         }
-        
-        
+
     }
 
     @Override
@@ -876,15 +890,15 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
             cp.write(AresFormater.BOLD_CHARACTER + evt.getSender() + ":");
             cp.write("        " + evt.getText());
             event.onTextRecived(this);
-            
-            int index=TPTabs.indexOfComponent(cp);
-            
-            if(TPTabs.getSelectedIndex()!=index)
+
+            int index = TPTabs.indexOfComponent(cp);
+
+            if (index != -1 && TPTabs.getSelectedIndex() != index)
             {
-                System.out.println(TPTabs.getTitleAt(index));
-                TPTabs.setTitleAt(index,"<html><i>"+TPTabs.getTitleAt(index)+"<i/><html/>");
-                System.out.println(TPTabs.getTitleAt(index));
-                System.out.println("****************************************************************************");
+                JPanel p = ((JPanel) TPTabs.getTabComponentAt(index));
+
+                JLabel lTitle = ((JLabel) p.getComponent(0));
+                lTitle.setFont(lTitle.getFont().deriveFont(Font.ITALIC, lTitle.getFont().getSize()));
             }
         }
         catch (Exception ex)
@@ -963,16 +977,16 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
     @Override
     public void onUserList(HClientUserListevent evt)
     {
-        System.out.println(evt.getUser().getUsername()+" "+evt.getUser().getPublicIp()+"("+evt.getUser().getPrivateIp()+")");
+        System.out.println(evt.getUser().getUsername() + " " + evt.getUser().getPublicIp() + "(" + evt.getUser().getPrivateIp() + ")");
         addUser(evt.getUser());
     }
-    
-     @Override
+
+    @Override
     public void onUserListEnds(HClientEvent evt)
     {
         SPUsers.repaint();
-      /*  LUsers.repaint();
-        jPanel2.repaint();*/
+        /*  LUsers.repaint();
+         jPanel2.repaint();*/
         System.out.println("User List Ended");
     }
 
@@ -1021,5 +1035,4 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 
-   
 }

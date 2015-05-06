@@ -56,7 +56,6 @@ public class HermesClient extends javax.swing.JFrame
     public HermesClient() throws UnknownHostException, IOException, NoSuchAlgorithmException, DataFormatException
     {
         initComponents();
-
         ListPane lp = new ListPane(new ChannelListClickedEvent()
         {
 
@@ -66,22 +65,29 @@ public class HermesClient extends javax.swing.JFrame
                 try
                 {
                     addChannel(channel);
-                } catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
                     Logger.getLogger(HermesClient.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+
+            @Override
+            public void channelDownloaded(int count)
+            {
+                JPanel p = ((JPanel) TPChat.getTabComponentAt(0));
+
+                if (p != null)
+                {
+                    JLabel lTitle = ((JLabel) p.getComponent(1));
+                    lTitle.setText("Channel List (" + count + ")");
+                    p.repaint();
+                }
+            }
         });
-        
-        HChannel c=HHash.getInstance().decode("arlnk://F5fPxdTq8eJeuqSVejGmq2ZyjqMXyRLhJ8wqOxMIFNKBj3KphKLyeR3DlQ6uPROTUHdzj+9unfDZiubNHoBR04fqo+bApdqqmv602r+nD/SR8A8DH9dyL7Sg3/LI+Zwmew7XeleXMg3r3MAYjeloDVqITvLpRiJsjbpLtF/iGHf0Sy7eXMxT07scowrsxfK5J/NX3NZR9F8gUDomdzo1X/XZlYzeUsxWd7njHu+a2uSF8Y1RQuGrnX8IXsvFztMAy0tnHpi/uCzj9Q==");
-        
-        HChannel hc=new HCChannel("Zona malvada*",InetAddress.getByName("186.55.79.251"),5000,InetAddress.getByName("127.0.0.1"),"");
-        System.out.println(HHash.getInstance().encode(hc));
-        
-        System.out.println(c.getPublicIP()+":"+c.getPort());
-        
+
         user = ConfigReader.getInstance().getUser();
-       
+
         TPChat.add(lp);
         int index = TPChat.indexOfComponent(lp);
         TPChat.setTabComponentAt(index, getTitlePanel(lp, "Channel List", new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/channel-list.png")), null, 3));
@@ -94,7 +100,7 @@ public class HermesClient extends javax.swing.JFrame
         bNewTab.setRolloverEnabled(true);
         bNewTab.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/newConnection-over.png")));
         bNewTab.setSize(24, 16);
-               
+
         Action action = new AbstractAction("OpenHashDialog")
         {
 
@@ -184,12 +190,12 @@ public class HermesClient extends javax.swing.JFrame
 
     private void BNewTabActionPerformed()
     {
-        HashDialog hd=new HashDialog(this,true,"arlnk://CHATROOM:127.0.0.1:14884|UYM");
-        hd.setLocation((int)bNewTab.getLocationOnScreen().getX()-7,(int)bNewTab.getLocationOnScreen().getY()+14);
+        HashDialog hd = new HashDialog(this, true, "arlnk://CHATROOM:127.0.0.1:14884|UYM");
+        hd.setLocation((int) bNewTab.getLocationOnScreen().getX() - 7, (int) bNewTab.getLocationOnScreen().getY() + 14);
         hd.setVisible(true);
-        if(hd.getCloseOption()==HashDialog.ACEPT_OPTION)
+        if (hd.getCloseOption() == HashDialog.ACEPT_OPTION)
         {
-            if(hd.getChannel()!=null)
+            if (hd.getChannel() != null)
             {
                 try
                 {
@@ -219,21 +225,21 @@ public class HermesClient extends javax.swing.JFrame
 
     private void BConfigActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BConfigActionPerformed
     {//GEN-HEADEREND:event_BConfigActionPerformed
-        ConfigDialog cf=new ConfigDialog(user,this, true);
-        
-        cf.setLocation(BConfig.getLocationOnScreen().x-cf.getWidth()-5,BConfig.getLocationOnScreen().y+10);
+        ConfigDialog cf = new ConfigDialog(user, this, true);
+
+        cf.setLocation(BConfig.getLocationOnScreen().x - cf.getWidth() - 5, BConfig.getLocationOnScreen().y + 10);
         cf.setVisible(true);
-        if(cf.getOption()==JOptionPane.YES_OPTION)
+        if (cf.getOption() == JOptionPane.YES_OPTION)
         {
-            this.user=cf.getUser();
-            
-            for(int i=1;i<TPChat.getTabCount()-1;i++)
+            this.user = cf.getUser();
+
+            for (int i = 1; i < TPChat.getTabCount() - 1; i++)
             {
-                ((Panel)TPChat.getComponentAt(i)).update(user);
+                ((Panel) TPChat.getComponentAt(i)).update(user);
             }
         }
-        
-        
+
+
     }//GEN-LAST:event_BConfigActionPerformed
 
     private JPanel getTitlePanel(final JPanel panel, String title, ImageIcon icon, JButton button, int margin)
@@ -245,8 +251,8 @@ public class HermesClient extends javax.swing.JFrame
         {
             JLabel LIcon = new JLabel(icon);
             d = new Dimension(9, 8);
-             LIcon.setSize(d);
-             LIcon.setPreferredSize(d);
+            LIcon.setSize(d);
+            LIcon.setPreferredSize(d);
             titlePanel.add(LIcon);
         }
 
@@ -281,7 +287,7 @@ public class HermesClient extends javax.swing.JFrame
                 {
                     JPanel p = ((JPanel) TPChat.getTabComponentAt(index));
 
-                    ((JLabel) p.getComponent(0)).setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/chat-new.png")));                    
+                    ((JLabel) p.getComponent(0)).setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/chat-new.png")));
                 }
             }
 
