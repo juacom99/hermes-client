@@ -13,3 +13,5 @@ hs_err_pid*
 /build/
 /dist/
 /nbproject/private/
+/Colors/nbproject/private/
+/Colors/build/

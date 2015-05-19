@@ -194,6 +194,14 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         });
         PMUserListMenu.add(MIIgnore_Unignore);
 
+        addComponentListener(new java.awt.event.ComponentAdapter()
+        {
+            public void componentShown(java.awt.event.ComponentEvent evt)
+            {
+                formComponentShown(evt);
+            }
+        });
+
         SPSplitter.setBorder(null);
         SPSplitter.setDividerLocation(976);
         SPSplitter.addComponentListener(new java.awt.event.ComponentAdapter()
@@ -755,6 +763,11 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
 
     }//GEN-LAST:event_TPTabsStateChanged
 
+    private void formComponentShown(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_formComponentShown
+    {//GEN-HEADEREND:event_formComponentShown
+        TFInput.requestFocus();
+    }//GEN-LAST:event_formComponentShown
+
     private void updateusers()
     {
         LUsers.repaint();
@@ -999,6 +1012,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
     @Override
     public void onServerAck(HClientAckEvent evt)
     {
+        System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-"+evt.getChannelName()+"*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
         main.write(AresFormater.FOREGROUND_CHARACTER + "02Logged in, retrieving user's list...");
         event.onNameChange(this, evt.getChannelName());
     }
