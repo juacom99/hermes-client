@@ -5,12 +5,10 @@
  */
 package hermes.gui;
 
-import com.hermes.client.HCChannel;
 import hermes.gui.dialogs.ConfigDialog;
 import com.hermes.client.HCUser;
 import hermes.events.ChannelListClickedEvent;
 import com.hermes.common.HChannel;
-import com.hermes.common.HHash;
 import hermes.events.ChannelPaneEvents;
 import hermes.gui.dialogs.HashDialog;
 import hermes.util.ConfigReader;
@@ -22,7 +20,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
@@ -123,12 +120,11 @@ public class HermesClient extends javax.swing.JFrame
         TPChat.setEnabledAt(index, false);
 
         Container glassPane = (Container) this.getGlassPane();
-        glassPane.setBackground(Color.red);
-
         glassPane.setVisible(true);
 
         FlowLayout fl = new FlowLayout(FlowLayout.RIGHT);
         fl.setVgap(2);
+        fl.setHgap(8);
         glassPane.setLayout(fl);
 
         glassPane.add(BConfig);
