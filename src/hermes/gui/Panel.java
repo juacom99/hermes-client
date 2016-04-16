@@ -770,6 +770,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
 
     private void updateusers()
     {
+        LUsers.revalidate();
         LUsers.repaint();
     }
 

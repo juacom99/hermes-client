@@ -146,6 +146,7 @@ public class HermesClient extends javax.swing.JFrame
         BConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/config.png"))); // NOI18N
         BConfig.setBorderPainted(false);
         BConfig.setContentAreaFilled(false);
+        BConfig.setFocusPainted(false);
         BConfig.setMaximumSize(new java.awt.Dimension(20, 20));
         BConfig.setMinimumSize(new java.awt.Dimension(20, 20));
         BConfig.setPreferredSize(new java.awt.Dimension(20, 20));
