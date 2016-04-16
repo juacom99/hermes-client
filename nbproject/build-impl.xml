@@ -1036,10 +1036,13 @@ is divided into following sections:
         <copy file="ChatroomIPs.dat" flatten="true" todir="${dist.dir}" /> 
         <copy file="avatar.png" flatten="true" todir="${dist.dir}" />
         <copy file="LICENSE" flatten="true" todir="${dist.dir}" />
+        <copy file="Hermes-Client.sh" flatten="true" todir="${dist.dir}" /> 
+        <copy file="Hermes-Client.bat" flatten="true" todir="${dist.dir}" /> 
         <mkdir dir="${dist.dir}/emoticons"/> 
         <copy todir="${dist.dir}/emoticons"> 
             <fileset dir="./emoticons"/> 
         </copy> 
+         <delete file="${dist.dir}/README.TXT"/>   
 
         
     </target>
