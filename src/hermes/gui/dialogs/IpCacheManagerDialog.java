@@ -6,16 +6,21 @@
 package hermes.gui.dialogs;
 
 import com.hermes.common.HChannel;
+import com.hermes.common.HHash;
 import com.hermes.common.IPCacheManager;
 import hermes.gui.renderers.IPCacheRenderer;
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.zip.DataFormatException;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -62,10 +67,9 @@ public class IpCacheManagerDialog extends javax.swing.JDialog
     private void initComponents()
     {
 
-        TFIp = new javax.swing.JTextField();
+        TFHash = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         LCache = new javax.swing.JList();
-        SPort = new javax.swing.JSpinner();
         BAdd = new javax.swing.JButton();
         BAccept = new javax.swing.JButton();
 
@@ -73,9 +77,14 @@ public class IpCacheManagerDialog extends javax.swing.JDialog
 
         LCache.setModel(new DefaultListModel<HChannel>());
         LCache.setCellRenderer(new IPCacheRenderer());
+        LCache.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                LCacheMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(LCache);
-
-        SPort.setModel(new javax.swing.SpinnerNumberModel(Short.valueOf((short)0), null, null, Short.valueOf((short)1)));
 
         BAdd.setText("Add");
         BAdd.addActionListener(new java.awt.event.ActionListener()
@@ -107,9 +116,7 @@ public class IpCacheManagerDialog extends javax.swing.JDialog
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(BAccept))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(TFIp)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SPort, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(TFHash)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(BAdd)))
                 .addContainerGap())
@@ -121,8 +128,7 @@ public class IpCacheManagerDialog extends javax.swing.JDialog
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TFIp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TFHash, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BAdd))
                 .addGap(13, 13, 13)
                 .addComponent(BAccept)
@@ -134,31 +140,59 @@ public class IpCacheManagerDialog extends javax.swing.JDialog
 
     private void BAcceptActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BAcceptActionPerformed
     {//GEN-HEADEREND:event_BAcceptActionPerformed
+        try
+        {
+            cacheManager.clear();
+            
+            Enumeration<HChannel> channels=((DefaultListModel<HChannel>)LCache.getModel()).elements();
+            HChannel currentChannel;
+            while(channels.hasMoreElements())
+            {
+                currentChannel=channels.nextElement();
+                cacheManager.write(currentChannel.getPublicIP(),(short)currentChannel.getPort());
+            }
+            
+        } catch (IOException ex)
+        {
+            Logger.getLogger(IpCacheManagerDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         dispose();
     }//GEN-LAST:event_BAcceptActionPerformed
 
     private void BAddActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BAddActionPerformed
     {//GEN-HEADEREND:event_BAddActionPerformed
-        if (!TFIp.getText().isEmpty())
+        if (!TFHash.getText().replaceAll(" ","").isEmpty())
         {
 
             try
             {
-                InetAddress ip = InetAddress.getByName(TFIp.getText());
-                short port = (Short) SPort.getValue();
-                cacheManager.write(ip, port);
-                updateList();
-
-            } catch (UnknownHostException ex)
+                HChannel c=HHash.getInstance().decode(TFHash.getText());
+                
+                ((DefaultListModel<HChannel>)LCache.getModel()).addElement(c);
+                cacheManager.write(c.getPublicIP(),(short)c.getPort());
+                TFHash.setText("");
+            } catch (IOException ex)
             {
                 Logger.getLogger(IpCacheManagerDialog.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex)
+            } catch (DataFormatException ex)
             {
                 Logger.getLogger(IpCacheManagerDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
     }//GEN-LAST:event_BAddActionPerformed
+
+    private void LCacheMousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_LCacheMousePressed
+    {//GEN-HEADEREND:event_LCacheMousePressed
+        if ( SwingUtilities.isRightMouseButton(evt) )
+        {
+            JList list = (JList)evt.getSource();
+            int row = list.locationToIndex(evt.getPoint());
+            ((DefaultListModel<HChannel>)list.getModel()).remove(row);
+            
+        }
+    }//GEN-LAST:event_LCacheMousePressed
 
     /**
      * @param args the command line arguments
@@ -227,8 +261,7 @@ public class IpCacheManagerDialog extends javax.swing.JDialog
     private javax.swing.JButton BAccept;
     private javax.swing.JButton BAdd;
     private javax.swing.JList LCache;
-    private javax.swing.JSpinner SPort;
-    private javax.swing.JTextField TFIp;
+    private javax.swing.JTextField TFHash;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

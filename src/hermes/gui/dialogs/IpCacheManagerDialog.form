@@ -32,9 +32,7 @@
                       <Component id="BAccept" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="TFIp" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="SPort" min="-2" pref="74" max="-2" attributes="0"/>
+                      <Component id="TFHash" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="BAdd" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -50,8 +48,7 @@
               <Component id="jScrollPane1" min="-2" pref="266" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="TFIp" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="SPort" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="TFHash" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="BAdd" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
@@ -62,7 +59,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JTextField" name="TFIp">
+    <Component class="javax.swing.JTextField" name="TFHash">
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
@@ -80,16 +77,12 @@
               <Connection code="new IPCacheRenderer()" type="code"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="LCacheMousePressed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JSpinner" name="SPort">
-      <Properties>
-        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="0" numberType="java.lang.Short" stepSize="1" type="number"/>
-        </Property>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JButton" name="BAdd">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add"/>
