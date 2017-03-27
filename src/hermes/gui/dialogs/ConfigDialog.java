@@ -352,6 +352,7 @@ public class ConfigDialog extends javax.swing.JDialog
         {
             ImageIcon selectedAvatar=new ImageIcon(fc.getSelectedFile().getAbsolutePath());
             ImageIcon avatar=new ImageIcon(selectedAvatar.getImage().getScaledInstance(48,48,Image.SCALE_SMOOTH));
+            avatar.setDescription(fc.getSelectedFile().getAbsolutePath());
             LAvatar.setIcon(avatar);
         }
     }//GEN-LAST:event_LAvatarMouseClicked
