@@ -911,10 +911,19 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
     private javax.swing.Box.Filler filler4;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void onClientRedirected(HClientRedirectedEvent evt) {
-        HChannel to=evt.getTo();
-        main.write(AresFormater.FOREGROUND_CHARACTER + "02Your are been redirected to "+to.getName()+" ("+to.getPrivateIP().getHostAddress()+":"+to.getPort()+")" );
+      @Override
+    public void onClientRected(HClientRedirectedEvent evt)
+    {
+        main.write(AresFormater.FOREGROUND_CHARACTER + "02Your are been redirected to "+evt.getReadson()+" ("+evt.getIp().getHostAddress()+":"+evt.getPort()+")" );
+        try
+        {
+            client.disconnect();
+            client.connect(evt.getIp(),evt.getPort());
+        } catch (IOException ex)
+        {
+            Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
     }
 
 }
