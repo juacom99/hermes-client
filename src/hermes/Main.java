@@ -5,10 +5,14 @@
  */
 package hermes;
 
+import com.hermes.common.HChannel;
+import com.hermes.common.HHash;
 import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
 import hermes.gui.HermesClient;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.zip.DataFormatException;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -26,7 +30,7 @@ public class Main
     {
         
            
-            //Aluminium
+                  //Aluminium
             //Fast
             //hifi
              UIManager.setLookAndFeel(new AluminiumLookAndFeel());

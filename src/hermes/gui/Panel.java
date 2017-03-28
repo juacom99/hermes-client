@@ -5,6 +5,7 @@
  */
 package hermes.gui;
 
+import com.hermes.client.HCChannel;
 import com.hermes.client.HCUser;
 import com.hermes.client.HClient;
 import com.hermes.client.events.HClientAckEvent;
@@ -14,6 +15,7 @@ import com.hermes.client.events.HClientEvent;
 import com.hermes.client.events.HClientMessageEvent;
 import com.hermes.client.events.HClientNoSuchEvent;
 import com.hermes.client.events.HClientPersonalMessageEvent;
+import com.hermes.client.events.HClientRedirectedEvent;
 import com.hermes.client.events.HClientTopicEvent;
 import com.hermes.client.events.HClientUrlEvent;
 import com.hermes.client.events.HClientUserEvent;
@@ -24,6 +26,7 @@ import com.hermes.common.AresFormater;
 import com.hermes.common.HChannel;
 import com.hermes.common.HUser;
 import com.hermes.common.constants.HAdminLevel;
+import hermes.Main;
 import hermes.events.ChannelPaneEvents;
 import hermes.gui.dialogs.ColorDialog;
 import hermes.gui.dialogs.EmoticonsDialog;
@@ -59,8 +62,7 @@ import javax.swing.text.BadLocationException;
  *
  * @author jomartinez
  */
-public class Panel extends javax.swing.JPanel implements HIClientEvents
-{
+public class Panel extends javax.swing.JPanel implements HIClientEvents {
 
     private HClient client;
     private ChatPane main;
@@ -69,8 +71,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
     private ChannelPaneEvents event;
     private HChannel channel;
 
-    public Panel(HCUser user, HChannel channel, ChannelPaneEvents event) throws IOException
-    {
+    public Panel(HCUser user, HChannel channel, ChannelPaneEvents event) throws IOException {
         initComponents();
         this.channel = channel;
         this.event = event;
@@ -84,33 +85,26 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         client = new HClient(user);
         client.addClientEventListener(this);
 
-        if (channel.getTopic() != null)
-        {
+        if (channel.getTopic() != null) {
             LTopic.setText("<html>" + AresFormater.getInstance().toHTML(channel.getTopic()));
         }
 
         TFInput.requestFocus();
 
-        LUsers.addMouseListener(new MouseAdapter()
-        {
+        LUsers.addMouseListener(new MouseAdapter() {
 
             @Override
-            public void mouseClicked(MouseEvent evt)
-            {
+            public void mouseClicked(MouseEvent evt) {
                 JList<HUser> list = (JList) evt.getSource();
-                if (evt.getClickCount() == 2)
-                {
+                if (evt.getClickCount() == 2) {
                     // Double-click detected
                     int index = list.locationToIndex(evt.getPoint());
 
                     HUser u = list.getModel().getElementAt(index);
 
-                    try
-                    {
+                    try {
                         addPrivate(u.getUsername(), true);
-                    }
-                    catch (Exception ex)
-                    {
+                    } catch (Exception ex) {
                         Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
@@ -121,8 +115,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
 
     }
 
-    public HClient getClient()
-    {
+    public HClient getClient() {
         return client;
     }
 
@@ -133,14 +126,13 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         PMUserListMenu = new javax.swing.JPopupMenu();
         MICopy = new javax.swing.JMenuItem();
         MIIgnore_Unignore = new javax.swing.JMenuItem();
         SPSplitter = new javax.swing.JSplitPane();
-        jPanel1 = new javax.swing.JPanel();
+        PChat = new javax.swing.JPanel();
         TBBar = new javax.swing.JToolBar();
         BBold = new javax.swing.JButton();
         BItalic = new javax.swing.JButton();
@@ -153,61 +145,49 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         LURL = new javax.swing.JLabel();
         TPTabs = new javax.swing.JTabbedPane();
         TFInput = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
+        PList = new javax.swing.JPanel();
         SPUsers = new javax.swing.JScrollPane();
         LUsers = new javax.swing.JList();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         LTopic = new javax.swing.JLabel();
 
-        PMUserListMenu.addPopupMenuListener(new javax.swing.event.PopupMenuListener()
-        {
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt)
-            {
+        PMUserListMenu.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
                 PMUserListMenuPopupMenuWillBecomeVisible(evt);
             }
-            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt)
-            {
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
                 PMUserListMenuPopupMenuWillBecomeInvisible(evt);
             }
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt)
-            {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
         });
 
         MICopy.setText("Copy");
-        MICopy.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        MICopy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MICopyActionPerformed(evt);
             }
         });
         PMUserListMenu.add(MICopy);
 
         MIIgnore_Unignore.setText("Ignore");
-        MIIgnore_Unignore.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        MIIgnore_Unignore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MIIgnore_UnignoreActionPerformed(evt);
             }
         });
         PMUserListMenu.add(MIIgnore_Unignore);
 
-        addComponentListener(new java.awt.event.ComponentAdapter()
-        {
-            public void componentShown(java.awt.event.ComponentEvent evt)
-            {
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
                 formComponentShown(evt);
             }
         });
 
         SPSplitter.setBorder(null);
         SPSplitter.setDividerLocation(976);
-        SPSplitter.addComponentListener(new java.awt.event.ComponentAdapter()
-        {
-            public void componentResized(java.awt.event.ComponentEvent evt)
-            {
+        SPSplitter.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
                 SPSplitterComponentResized(evt);
             }
         });
@@ -225,10 +205,8 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         BBold.setMaximumSize(new java.awt.Dimension(20, 20));
         BBold.setMinimumSize(new java.awt.Dimension(20, 20));
         BBold.setPreferredSize(new java.awt.Dimension(20, 20));
-        BBold.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        BBold.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BBoldActionPerformed(evt);
             }
         });
@@ -241,10 +219,8 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         BItalic.setMaximumSize(new java.awt.Dimension(20, 20));
         BItalic.setMinimumSize(new java.awt.Dimension(20, 20));
         BItalic.setPreferredSize(new java.awt.Dimension(20, 20));
-        BItalic.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        BItalic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BItalicActionPerformed(evt);
             }
         });
@@ -256,10 +232,8 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         BUnderline.setMaximumSize(new java.awt.Dimension(20, 20));
         BUnderline.setMinimumSize(new java.awt.Dimension(20, 20));
         BUnderline.setPreferredSize(new java.awt.Dimension(20, 20));
-        BUnderline.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        BUnderline.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BUnderlineActionPerformed(evt);
             }
         });
@@ -270,10 +244,8 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         BForeground.setMaximumSize(new java.awt.Dimension(20, 20));
         BForeground.setMinimumSize(new java.awt.Dimension(20, 20));
         BForeground.setPreferredSize(new java.awt.Dimension(20, 20));
-        BForeground.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        BForeground.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BForegroundActionPerformed(evt);
             }
         });
@@ -284,10 +256,8 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         BBackground.setMaximumSize(new java.awt.Dimension(20, 20));
         BBackground.setMinimumSize(new java.awt.Dimension(20, 20));
         BBackground.setPreferredSize(new java.awt.Dimension(20, 20));
-        BBackground.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        BBackground.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BBackgroundActionPerformed(evt);
             }
         });
@@ -301,10 +271,8 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         BEmoticon.setMinimumSize(new java.awt.Dimension(20, 20));
         BEmoticon.setPreferredSize(new java.awt.Dimension(20, 20));
         BEmoticon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        BEmoticon.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        BEmoticon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BEmoticonActionPerformed(evt);
             }
         });
@@ -313,19 +281,15 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
 
         LURL.setMaximumSize(null);
         LURL.setMinimumSize(new java.awt.Dimension(60, 19));
-        LURL.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        LURL.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 LURLMouseClicked(evt);
             }
         });
         TBBar.add(LURL);
 
-        TPTabs.addChangeListener(new javax.swing.event.ChangeListener()
-        {
-            public void stateChanged(javax.swing.event.ChangeEvent evt)
-            {
+        TPTabs.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 TPTabsStateChanged(evt);
             }
         });
@@ -335,34 +299,32 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         TFInput.setMargin(new java.awt.Insets(2, 50, 2, 2));
         TFInput.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         TFInput.setSelectionColor(new java.awt.Color(224, 227, 206));
-        TFInput.addKeyListener(new java.awt.event.KeyAdapter()
-        {
-            public void keyPressed(java.awt.event.KeyEvent evt)
-            {
+        TFInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
                 TFInputKeyPressed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout PChatLayout = new javax.swing.GroupLayout(PChat);
+        PChat.setLayout(PChatLayout);
+        PChatLayout.setHorizontalGroup(
+            PChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PChatLayout.createSequentialGroup()
+                .addGroup(PChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PChatLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(TBBar, javax.swing.GroupLayout.DEFAULT_SIZE, 955, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(PChatLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(TFInput, javax.swing.GroupLayout.DEFAULT_SIZE, 955, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PChatLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(TPTabs))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        PChatLayout.setVerticalGroup(
+            PChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PChatLayout.createSequentialGroup()
                 .addComponent(TPTabs, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
                 .addGap(10, 10, 10)
                 .addComponent(TBBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -371,7 +333,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
                 .addContainerGap())
         );
 
-        SPSplitter.setLeftComponent(jPanel1);
+        SPSplitter.setLeftComponent(PChat);
 
         SPUsers.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -380,32 +342,30 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         LUsers.setModel(new DefaultListModel<HCUser>());
         LUsers.setCellRenderer(new UserRenderer());
         LUsers.setComponentPopupMenu(PMUserListMenu);
-        LUsers.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        LUsers.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 LUsersMouseClicked(evt);
             }
         });
         SPUsers.setViewportView(LUsers);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout PListLayout = new javax.swing.GroupLayout(PList);
+        PList.setLayout(PListLayout);
+        PListLayout.setHorizontalGroup(
+            PListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(SPUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
             .addComponent(filler2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        PListLayout.setVerticalGroup(
+            PListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PListLayout.createSequentialGroup()
                 .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SPUsers, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
         );
 
-        SPSplitter.setRightComponent(jPanel2);
+        SPSplitter.setRightComponent(PList);
 
         LTopic.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         LTopic.setText("TOPIC");
@@ -432,39 +392,30 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
 
     private void BBoldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BBoldActionPerformed
     {//GEN-HEADEREND:event_BBoldActionPerformed
-        try
-        {
+        try {
             TFInput.getDocument().insertString(TFInput.getCaretPosition(), "" + ((char) 2) + ((int) AresFormater.BOLD_CHARACTER), null);
             TFInput.requestFocus();
-        }
-        catch (BadLocationException ex)
-        {
+        } catch (BadLocationException ex) {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_BBoldActionPerformed
 
     private void BItalicActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BItalicActionPerformed
     {//GEN-HEADEREND:event_BItalicActionPerformed
-        try
-        {
+        try {
             TFInput.getDocument().insertString(TFInput.getCaretPosition(), "" + ((char) 2) + ((int) AresFormater.ITALIC_CHARACTER), null);
             TFInput.requestFocus();
-        }
-        catch (BadLocationException ex)
-        {
+        } catch (BadLocationException ex) {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_BItalicActionPerformed
 
     private void BUnderlineActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BUnderlineActionPerformed
     {//GEN-HEADEREND:event_BUnderlineActionPerformed
-        try
-        {
+        try {
             TFInput.getDocument().insertString(TFInput.getCaretPosition(), "" + ((char) 2) + ((int) AresFormater.UNDERLINE_CHARACTER), null);
             TFInput.requestFocus();
-        }
-        catch (BadLocationException ex)
-        {
+        } catch (BadLocationException ex) {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_BUnderlineActionPerformed
@@ -475,14 +426,10 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         c.setModal(true);
         c.setLocation((int) BForeground.getLocationOnScreen().getX() - 50, (int) BForeground.getLocationOnScreen().getY() - 125);
         c.setVisible(true);
-        if (c.getColorCode() != null)
-        {
-            try
-            {
+        if (c.getColorCode() != null) {
+            try {
                 TFInput.getDocument().insertString(TFInput.getCaretPosition(), AresFormater.FOREGROUND_CHARACTER + c.getColorCode(), null);
-            }
-            catch (BadLocationException ex)
-            {
+            } catch (BadLocationException ex) {
                 Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
             }
             TFInput.requestFocus();
@@ -495,14 +442,10 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         c.setModal(true);
         c.setLocation((int) BBackground.getLocationOnScreen().getX() - 50, (int) BBackground.getLocationOnScreen().getY() - 125);
         c.setVisible(true);
-        if (c.getColorCode() != null)
-        {
-            try
-            {
+        if (c.getColorCode() != null) {
+            try {
                 TFInput.getDocument().insertString(TFInput.getCaretPosition(), AresFormater.BACKGROUND_CHARACTER + c.getColorCode(), null);
-            }
-            catch (BadLocationException ex)
-            {
+            } catch (BadLocationException ex) {
                 Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
             }
             TFInput.requestFocus();
@@ -519,14 +462,10 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         ed.setLocation(BEmoticon.getLocationOnScreen().x - ed.getWidth() + 90, BEmoticon.getLocationOnScreen().y - 120);
         ed.setVisible(true);
 
-        if (ed.getSelected() != null)
-        {
-            try
-            {
+        if (ed.getSelected() != null) {
+            try {
                 TFInput.getDocument().insertString(TFInput.getCaretPosition(), ed.getSelected(), null);
-            }
-            catch (BadLocationException ex)
-            {
+            } catch (BadLocationException ex) {
                 Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
             }
             TFInput.requestFocus();
@@ -535,52 +474,37 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
 
     private void LURLMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_LURLMouseClicked
     {//GEN-HEADEREND:event_LURLMouseClicked
-        try
-        {
+        try {
 
             DesktopApi.browse(new URI(this.url));
-        }
-        catch (URISyntaxException ex)
-        {
+        } catch (URISyntaxException ex) {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_LURLMouseClicked
 
     private void TFInputKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_TFInputKeyPressed
     {//GEN-HEADEREND:event_TFInputKeyPressed
-        if (evt.getKeyCode() == 10)
-        {
+        if (evt.getKeyCode() == 10) {
             String text = TFInput.getText();
             text = text.replace(((char) 2) + "6", "" + AresFormater.BOLD_CHARACTER);
             text = text.replaceAll(((char) 2) + "7", "" + AresFormater.UNDERLINE_CHARACTER);
             text = text.replaceAll(((char) 2) + "9", "" + AresFormater.ITALIC_CHARACTER);
-            
-            if (TPTabs.getSelectedIndex() == 0)
-            {
-                try
-                {
-                    if (text.startsWith("/me"))
-                    {
+
+            if (TPTabs.getSelectedIndex() == 0) {
+                try {
+                    if (text.startsWith("/me")) {
 
                         client.sendEmote(text.substring(3));
-                    }
-                    else if (text.startsWith("/") || text.startsWith("#"))
-                    {
+                    } else if (text.startsWith("/") || text.startsWith("#")) {
                         client.sendCommand(text.substring(1));
-                    }
-                    else
-                    {
+                    } else {
                         client.sendMessage(text);
                     }
 
-                }
-                catch (IOException ex)
-                {
+                } catch (IOException ex) {
                     Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-            else
-            {
+            } else {
                 String to = TPTabs.getTitleAt(TPTabs.getSelectedIndex());
                 client.sendPM(to, text);
 
@@ -607,12 +531,9 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
     private void MICopyActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_MICopyActionPerformed
     {//GEN-HEADEREND:event_MICopyActionPerformed
 
-        try
-        {
+        try {
             TFInput.getDocument().insertString(TFInput.getCaretPosition(), ((HCUser) LUsers.getSelectedValue()).getUsername(), null);
-        }
-        catch (BadLocationException ex)
-        {
+        } catch (BadLocationException ex) {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
         TFInput.requestFocus();
@@ -625,20 +546,15 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
 
     private void PMUserListMenuPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt)//GEN-FIRST:event_PMUserListMenuPopupMenuWillBecomeInvisible
     {//GEN-HEADEREND:event_PMUserListMenuPopupMenuWillBecomeInvisible
-        if (PMUserListMenu.getComponentCount() > 3)
-        {
+        if (PMUserListMenu.getComponentCount() > 3) {
 
-            if (client.getAdminLevel() != HAdminLevel.Normal_User)
-            {
-                for (int i = 0; i < 4; i++)
-                {
+            if (client.getAdminLevel() != HAdminLevel.Normal_User) {
+                for (int i = 0; i < 4; i++) {
                     PMUserListMenu.remove(2);
                 }
             }
-            if (client.getAdminLevel() == HAdminLevel.Host)
-            {
-                for (int i = 0; i < 4; i++)
-                {
+            if (client.getAdminLevel() == HAdminLevel.Host) {
+                for (int i = 0; i < 4; i++) {
                     PMUserListMenu.remove(2);
                 }
             }
@@ -650,44 +566,36 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
     private void PMUserListMenuPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt)//GEN-FIRST:event_PMUserListMenuPopupMenuWillBecomeVisible
     {//GEN-HEADEREND:event_PMUserListMenuPopupMenuWillBecomeVisible
 
-        if (PMUserListMenu.getComponentCount() < 3)
-        {
+        if (PMUserListMenu.getComponentCount() < 3) {
             final HCUser usr = (HCUser) LUsers.getSelectedValue();
 
-            if (client.getAdminLevel() != HAdminLevel.Normal_User)
-            {
+            if (client.getAdminLevel() != HAdminLevel.Normal_User) {
                 JMenuItem MIMuzzle = new JMenuItem("Muzzle");
                 MIMuzzle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/muzzle.png")));
-                MIMuzzle.addActionListener(new ActionListener()
-                {
+                MIMuzzle.addActionListener(new ActionListener() {
 
                     @Override
-                    public void actionPerformed(ActionEvent e)
-                    {
+                    public void actionPerformed(ActionEvent e) {
                         client.sendCommand("muzzle " + usr.getUsername());
                     }
                 });
 
                 JMenuItem MIKill = new JMenuItem("Kill");
                 MIKill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/kill.png")));
-                MIKill.addActionListener(new ActionListener()
-                {
+                MIKill.addActionListener(new ActionListener() {
 
                     @Override
-                    public void actionPerformed(ActionEvent e)
-                    {
+                    public void actionPerformed(ActionEvent e) {
                         client.sendCommand("kill " + usr.getUsername());
                     }
                 });
 
                 JMenuItem MIBan = new JMenuItem("Ban");
                 MIBan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/ban.png")));
-                MIBan.addActionListener(new ActionListener()
-                {
+                MIBan.addActionListener(new ActionListener() {
 
                     @Override
-                    public void actionPerformed(ActionEvent e)
-                    {
+                    public void actionPerformed(ActionEvent e) {
                         client.sendCommand("ban " + usr.getUsername());
                     }
                 });
@@ -698,40 +606,33 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
                 PMUserListMenu.add(MIBan);
 
             }
-            if (client.getAdminLevel() == HAdminLevel.Host)
-            {
+            if (client.getAdminLevel() == HAdminLevel.Host) {
                 JMenuItem MIMuzzle = new JMenuItem("Host Muzzle");
                 MIMuzzle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/muzzle.png")));
-                MIMuzzle.addActionListener(new ActionListener()
-                {
+                MIMuzzle.addActionListener(new ActionListener() {
 
                     @Override
-                    public void actionPerformed(ActionEvent e)
-                    {
+                    public void actionPerformed(ActionEvent e) {
                         client.sendCommand("hostmuzzle " + usr.getUsername());
                     }
                 });
 
                 JMenuItem MIKill = new JMenuItem("Host Kill");
                 MIKill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/kill.png")));
-                MIKill.addActionListener(new ActionListener()
-                {
+                MIKill.addActionListener(new ActionListener() {
 
                     @Override
-                    public void actionPerformed(ActionEvent e)
-                    {
+                    public void actionPerformed(ActionEvent e) {
                         client.sendCommand("hostkill " + usr.getUsername());
                     }
                 });
 
                 JMenuItem MIBan = new JMenuItem("Host Ban");
                 MIBan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/ban.png")));
-                MIKill.addActionListener(new ActionListener()
-                {
+                MIKill.addActionListener(new ActionListener() {
 
                     @Override
-                    public void actionPerformed(ActionEvent e)
-                    {
+                    public void actionPerformed(ActionEvent e) {
                         client.sendCommand("hostban " + usr.getUsername());
                     }
                 });
@@ -747,13 +648,10 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
 
     private void TPTabsStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_TPTabsStateChanged
     {//GEN-HEADEREND:event_TPTabsStateChanged
-        if (TPTabs.getSelectedIndex() == 0)
-        {
-            String title = TPTabs.getTitleAt(TPTabs.getSelectedIndex()).replaceAll("<html><i>", "").replaceAll("</i/></html>", "");
+        if (TPTabs.getSelectedIndex() == 0) {
+            String title = TPTabs.getTitleAt(TPTabs.getSelectedIndex()).replaceAll("\\<.*?>","");
             TPTabs.setTitleAt(TPTabs.getSelectedIndex(), title);
-        }
-        else
-        {
+        } else {
             JPanel p = ((JPanel) TPTabs.getTabComponentAt(TPTabs.getSelectedIndex()));
 
             JLabel lTitle = ((JLabel) p.getComponent(0));
@@ -768,26 +666,22 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         TFInput.requestFocus();
     }//GEN-LAST:event_formComponentShown
 
-    private void updateusers()
-    {
+    private void updateusers() {
         LUsers.revalidate();
         LUsers.repaint();
     }
 
-    private void addUser(HUser usr)
-    {
+    private void addUser(HUser usr) {
         ((DefaultListModel<HUser>) LUsers.getModel()).addElement(usr);
         SPUsers.repaint();
     }
 
-    private void removeUser(HUser usr)
-    {
+    private void removeUser(HUser usr) {
         ((DefaultListModel<HUser>) LUsers.getModel()).removeElement(usr);
         LUsers.repaint();
     }
 
-    private JPanel getTitlePanel(final JTabbedPane tabbedPane, final JPanel panel, String title)
-    {
+    private JPanel getTitlePanel(final JTabbedPane tabbedPane, final JPanel panel, String title) {
         JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 3, 0));
         titlePanel.setOpaque(false);
 
@@ -804,11 +698,9 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         Dimension d = new Dimension(16, 16);
         closeButton.setSize(d);
         closeButton.setPreferredSize(d);
-        closeButton.addMouseListener(new MouseAdapter()
-        {
+        closeButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e)
-            {
+            public void mouseClicked(MouseEvent e) {
                 tabbedPane.remove(panel);
             }
         });
@@ -817,64 +709,49 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
         return titlePanel;
     }
 
-    private void addPrivate(String userName, boolean giveFocus) throws Exception
-    {
+    private void addPrivate(String userName, boolean giveFocus) throws Exception {
         ChatPane cp;
 
-        if (!privates.containsKey(userName))
-        {
+        if (!privates.containsKey(userName)) {
             cp = new ChatPane();
             TPTabs.add(cp, userName);
             privates.put(userName, cp);
             int index = TPTabs.indexOfComponent(cp);
             TPTabs.setTabComponentAt(index, getTitlePanel(TPTabs, cp, userName));
-        }
-        else
-        {
+        } else {
             cp = privates.get(userName);
 
-            if (TPTabs.indexOfComponent(cp) == -1)
-            {
+            if (TPTabs.indexOfComponent(cp) == -1) {
                 TPTabs.add(cp, userName);
                 int index = TPTabs.indexOfComponent(cp);
                 TPTabs.setTabComponentAt(index, getTitlePanel(TPTabs, cp, userName));
             }
         }
 
-        if (giveFocus)
-        {
+        if (giveFocus) {
             TPTabs.setSelectedIndex(TPTabs.getTabCount() - 1);
         }
     }
 
-    public void close()
-    {
-        try
-        {
+    public void close() {
+        try {
             client.disconnect();
-        }
-        catch (IOException ex)
-        {
+        } catch (IOException ex) {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void connect()
-    {
+    public void connect() {
         main.write(AresFormater.FOREGROUND_CHARACTER + "02Connecting to host, please wait...");
-        try
-        {
+        try {
             client.connect(channel.getPublicIP(), channel.getPort());
-        }
-        catch (IOException ex)
-        {
+        } catch (IOException ex) {
             HClientEvent e = new HClientEvent();
             onDisconnect(e);
         }
     }
 
-    public void update(HCUser newUser)
-    {
+    public void update(HCUser newUser) {
         client.setUser(newUser);
         client.actionPerformed(new ActionEvent(newUser, 43, ""));
         client.sendPersonalMessage(newUser.getPersonalMessage());
@@ -882,23 +759,19 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
     }
 
     @Override
-    public void onPublicMessage(HClientMessageEvent evt)
-    {
+    public void onPublicMessage(HClientMessageEvent evt) {
         main.write(AresFormater.FOREGROUND_CHARACTER + "01" + evt.getSender() + "> " + AresFormater.FOREGROUND_CHARACTER + "12" + evt.getText());
         event.onTextRecived(this);
 
-        if ((TPTabs.getSelectedIndex() != 0))
-        {
-            TPTabs.setTitleAt(0, "<html><i>" + TPTabs.getTitleAt(0) + "</i></html>");
+        if ((TPTabs.getSelectedIndex() != 0)) {
+            TPTabs.setTitleAt(0, "<html><i>" + TPTabs.getTitleAt(0).replaceAll("\\<.*?>","") + "</i></html>");
         }
 
     }
 
     @Override
-    public void onPrivateMessage(HClientMessageEvent evt)
-    {
-        try
-        {
+    public void onPrivateMessage(HClientMessageEvent evt) {
+        try {
             addPrivate(evt.getSender(), false);
             ChatPane cp = privates.get(evt.getSender());
             cp.write(AresFormater.BOLD_CHARACTER + evt.getSender() + ":");
@@ -907,120 +780,108 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
 
             int index = TPTabs.indexOfComponent(cp);
 
-            if (index != -1 && TPTabs.getSelectedIndex() != index)
-            {
+            if (index != -1 && TPTabs.getSelectedIndex() != index) {
                 JPanel p = ((JPanel) TPTabs.getTabComponentAt(index));
 
                 JLabel lTitle = ((JLabel) p.getComponent(0));
                 lTitle.setFont(lTitle.getFont().deriveFont(Font.ITALIC, lTitle.getFont().getSize()));
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    public void onNoSuch(HClientNoSuchEvent evt)
-    {
+    public void onNoSuch(HClientNoSuchEvent evt) {
         main.write(AresFormater.FOREGROUND_CHARACTER + "04" + evt.getNoSuch());
         event.onTextRecived(this);
     }
 
     @Override
-    public void onJoin(HClientUserEvent evt)
-    {
+    public void onJoin(HClientUserEvent evt) {
         addUser(evt.getUser());
         main.write(AresFormater.FOREGROUND_CHARACTER + "03" + evt.getUser() + " has join the channel");
     }
 
     @Override
-    public void onPart(HClientUserEvent evt)
-    {
+    public void onPart(HClientUserEvent evt) {
 
         main.write(AresFormater.FOREGROUND_CHARACTER + "07" + evt.getUser() + " has part the channel");
         removeUser(evt.getUser());
     }
 
     @Override
-    public void onPersonalMessage(HClientPersonalMessageEvent evt)
-    {
+    public void onPersonalMessage(HClientPersonalMessageEvent evt) {
         updateusers();
     }
 
     @Override
-    public void onAvatar(HClientAvatarEvent evt)
-    {
+    public void onAvatar(HClientAvatarEvent evt) {
 
     }
 
     @Override
-    public void onEmote(HClientEmoteEvent evt)
-    {
+    public void onEmote(HClientEmoteEvent evt) {
         main.write(AresFormater.FOREGROUND_CHARACTER + "06* " + evt.getUsername() + " " + evt.getEmote());
     }
 
     @Override
-    public void onURL(HClientUrlEvent evt)
-    {
+    public void onURL(HClientUrlEvent evt) {
         LURL.setText("<html><a href=\"" + evt.getUrl() + "\">" + evt.getUrlCaption() + "<a/>");
         LURL.setToolTipText(evt.getUrl());
         url = evt.getUrl();
     }
 
     @Override
-    public void onTopic(HClientTopicEvent evt)
-    {
+    public void onTopic(HClientTopicEvent evt) {
         LTopic.setText("<html>" + AresFormater.getInstance().toHTML(evt.getTopic()) + "<html>");
     }
 
     @Override
-    public void onConnect(HClientEvent evt)
-    {
+    public void onConnect(HClientEvent evt) {
         main.write(((char) 3) + "02Connected, starting handshake");
     }
 
     @Override
-    public void onDisconnect(HClientEvent evt)
-    {
+    public void onDisconnect(HClientEvent evt) {
 
         main.write(((char) 3) + "04Disconnected");
     }
 
     @Override
-    public void onUserList(HClientUserListevent evt)
-    {
+    public void onUserList(HClientUserListevent evt) {
         System.out.println(evt.getUser().getUsername() + " " + evt.getUser().getPublicIp() + "(" + evt.getUser().getPrivateIp() + ")");
         addUser(evt.getUser());
     }
 
     @Override
-    public void onUserListEnds(HClientEvent evt)
-    {
+    public void onUserListEnds(HClientEvent evt) {
         SPUsers.repaint();
-        /*  LUsers.repaint();
-         jPanel2.repaint();*/
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                //LUsers.repaint();
+                PList.repaint();
+            }
+        });
+
         System.out.println("User List Ended");
     }
 
     @Override
-    public void onUserUpdate(HClientUserUpdateEvent evt)
-    {
+    public void onUserUpdate(HClientUserUpdateEvent evt) {
         updateusers();
     }
 
     @Override
-    public void onServerAck(HClientAckEvent evt)
-    {
-        System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-"+evt.getChannelName()+"*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
+    public void onServerAck(HClientAckEvent evt) {
+        System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-" + evt.getChannelName() + "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
         main.write(AresFormater.FOREGROUND_CHARACTER + "02Logged in, retrieving user's list...");
         event.onNameChange(this, evt.getChannelName());
     }
 
     @Override
-    public void onUserIsIgnorinYou(HClientUserEvent evt)
-    {
+    public void onUserIsIgnorinYou(HClientUserEvent evt) {
         ((ChatPane) TPTabs.getSelectedComponent()).write(AresFormater.FOREGROUND_CHARACTER + "04" + evt.getUser() + " is ignoring you");
     }
 
@@ -1037,6 +898,8 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
     private javax.swing.JList LUsers;
     private javax.swing.JMenuItem MICopy;
     private javax.swing.JMenuItem MIIgnore_Unignore;
+    private javax.swing.JPanel PChat;
+    private javax.swing.JPanel PList;
     private javax.swing.JPopupMenu PMUserListMenu;
     private javax.swing.JSplitPane SPSplitter;
     private javax.swing.JScrollPane SPUsers;
@@ -1046,8 +909,12 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void onClientRedirected(HClientRedirectedEvent evt) {
+        HChannel to=evt.getTo();
+        main.write(AresFormater.FOREGROUND_CHARACTER + "02Your are been redirected to "+to.getName()+" ("+to.getPrivateIP().getHostAddress()+":"+to.getPort()+")" );
+    }
 
 }
