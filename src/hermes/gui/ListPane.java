@@ -163,8 +163,7 @@ public class ListPane extends javax.swing.JPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         BUpdate = new javax.swing.JButton();
         PMMenu = new javax.swing.JPopupMenu();
@@ -186,10 +185,8 @@ public class ListPane extends javax.swing.JPanel
         BUpdate.setRolloverEnabled(false);
 
         MIExport.setText("Export Hash");
-        MIExport.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        MIExport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MIExportActionPerformed(evt);
             }
         });
@@ -198,40 +195,32 @@ public class ListPane extends javax.swing.JPanel
         TChannels.setAutoCreateRowSorter(true);
         TChannels.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         TChannels.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
+            new Object [][] {
 
             },
-            new String []
-            {
+            new String [] {
                 "Id", "Name", "Topic", "Language", "Users"
             }
-        )
-        {
-            Class[] types = new Class []
-            {
+        ) {
+            Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
-            boolean[] canEdit = new boolean []
-            {
+            boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
             };
 
-            public Class getColumnClass(int columnIndex)
-            {
+            public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
 
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
         TChannels.setComponentPopupMenu(PMMenu);
         TChannels.setRowHeight(25);
         jScrollPane1.setViewportView(TChannels);
-        if (TChannels.getColumnModel().getColumnCount() > 0)
-        {
+        if (TChannels.getColumnModel().getColumnCount() > 0) {
             TChannels.getColumnModel().getColumn(0).setMinWidth(0);
             TChannels.getColumnModel().getColumn(0).setPreferredWidth(0);
             TChannels.getColumnModel().getColumn(0).setMaxWidth(0);
@@ -257,10 +246,9 @@ public class ListPane extends javax.swing.JPanel
         BRefresh.setBorderPainted(false);
         BRefresh.setContentAreaFilled(false);
         BRefresh.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/refreshing.gif"))); // NOI18N
-        BRefresh.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        BRefresh.setFocusPainted(false);
+        BRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BRefreshActionPerformed(evt);
             }
         });
