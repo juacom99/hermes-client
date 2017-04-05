@@ -25,61 +25,61 @@ import javax.swing.text.html.HTMLEditorKit;
  *
  * @author jomartinez
  */
-public class ChatPane extends javax.swing.JPanel
-{
+public class ChatPane extends javax.swing.JPanel {
 
     /**
      * Creates new form ChatPane
      */
     private HTMLDocument doc;
     private HTMLEditorKit kit;
-    
-    public ChatPane()
-    {
+
+    public ChatPane() {
         initComponents();
         this.doc = new HTMLDocument();
         this.kit = new HTMLEditorKit();
-        
+
         EPChat.setComponentPopupMenu(PMMenu);
-        
+
         EPChat.setSelectionColor(new Color(224, 227, 206));
-        EPChat.addHyperlinkListener(new HyperlinkListener()
-        {
-            
+        EPChat.addHyperlinkListener(new HyperlinkListener() {
+
             @Override
-            public void hyperlinkUpdate(HyperlinkEvent e)
-            {
-                
-                if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED)
-                {
-                    try
-                    {
+            public void hyperlinkUpdate(HyperlinkEvent e) {
+
+                if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+                    try {
+                        e.getURL().openConnection();
+                    } catch (IOException ex) {
+                        Logger.getLogger(ChatPane.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
                         DesktopApi.browse(new URI(e.getURL().toString()));
-                    } catch (URISyntaxException ex)
-                    {
+                    } catch (URISyntaxException ex) {
                         Logger.getLogger(ChatPane.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
         });
-        
+
+       doc.getStyleSheet().addRule("a{color:#616161;text-decoration:underline;}");
+        doc.getStyleSheet().addRule("a:visited:active{color:#9d9d9d}");
+        doc.getStyleSheet().addRule("a:hover{color:red;}");
+
         EPChat.setEditorKit(kit);
-        EPChat.setDocument(doc);        
+        EPChat.setDocument(doc);
+        EPChat.setEditable(false);
+
     }
-    
-    public void write(String s)
-    {
-        try
-        {
+
+    public void write(String s) {
+        try {
             String str = AresFormater.getInstance().toHTML(s);
             kit.insertHTML(doc, doc.getLength(), "<p>" + str + "</p>", 0, 0, null);
-            
+
             EPChat.select(doc.getLength(), doc.getLength());
-        } catch (BadLocationException ex)
-        {
+        } catch (BadLocationException ex) {
             Logger.getLogger(ChatPane.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex)
-        {
+        } catch (IOException ex) {
             Logger.getLogger(ChatPane.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -91,8 +91,7 @@ public class ChatPane extends javax.swing.JPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         PMMenu = new javax.swing.JPopupMenu();
         MISave = new javax.swing.JMenuItem();
@@ -102,10 +101,8 @@ public class ChatPane extends javax.swing.JPanel
         MISave.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
         MISave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/save.png"))); // NOI18N
         MISave.setText("Save to..");
-        MISave.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        MISave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MISaveActionPerformed(evt);
             }
         });
@@ -119,6 +116,7 @@ public class ChatPane extends javax.swing.JPanel
         EPChat.setContentType("text/html"); // NOI18N
         EPChat.getDocument().putProperty("char-set","UTF-8");
         EPChat.setFont(new java.awt.Font("Serif", 0, 12)); // NOI18N
+        EPChat.setText("<html>\n  <head>\n  </head>\n  <body>\n    <p style=\"margin-top: 0\">\n      \n    </p>\n  </body>\n</html>\n");
         jScrollPane2.setViewportView(EPChat);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -136,21 +134,19 @@ public class ChatPane extends javax.swing.JPanel
     private void MISaveActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_MISaveActionPerformed
     {//GEN-HEADEREND:event_MISaveActionPerformed
         JFileChooser fc = new JFileChooser();
-        
+
         int option = fc.showSaveDialog(this);
-        
-        if (option == JFileChooser.APPROVE_OPTION)
-        {
-            try
-            {
+
+        if (option == JFileChooser.APPROVE_OPTION) {
+            try {
                 doc.getStyleSheet().addRule("p{margin:0px;font-family: monospace;}");
+                /*doc.getStyleSheet().addRule("a{text-decoration:underline;color:#616161;}");
+                doc.getStyleSheet().addRule("a:visited{color:#9d9d9d}");*/
                 kit.write(new FileOutputStream(fc.getSelectedFile().getPath()), doc, 0, doc.getLength());
                 doc.getStyleSheet().removeStyle("p");
-            } catch (IOException ex)
-            {
+            } catch (IOException ex) {
                 Logger.getLogger(ChatPane.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (BadLocationException ex)
-            {
+            } catch (BadLocationException ex) {
                 Logger.getLogger(ChatPane.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

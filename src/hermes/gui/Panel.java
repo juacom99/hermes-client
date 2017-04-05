@@ -99,7 +99,11 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
                 if (evt.getClickCount() == 2) {
                     // Double-click detected
                     int index = list.locationToIndex(evt.getPoint());
-
+                    
+                    if(index>list.getModel().getSize()-1)
+                    {
+                        index=list.getModel().getSize()-1;
+                    }
                     HUser u = list.getModel().getElementAt(index);
 
                     try {
@@ -341,7 +345,6 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
         LUsers.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         LUsers.setModel(new DefaultListModel<HCUser>());
         LUsers.setCellRenderer(new UserRenderer());
-        LUsers.setComponentPopupMenu(PMUserListMenu);
         LUsers.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 LUsersMouseClicked(evt);
@@ -526,6 +529,11 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
     private void LUsersMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_LUsersMouseClicked
     {//GEN-HEADEREND:event_LUsersMouseClicked
         LUsers.setSelectedIndex(LUsers.locationToIndex(evt.getPoint()));
+        
+        if(evt.getButton()==MouseEvent.BUTTON3)
+        {
+            PMUserListMenu.show(LUsers, evt.getX(),evt.getY());
+        }
     }//GEN-LAST:event_LUsersMouseClicked
 
     private void MICopyActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_MICopyActionPerformed

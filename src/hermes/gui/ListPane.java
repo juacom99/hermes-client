@@ -120,6 +120,12 @@ public class ListPane extends javax.swing.JPanel
                 {
                     evt.channelListClick(selectedChannel);
                 }
+                
+                else if(e.getButton()==MouseEvent.BUTTON3)
+                {
+                    TChannels.setRowSelectionInterval(row,row);
+                    PMMenu.show(TChannels,e.getX(),e.getY());
+                }
             }
         });
         TFFilter.requestFocus();
@@ -217,7 +223,6 @@ public class ListPane extends javax.swing.JPanel
                 return canEdit [columnIndex];
             }
         });
-        TChannels.setComponentPopupMenu(PMMenu);
         TChannels.setRowHeight(25);
         jScrollPane1.setViewportView(TChannels);
         if (TChannels.getColumnModel().getColumnCount() > 0) {
@@ -293,7 +298,7 @@ public class ListPane extends javax.swing.JPanel
         StringSelection stringSelection = null;
         try
         {
-            stringSelection = new StringSelection(HHash.getInstance().encode(selectedChannel));
+            stringSelection = new StringSelection(selectedChannel.getHash());
         }
         catch (UnknownHostException ex)
         {
