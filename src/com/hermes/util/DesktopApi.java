@@ -1,4 +1,4 @@
-package hermes.util;
+package com.hermes.util;
 
 
 

@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hermes.gui.renderers;
+package com.hermes.gui.renderers;
 
 import com.hermes.common.HUser;
 import com.hermes.common.constants.HAdminLevel;
-import hermes.gui.Panel;
+import com.hermes.gui.Panel;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionListener;
@@ -134,7 +134,7 @@ public class UserRenderer extends javax.swing.JPanel implements ListCellRenderer
         }
         else
         {
-            LAvatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/noAvatar.png")));
+            LAvatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/noAvatar.png")));
         }
 
         if (value.getLevel() == HAdminLevel.Moderator)

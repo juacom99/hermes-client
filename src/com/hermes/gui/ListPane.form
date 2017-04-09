@@ -5,7 +5,7 @@
     <Component class="javax.swing.JButton" name="BUpdate">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/hermes/resources/images/update.png"/>
+          <Image iconType="3" name="/com/hermes/resources/images/update.png"/>
         </Property>
         <Property name="borderPainted" type="boolean" value="false"/>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -64,7 +64,7 @@
               <EmptySpace max="32767" attributes="0"/>
               <Component id="TFFilter" min="-2" pref="200" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" pref="21" max="-2" attributes="0"/>
+              <Component id="LFilter" min="-2" pref="21" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -75,7 +75,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="BRefresh" min="-2" pref="21" max="-2" attributes="0"/>
-                  <Component id="jLabel1" alignment="0" min="-2" pref="21" max="-2" attributes="0"/>
+                  <Component id="LFilter" alignment="0" min="-2" pref="21" max="-2" attributes="0"/>
                   <Component id="TFFilter" alignment="1" min="-2" pref="16" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
@@ -160,23 +160,20 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="LFilter">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/hermes/resources/images/filter.png"/>
+          <Image iconType="3" name="/com/hermes/resources/images/filter.png"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="BRefresh">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/hermes/resources/images/refresh.png"/>
+          <Image iconType="3" name="/com/hermes/resources/images/update.png"/>
         </Property>
         <Property name="borderPainted" type="boolean" value="false"/>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
-        <Property name="disabledIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/hermes/resources/images/refreshing.gif"/>
-        </Property>
         <Property name="focusPainted" type="boolean" value="false"/>
       </Properties>
       <Events>

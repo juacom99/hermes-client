@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hermes.gui.dialogs;
+package com.hermes.gui.dialogs;
 
 import com.hermes.common.AresFormater;
 import java.awt.event.ActionEvent;

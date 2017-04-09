@@ -14,7 +14,7 @@
               <Font name="Serif" size="12" style="1"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/hermes/resources/images/save.png"/>
+              <Image iconType="3" name="/com/hermes/resources/images/save.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Save to.."/>
           </Properties>

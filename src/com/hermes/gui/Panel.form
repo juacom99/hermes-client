@@ -210,7 +210,7 @@
                 <Component class="javax.swing.JButton" name="BForeground">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/hermes/resources/images/fg.png"/>
+                      <Image iconType="3" name="/com/hermes/resources/images/fg.png"/>
                     </Property>
                     <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                       <Insets value="[0, 0, 0, 0]"/>
@@ -232,7 +232,7 @@
                 <Component class="javax.swing.JButton" name="BBackground">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/hermes/resources/images/bg.png"/>
+                      <Image iconType="3" name="/com/hermes/resources/images/bg.png"/>
                     </Property>
                     <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                       <Insets value="[0, 0, 0, 0]"/>
@@ -270,7 +270,7 @@
                 <Component class="javax.swing.JButton" name="BEmoticon">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/hermes/resources/images/emoti.png"/>
+                      <Image iconType="3" name="/com/hermes/resources/images/emoti.png"/>
                     </Property>
                     <Property name="focusable" type="boolean" value="false"/>
                     <Property name="horizontalTextPosition" type="int" value="0"/>

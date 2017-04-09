@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hermes.events;
+package com.hermes.events;
 
 import com.hermes.common.HChannel;
 

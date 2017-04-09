@@ -1,4 +1,4 @@
-package hermes.gui.dialogs;
+package com.hermes.gui.dialogs;
 
 import com.hermes.client.HCUser;
 import com.hermes.common.HUser;
@@ -6,7 +6,7 @@ import com.hermes.common.constants.HBrowsable;
 import com.hermes.common.constants.HGender;
 import com.hermes.common.constants.HLineType;
 import com.hermes.common.constants.HLocation;
-import hermes.util.ConfigReader;
+import com.hermes.util.ConfigReader;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -70,8 +70,7 @@ public class ConfigDialog extends javax.swing.JDialog
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jEditorPane1 = new javax.swing.JEditorPane();
@@ -108,10 +107,8 @@ public class ConfigDialog extends javax.swing.JDialog
         setMinimumSize(new java.awt.Dimension(310, 411));
 
         LAvatar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        LAvatar.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        LAvatar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 LAvatarMouseClicked(evt);
             }
         });
@@ -143,10 +140,8 @@ public class ConfigDialog extends javax.swing.JDialog
 
         CBBrowsable.setText("Browsable:            ");
         CBBrowsable.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        CBBrowsable.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        CBBrowsable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CBBrowsableActionPerformed(evt);
             }
         });
@@ -168,46 +163,38 @@ public class ConfigDialog extends javax.swing.JDialog
 
         BAcept.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         BAcept.setText("Acept");
-        BAcept.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        BAcept.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BAceptActionPerformed(evt);
             }
         });
 
-        BCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/close.png"))); // NOI18N
+        BCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/close.png"))); // NOI18N
         BCancel.setBorderPainted(false);
         BCancel.setContentAreaFilled(false);
-        BCancel.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/close-over.png"))); // NOI18N
-        BCancel.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        BCancel.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/close-over.png"))); // NOI18N
+        BCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BCancelActionPerformed(evt);
             }
         });
 
         BClear.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        BClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/remove.png"))); // NOI18N
+        BClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/remove.png"))); // NOI18N
         BClear.setBorderPainted(false);
         BClear.setContentAreaFilled(false);
         BClear.setMaximumSize(new java.awt.Dimension(20, 20));
         BClear.setMinimumSize(new java.awt.Dimension(20, 20));
         BClear.setPreferredSize(new java.awt.Dimension(20, 20));
-        BClear.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        BClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BClearActionPerformed(evt);
             }
         });
 
         jLabel1.setText("<html><body><a href=\"#\">Open IP Cache Manager</a></body></html>");
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel1MouseClicked(evt);
             }
         });

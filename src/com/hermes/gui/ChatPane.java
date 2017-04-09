@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hermes.gui;
+package com.hermes.gui;
 
-import hermes.util.DesktopApi;
+import com.hermes.util.DesktopApi;
 import com.hermes.common.AresFormater;
 import java.awt.Color;
 import java.io.FileOutputStream;
@@ -99,7 +99,7 @@ public class ChatPane extends javax.swing.JPanel {
         EPChat = new javax.swing.JEditorPane();
 
         MISave.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
-        MISave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/save.png"))); // NOI18N
+        MISave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/save.png"))); // NOI18N
         MISave.setText("Save to..");
         MISave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

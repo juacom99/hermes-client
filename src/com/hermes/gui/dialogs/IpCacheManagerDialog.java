@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hermes.gui.dialogs;
+package com.hermes.gui.dialogs;
 
 import com.hermes.common.HChannel;
 import com.hermes.common.HHash;
 import com.hermes.common.IPCacheManager;
-import hermes.gui.renderers.IPCacheRenderer;
+import com.hermes.gui.renderers.IPCacheRenderer;
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.InetAddress;

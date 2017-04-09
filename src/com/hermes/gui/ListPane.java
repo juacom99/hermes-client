@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hermes.gui;
+package com.hermes.gui;
 
-import hermes.gui.renderers.TopicRenderer;
+import com.hermes.gui.renderers.TopicRenderer;
 import com.hermes.client.HCChannelDownloader;
-import hermes.events.ChannelListClickedEvent;
+import com.hermes.events.ChannelListClickedEvent;
 import com.hermes.client.events.HChannelListEvents;
 
 import com.hermes.client.events.HClientEvent;
@@ -177,10 +177,10 @@ public class ListPane extends javax.swing.JPanel
         jScrollPane1 = new javax.swing.JScrollPane();
         TChannels = new javax.swing.JTable();
         TFFilter = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        LFilter = new javax.swing.JLabel();
         BRefresh = new javax.swing.JButton();
 
-        BUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/update.png"))); // NOI18N
+        BUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/update.png"))); // NOI18N
         BUpdate.setBorderPainted(false);
         BUpdate.setContentAreaFilled(false);
         BUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -245,12 +245,11 @@ public class ListPane extends javax.swing.JPanel
         TFFilter.setMinimumSize(new java.awt.Dimension(340, 24));
         TFFilter.setPreferredSize(new java.awt.Dimension(340, 24));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/filter.png"))); // NOI18N
+        LFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/filter.png"))); // NOI18N
 
-        BRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/refresh.png"))); // NOI18N
+        BRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/update.png"))); // NOI18N
         BRefresh.setBorderPainted(false);
         BRefresh.setContentAreaFilled(false);
-        BRefresh.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/refreshing.gif"))); // NOI18N
         BRefresh.setFocusPainted(false);
         BRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -269,7 +268,7 @@ public class ListPane extends javax.swing.JPanel
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(TFFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(LFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5))
         );
         layout.setVerticalGroup(
@@ -278,7 +277,7 @@ public class ListPane extends javax.swing.JPanel
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(BRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TFFilter, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
@@ -315,11 +314,11 @@ public class ListPane extends javax.swing.JPanel
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BRefresh;
     private javax.swing.JButton BUpdate;
+    private javax.swing.JLabel LFilter;
     private javax.swing.JMenuItem MIExport;
     private javax.swing.JPopupMenu PMMenu;
     private javax.swing.JTable TChannels;
     private javax.swing.JTextField TFFilter;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

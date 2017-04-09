@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hermes.gui.renderers;
+package com.hermes.gui.renderers;
 
 import com.hermes.common.HChannel;
 import java.awt.Color;

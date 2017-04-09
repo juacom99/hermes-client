@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hermes.gui.dialogs;
+package com.hermes.gui.dialogs;
 
 import com.hermes.common.HChannel;
 import com.hermes.common.HHash;
@@ -62,8 +62,7 @@ public class HashDialog extends javax.swing.JDialog
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         TAHash = new javax.swing.JTextArea();
@@ -81,10 +80,8 @@ public class HashDialog extends javax.swing.JDialog
         jScrollPane1.setViewportView(TAHash);
 
         BConnect.setText("Connect");
-        BConnect.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        BConnect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BConnectActionPerformed(evt);
             }
         });
@@ -93,14 +90,12 @@ public class HashDialog extends javax.swing.JDialog
         LTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         LTitle.setText("Connecting to Channel");
 
-        BClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/close.png"))); // NOI18N
+        BClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/close.png"))); // NOI18N
         BClose.setBorderPainted(false);
         BClose.setContentAreaFilled(false);
-        BClose.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/close-over.png"))); // NOI18N
-        BClose.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        BClose.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/close-over.png"))); // NOI18N
+        BClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BCloseActionPerformed(evt);
             }
         });
@@ -119,11 +114,9 @@ public class HashDialog extends javax.swing.JDialog
                         .addGap(0, 5, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(BConnect)))
-                .addGap(5, 5, 5))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(BClose, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BConnect, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(BClose, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(5, 5, 5))
         );
         layout.setVerticalGroup(

@@ -3,16 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hermes.gui;
+package com.hermes.gui;
 
-import hermes.gui.dialogs.ConfigDialog;
+import com.hermes.gui.dialogs.ConfigDialog;
 import com.hermes.client.HCUser;
-import hermes.events.ChannelListClickedEvent;
+import com.hermes.events.ChannelListClickedEvent;
 import com.hermes.common.HChannel;
-import hermes.events.ChannelPaneEvents;
-import hermes.gui.dialogs.HashDialog;
-import hermes.util.ConfigReader;
-import java.awt.Color;
+import com.hermes.events.ChannelPaneEvents;
+import com.hermes.gui.dialogs.HashDialog;
+import com.hermes.util.ConfigReader;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -87,15 +86,15 @@ public class HermesClient extends javax.swing.JFrame
 
         TPChat.add(lp);
         int index = TPChat.indexOfComponent(lp);
-        TPChat.setTabComponentAt(index, getTitlePanel(lp, "Channel List", new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/channel-list.png")), null, 3));
+        TPChat.setTabComponentAt(index, getTitlePanel(lp, "Channel List", new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/channel-list.png")), null, 3));
 
         JPanel newTab = new JPanel();
-        bNewTab = new JButton(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/newConnection.png")));
+        bNewTab = new JButton(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/newConnection.png")));
         bNewTab.setBorderPainted(false);
         bNewTab.setFocusPainted(false);
         bNewTab.setContentAreaFilled(false);
         bNewTab.setRolloverEnabled(true);
-        bNewTab.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/newConnection-over.png")));
+        bNewTab.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/newConnection-over.png")));
         bNewTab.setSize(24, 16);
 
         Action action = new AbstractAction("OpenHashDialog")
@@ -137,23 +136,20 @@ public class HermesClient extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         BConfig = new javax.swing.JButton();
         TPChat = new javax.swing.JTabbedPane();
 
-        BConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/config.png"))); // NOI18N
+        BConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/config.png"))); // NOI18N
         BConfig.setBorderPainted(false);
         BConfig.setContentAreaFilled(false);
         BConfig.setFocusPainted(false);
         BConfig.setMaximumSize(new java.awt.Dimension(20, 20));
         BConfig.setMinimumSize(new java.awt.Dimension(20, 20));
         BConfig.setPreferredSize(new java.awt.Dimension(20, 20));
-        BConfig.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        BConfig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BConfigActionPerformed(evt);
             }
         });
@@ -161,12 +157,10 @@ public class HermesClient extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Hermes-Client");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/icon.png")).getImage());
+        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/icon.png")).getImage());
 
-        TPChat.addChangeListener(new javax.swing.event.ChangeListener()
-        {
-            public void stateChanged(javax.swing.event.ChangeEvent evt)
-            {
+        TPChat.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 TPChatStateChanged(evt);
             }
         });
@@ -187,7 +181,7 @@ public class HermesClient extends javax.swing.JFrame
 
     private void BNewTabActionPerformed()
     {
-        HashDialog hd = new HashDialog(this, true, "arlnk://CHATROOM:127.0.0.1:14884|UYM");
+        HashDialog hd = new HashDialog(this, true, "arlnk://");
         hd.setLocation((int) bNewTab.getLocationOnScreen().getX() - 7, (int) bNewTab.getLocationOnScreen().getY() + 14);
         hd.setVisible(true);
         if (hd.getCloseOption() == HashDialog.ACEPT_OPTION)
@@ -215,7 +209,7 @@ public class HermesClient extends javax.swing.JFrame
 
             if (p != null)
             {
-                ((JLabel) p.getComponent(0)).setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/chat.png")));
+                ((JLabel) p.getComponent(0)).setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/chat.png")));
             }
         }
     }//GEN-LAST:event_TPChatStateChanged
@@ -284,7 +278,7 @@ public class HermesClient extends javax.swing.JFrame
                 {
                     JPanel p = ((JPanel) TPChat.getTabComponentAt(index));
 
-                    ((JLabel) p.getComponent(0)).setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/chat-new.png")));
+                    ((JLabel) p.getComponent(0)).setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/chat-new.png")));
                 }
             }
 
@@ -304,12 +298,12 @@ public class HermesClient extends javax.swing.JFrame
         };
 
         final Panel cp = new Panel(user, channel, events);
-        JButton closeButton = new JButton(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/close.png")));
+        JButton closeButton = new JButton(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/close.png")));
         closeButton.setBorderPainted(false);
         closeButton.setFocusPainted(false);
         closeButton.setContentAreaFilled(false);
         closeButton.setRolloverEnabled(true);
-        closeButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/close-over.png")));
+        closeButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/close-over.png")));
         Dimension d = new Dimension(8, 8);
         closeButton.setSize(d);
         closeButton.setPreferredSize(d);
@@ -346,7 +340,7 @@ public class HermesClient extends javax.swing.JFrame
 
         TPChat.add(cp, TPChat.getTabCount() - 1);
         int index = TPChat.indexOfComponent(cp);
-        TPChat.setTabComponentAt(index, getTitlePanel(cp, channel.getName(), new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/chat.png")), closeButton, 6));
+        TPChat.setTabComponentAt(index, getTitlePanel(cp, channel.getName(), new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/chat.png")), closeButton, 6));
         TPChat.setSelectedIndex(TPChat.getTabCount() - 2);
 
         cp.connect();

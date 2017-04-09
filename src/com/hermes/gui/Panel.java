@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hermes.gui;
+package com.hermes.gui;
 
 import com.hermes.client.HCChannel;
 import com.hermes.client.HCUser;
@@ -26,12 +26,12 @@ import com.hermes.common.AresFormater;
 import com.hermes.common.HChannel;
 import com.hermes.common.HUser;
 import com.hermes.common.constants.HAdminLevel;
-import hermes.Main;
-import hermes.events.ChannelPaneEvents;
-import hermes.gui.dialogs.ColorDialog;
-import hermes.gui.dialogs.EmoticonsDialog;
-import hermes.gui.renderers.UserRenderer;
-import hermes.util.DesktopApi;
+import com.hermes.Main;
+import com.hermes.events.ChannelPaneEvents;
+import com.hermes.gui.dialogs.ColorDialog;
+import com.hermes.gui.dialogs.EmoticonsDialog;
+import com.hermes.gui.renderers.UserRenderer;
+import com.hermes.util.DesktopApi;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -243,7 +243,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
         });
         TBBar.add(BUnderline);
 
-        BForeground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/fg.png"))); // NOI18N
+        BForeground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/fg.png"))); // NOI18N
         BForeground.setMargin(new java.awt.Insets(0, 0, 0, 0));
         BForeground.setMaximumSize(new java.awt.Dimension(20, 20));
         BForeground.setMinimumSize(new java.awt.Dimension(20, 20));
@@ -255,7 +255,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
         });
         TBBar.add(BForeground);
 
-        BBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/bg.png"))); // NOI18N
+        BBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/bg.png"))); // NOI18N
         BBackground.setMargin(new java.awt.Insets(0, 0, 0, 0));
         BBackground.setMaximumSize(new java.awt.Dimension(20, 20));
         BBackground.setMinimumSize(new java.awt.Dimension(20, 20));
@@ -268,7 +268,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
         TBBar.add(BBackground);
         TBBar.add(filler1);
 
-        BEmoticon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/emoti.png"))); // NOI18N
+        BEmoticon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/emoti.png"))); // NOI18N
         BEmoticon.setFocusable(false);
         BEmoticon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BEmoticon.setMaximumSize(new java.awt.Dimension(20, 20));
@@ -577,9 +577,10 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
         if (PMUserListMenu.getComponentCount() < 3) {
             final HCUser usr = (HCUser) LUsers.getSelectedValue();
 
-            if (client.getAdminLevel() != HAdminLevel.Normal_User) {
+            if (client.getAdminLevel() != HAdminLevel.Normal_User)
+            {
                 JMenuItem MIMuzzle = new JMenuItem("Muzzle");
-                MIMuzzle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/muzzle.png")));
+                MIMuzzle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/muzzle.png")));
                 MIMuzzle.addActionListener(new ActionListener() {
 
                     @Override
@@ -589,7 +590,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
                 });
 
                 JMenuItem MIKill = new JMenuItem("Kill");
-                MIKill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/kill.png")));
+                MIKill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/kill.png")));
                 MIKill.addActionListener(new ActionListener() {
 
                     @Override
@@ -599,7 +600,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
                 });
 
                 JMenuItem MIBan = new JMenuItem("Ban");
-                MIBan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/ban.png")));
+                MIBan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/ban.png")));
                 MIBan.addActionListener(new ActionListener() {
 
                     @Override
@@ -616,7 +617,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
             }
             if (client.getAdminLevel() == HAdminLevel.Host) {
                 JMenuItem MIMuzzle = new JMenuItem("Host Muzzle");
-                MIMuzzle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/muzzle.png")));
+                MIMuzzle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/muzzle.png")));
                 MIMuzzle.addActionListener(new ActionListener() {
 
                     @Override
@@ -626,7 +627,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
                 });
 
                 JMenuItem MIKill = new JMenuItem("Host Kill");
-                MIKill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/kill.png")));
+                MIKill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/kill.png")));
                 MIKill.addActionListener(new ActionListener() {
 
                     @Override
@@ -636,7 +637,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
                 });
 
                 JMenuItem MIBan = new JMenuItem("Host Ban");
-                MIBan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/ban.png")));
+                MIBan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/ban.png")));
                 MIKill.addActionListener(new ActionListener() {
 
                     @Override
@@ -697,12 +698,12 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
         titleLbl.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         titlePanel.add(titleLbl);
 
-        JButton closeButton = new JButton(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/close.png")));
+        JButton closeButton = new JButton(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/close.png")));
         closeButton.setBorderPainted(false);
         closeButton.setFocusPainted(false);
         closeButton.setContentAreaFilled(false);
         closeButton.setRolloverEnabled(true);
-        closeButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/hermes/resources/images/close-over.png")));
+        closeButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/close-over.png")));
         Dimension d = new Dimension(16, 16);
         closeButton.setSize(d);
         closeButton.setPreferredSize(d);
