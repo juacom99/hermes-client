@@ -17,3 +17,6 @@ hs_err_pid*
 /Colors/build/
 /Hermes-Client/
 !/libs/JTattoo-1.6.11.jar
+/Hermes-Client.rar
+/Hermes-Client.tar.gz
+/Hermes-Client.sh.OLD

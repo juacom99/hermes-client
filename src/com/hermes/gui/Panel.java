@@ -5,7 +5,6 @@
  */
 package com.hermes.gui;
 
-import com.hermes.client.HCChannel;
 import com.hermes.client.HCUser;
 import com.hermes.client.HClient;
 import com.hermes.client.events.HClientAckEvent;
@@ -26,7 +25,6 @@ import com.hermes.common.AresFormater;
 import com.hermes.common.HChannel;
 import com.hermes.common.HUser;
 import com.hermes.common.constants.HAdminLevel;
-import com.hermes.Main;
 import com.hermes.events.ChannelPaneEvents;
 import com.hermes.gui.dialogs.ColorDialog;
 import com.hermes.gui.dialogs.EmoticonsDialog;
