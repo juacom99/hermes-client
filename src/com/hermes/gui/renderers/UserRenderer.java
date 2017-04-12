@@ -160,7 +160,7 @@ public class UserRenderer extends javax.swing.JPanel implements ListCellRenderer
         LPersonalMessage.setText(value.getPersonalMessage());
         String asl = value.getAge() + " - " + value.getGender() + " - ";
 
-        if (value.getRegion().trim().equals(""))
+        if (value.getRegion()==null || value.getRegion().trim().equals(""))
         {
             asl += value.getCountry();
         }

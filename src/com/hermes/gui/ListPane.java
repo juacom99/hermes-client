@@ -233,12 +233,12 @@ public class ListPane extends javax.swing.JPanel
             TChannels.getColumnModel().getColumn(1).setPreferredWidth(260);
             TChannels.getColumnModel().getColumn(1).setMaxWidth(260);
             TChannels.getColumnModel().getColumn(2).setCellRenderer(new TopicRenderer());
-            TChannels.getColumnModel().getColumn(3).setMinWidth(80);
-            TChannels.getColumnModel().getColumn(3).setPreferredWidth(80);
-            TChannels.getColumnModel().getColumn(3).setMaxWidth(80);
-            TChannels.getColumnModel().getColumn(4).setMinWidth(50);
-            TChannels.getColumnModel().getColumn(4).setPreferredWidth(50);
-            TChannels.getColumnModel().getColumn(4).setMaxWidth(50);
+            TChannels.getColumnModel().getColumn(3).setMinWidth(90);
+            TChannels.getColumnModel().getColumn(3).setPreferredWidth(90);
+            TChannels.getColumnModel().getColumn(3).setMaxWidth(90);
+            TChannels.getColumnModel().getColumn(4).setMinWidth(65);
+            TChannels.getColumnModel().getColumn(4).setPreferredWidth(65);
+            TChannels.getColumnModel().getColumn(4).setMaxWidth(65);
         }
 
         TFFilter.setMaximumSize(new java.awt.Dimension(340, 24));
