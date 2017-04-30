@@ -144,6 +144,9 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="//center Usercount and Language Colums&#xa;DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();&#xa;centerRenderer.setHorizontalAlignment( SwingConstants.CENTER );&#xa;&#xa;TChannels.getColumnModel().getColumn(3).setCellRenderer( centerRenderer );&#xa;TChannels.getColumnModel().getColumn(4).setCellRenderer( centerRenderer );"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

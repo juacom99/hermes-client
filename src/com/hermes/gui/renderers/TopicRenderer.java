@@ -11,6 +11,7 @@ import java.awt.Component;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JEditorPane;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.text.BadLocationException;
@@ -21,14 +22,14 @@ import javax.swing.text.html.HTMLEditorKit;
  *
  * @author joaquin
  */
-public class TopicRenderer extends javax.swing.JPanel implements TableCellRenderer
-{
+public class TopicRenderer extends javax.swing.JPanel implements TableCellRenderer {
 
     /**
      * Creates new form TopicCellRender
      */
-    public TopicRenderer()
-    {
+    private boolean drawn;
+
+    public TopicRenderer() {
         initComponents();
     }
 
@@ -67,37 +68,31 @@ public class TopicRenderer extends javax.swing.JPanel implements TableCellRender
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
-    {
-        
-        if(isSelected)
-        {
-          
-           EPTopic.setForeground(table.getSelectionForeground()); 
-           EPTopic.setBackground(table.getSelectionBackground());
-        }
-        else
-        {
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+
+        if (isSelected) {
+
+            EPTopic.setForeground(table.getSelectionForeground());
+            EPTopic.setBackground(table.getSelectionBackground());
+        } else {
+            
             EPTopic.setBackground(Color.WHITE);
             EPTopic.setForeground(Color.BLACK);
-        }
-       String topic = ((String) value);
-        setSize(table.getCellRect(row, column, true).width, 100);
-        topic=AresFormater.getInstance().toHTML(topic);
-       
-        HTMLDocument doc=new HTMLDocument();
-        EPTopic.setDocument(doc);
-        
-        try
-        {
-            ((HTMLEditorKit)EPTopic.getEditorKit()).insertHTML(doc, doc.getLength(), topic, 0, 0, null);
-        } catch (BadLocationException ex)
-        {
-            Logger.getLogger(TopicRenderer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex)
-        {
-            Logger.getLogger(TopicRenderer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return this;
-    }
+        }           
+            String topic = ((String) value);
+            setSize(table.getCellRect(row, column, true).width, 100);
+        topic = "<html><body><div style='overflow: hidden;'>"+AresFormater.getInstance().toHTML(topic)+"</div></body></html>";
+
+        HTMLDocument doc = new HTMLDocument();
+            EPTopic.setDocument(doc);
+
+            try {
+                ((HTMLEditorKit) EPTopic.getEditorKit()).insertHTML(doc, doc.getLength(), topic, 0, 0, null);
+            } catch (BadLocationException ex) {
+                Logger.getLogger(TopicRenderer.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(TopicRenderer.class.getName()).log(Level.SEVERE, null, ex);
+            }        
+        return this;    }
+
 }

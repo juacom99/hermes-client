@@ -23,8 +23,10 @@ import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.RowFilter;
+import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -224,6 +226,12 @@ public class ListPane extends javax.swing.JPanel
             }
         });
         TChannels.setRowHeight(25);
+        //center Usercount and Language Colums
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment( SwingConstants.CENTER );
+
+        TChannels.getColumnModel().getColumn(3).setCellRenderer( centerRenderer );
+        TChannels.getColumnModel().getColumn(4).setCellRenderer( centerRenderer );
         jScrollPane1.setViewportView(TChannels);
         if (TChannels.getColumnModel().getColumnCount() > 0) {
             TChannels.getColumnModel().getColumn(0).setMinWidth(0);
