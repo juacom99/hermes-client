@@ -84,7 +84,8 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
         client.addClientEventListener(this);
 
         if (channel.getTopic() != null) {
-            LTopic.setText("<html>" + AresFormater.getInstance().toHTML(channel.getTopic()));
+            
+            setTopic(channel.getTopic());
         }
 
         TFInput.requestFocus();
@@ -370,6 +371,9 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
 
         LTopic.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         LTopic.setText("TOPIC");
+        LTopic.setMaximumSize(new java.awt.Dimension(39, 17));
+        LTopic.setMinimumSize(new java.awt.Dimension(39, 17));
+        LTopic.setPreferredSize(new java.awt.Dimension(39, 17));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -385,12 +389,19 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(LTopic)
+                .addComponent(LTopic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(SPSplitter))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    private void setTopic(String topic)
+    {
+        System.out.println("Antes: "+LTopic.getSize());
+        LTopic.setText("<html><body><div style=\"overflow: hidden;height: 18px;valign=middle\">" + AresFormater.getInstance().toHTML(topic)+"</div></body></html>");
+        System.out.println("Despues: "+LTopic.getSize());
+    }
     private void BBoldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BBoldActionPerformed
     {//GEN-HEADEREND:event_BBoldActionPerformed
         try {
@@ -841,7 +852,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
 
     @Override
     public void onTopic(HClientTopicEvent evt) {
-        LTopic.setText("<html>" + AresFormater.getInstance().toHTML(evt.getTopic()) + "<html>");
+        setTopic(evt.getTopic());
     }
 
     @Override
