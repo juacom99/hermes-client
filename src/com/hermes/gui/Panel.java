@@ -328,7 +328,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
         PChatLayout.setVerticalGroup(
             PChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PChatLayout.createSequentialGroup()
-                .addComponent(TPTabs, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
+                .addComponent(TPTabs, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
                 .addGap(10, 10, 10)
                 .addComponent(TBBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
@@ -370,10 +370,9 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
         SPSplitter.setRightComponent(PList);
 
         LTopic.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        LTopic.setText("TOPIC");
-        LTopic.setMaximumSize(new java.awt.Dimension(39, 17));
-        LTopic.setMinimumSize(new java.awt.Dimension(39, 17));
-        LTopic.setPreferredSize(new java.awt.Dimension(39, 17));
+        LTopic.setMaximumSize(new java.awt.Dimension(100, 20));
+        LTopic.setMinimumSize(new java.awt.Dimension(100, 20));
+        LTopic.setPreferredSize(new java.awt.Dimension(100, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -389,8 +388,8 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(LTopic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addComponent(LTopic, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SPSplitter))
         );
     }// </editor-fold>//GEN-END:initComponents
