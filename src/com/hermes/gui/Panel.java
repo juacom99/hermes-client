@@ -75,7 +75,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
         this.event = event;
 
         TBBar.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
-        this.main = new ChatPane();
+        this.main = new ChatPane();        
         TPTabs.add("Main Chat", main);
 
         privates = new HashMap<String, ChatPane>();
@@ -791,6 +791,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
         try {
             addPrivate(evt.getSender(), false);
             ChatPane cp = privates.get(evt.getSender());
+            cp.setName(evt.getSender());
             cp.write(AresFormater.BOLD_CHARACTER + evt.getSender() + ":");
             cp.write("        " + evt.getText());
             event.onTextRecived(this);
@@ -895,6 +896,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
         System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-" + evt.getChannelName() + "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
         main.write(AresFormater.FOREGROUND_CHARACTER + "02Logged in, retrieving user's list...");
         event.onNameChange(this, evt.getChannelName());
+        main.setName(evt.getChannelName());
     }
 
     @Override

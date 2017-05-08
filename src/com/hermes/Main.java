@@ -28,7 +28,7 @@ public class Main
             //Fast
             //hifi
              UIManager.setLookAndFeel(new AluminiumLookAndFeel());
-       
+                          
         //</editor-fold>
 
         /* Create and display the form */

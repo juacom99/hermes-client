@@ -8,6 +8,7 @@ package com.hermes.gui;
 import com.hermes.util.DesktopApi;
 import com.hermes.common.AresFormater;
 import java.awt.Color;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
@@ -17,6 +18,8 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
@@ -32,20 +35,21 @@ public class ChatPane extends javax.swing.JPanel {
      */
     private HTMLDocument doc;
     private HTMLEditorKit kit;
-
+    
     public ChatPane() {
         initComponents();
         this.doc = new HTMLDocument();
         this.kit = new HTMLEditorKit();
-
+        
+        
         EPChat.setComponentPopupMenu(PMMenu);
-
+        
         EPChat.setSelectionColor(new Color(224, 227, 206));
         EPChat.addHyperlinkListener(new HyperlinkListener() {
-
+            
             @Override
             public void hyperlinkUpdate(HyperlinkEvent e) {
-
+                
                 if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
                     try {
                         e.getURL().openConnection();
@@ -60,22 +64,22 @@ public class ChatPane extends javax.swing.JPanel {
                 }
             }
         });
-
-       doc.getStyleSheet().addRule("a{color:#616161;text-decoration:underline;}");
+        
+        doc.getStyleSheet().addRule("a{color:#616161;text-decoration:underline;}");
         doc.getStyleSheet().addRule("a:visited:active{color:#9d9d9d}");
         doc.getStyleSheet().addRule("a:hover{color:red;}");
-
+        
         EPChat.setEditorKit(kit);
         EPChat.setDocument(doc);
         EPChat.setEditable(false);
-
+        
     }
-
+    
     public void write(String s) {
         try {
             String str = AresFormater.getInstance().toHTML(s);
             kit.insertHTML(doc, doc.getLength(), "<p>" + str + "</p>", 0, 0, null);
-
+            
             EPChat.select(doc.getLength(), doc.getLength());
         } catch (BadLocationException ex) {
             Logger.getLogger(ChatPane.class.getName()).log(Level.SEVERE, null, ex);
@@ -112,11 +116,9 @@ public class ChatPane extends javax.swing.JPanel {
 
         EPChat.setEditable(false);
         EPChat.setBackground(new java.awt.Color(248, 248, 248));
-        EPChat.setBorder(null);
         EPChat.setContentType("text/html"); // NOI18N
-        EPChat.getDocument().putProperty("char-set","UTF-8");
+        //EPChat.getDocument().putProperty("char-set","UTF-8");
         EPChat.setFont(new java.awt.Font("Serif", 0, 12)); // NOI18N
-        EPChat.setText("<html>\n  <head>\n  </head>\n  <body>\n    <p style=\"margin-top: 0\">\n      \n    </p>\n  </body>\n</html>\n");
         jScrollPane2.setViewportView(EPChat);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -134,15 +136,52 @@ public class ChatPane extends javax.swing.JPanel {
     private void MISaveActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_MISaveActionPerformed
     {//GEN-HEADEREND:event_MISaveActionPerformed
         JFileChooser fc = new JFileChooser();
-
+        fc.setSelectedFile(new File(getName() + ".html"));
+        fc.setAcceptAllFileFilterUsed(false);
+       /* FileNameExtensionFilter filter = new FileNameExtensionFilter("Html", "html", "html");
+        fc.setFileFilter(filter);*/
+       fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+       
+        fc.addChoosableFileFilter(new FileFilter() {
+            @Override
+            public boolean accept(File f) {
+                String extension = "";
+                String fileName=f.getName();
+                int i = fileName.lastIndexOf('.');
+                int p = Math.max(fileName.lastIndexOf('/'), fileName.lastIndexOf('\\'));
+                
+                if (i > p) {
+                    extension = fileName.substring(i + 1);
+                }
+                
+                return extension.toLowerCase().equals("html");
+            }
+            
+            @Override
+            public String getDescription() {
+                return "HTML";
+            }
+        });
+        
+        
         int option = fc.showSaveDialog(this);
-
+        
         if (option == JFileChooser.APPROVE_OPTION) {
             try {
                 doc.getStyleSheet().addRule("p{margin:0px;font-family: monospace;}");
+
+                File selection=fc.getSelectedFile();
+                String filePath=selection.getPath();
+                if(!fc.accept(selection))
+                {
+                    
+                    filePath+=".html";
+                }                
+                
                 /*doc.getStyleSheet().addRule("a{text-decoration:underline;color:#616161;}");
                 doc.getStyleSheet().addRule("a:visited{color:#9d9d9d}");*/
-                kit.write(new FileOutputStream(fc.getSelectedFile().getPath()), doc, 0, doc.getLength());
+                
+                kit.write(new FileOutputStream(filePath), doc, 0, doc.getLength());
                 doc.getStyleSheet().removeStyle("p");
             } catch (IOException ex) {
                 Logger.getLogger(ChatPane.class.getName()).log(Level.SEVERE, null, ex);
