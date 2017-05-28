@@ -6,6 +6,7 @@
 package com.hermes.gui.renderers;
 
 import com.hermes.common.AresFormater;
+import com.hermes.common.HChannel;
 import java.awt.Color;
 import java.awt.Component;
 import java.io.IOException;
@@ -70,21 +71,30 @@ public class TopicRenderer extends javax.swing.JPanel implements TableCellRender
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 
+        
+        TopicRenderer tr=new TopicRenderer();
         if (isSelected) {
 
-            EPTopic.setForeground(table.getSelectionForeground());
-            EPTopic.setBackground(table.getSelectionBackground());
+            
+            tr.EPTopic.setForeground(table.getSelectionForeground());
+            tr.EPTopic.setBackground(table.getSelectionBackground());
         } else {
             
-            EPTopic.setBackground(Color.WHITE);
-            EPTopic.setForeground(Color.BLACK);
-        }           
+            tr.EPTopic.setBackground(Color.WHITE);
+            tr.EPTopic.setForeground(Color.BLACK);
+        }
+        
+        if(!drawn)
+        {
             String topic = ((String) value);
             setSize(table.getCellRect(row, column, true).width, 100);
         topic = "<html><body><div style='overflow: hidden;'>"+AresFormater.getInstance().toHTML(topic)+"</div></body></html>";
 
-        HTMLDocument doc = new HTMLDocument();
-            EPTopic.setDocument(doc);
+        String name = (String) table.getModel().getValueAt(row,1);        
+        
+        
+            HTMLDocument doc = new HTMLDocument();
+            tr.EPTopic.setDocument(doc);
 
             try {
                 ((HTMLEditorKit) EPTopic.getEditorKit()).insertHTML(doc, doc.getLength(), topic, 0, 0, null);
@@ -92,7 +102,16 @@ public class TopicRenderer extends javax.swing.JPanel implements TableCellRender
                 Logger.getLogger(TopicRenderer.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(TopicRenderer.class.getName()).log(Level.SEVERE, null, ex);
-            }        
-        return this;    }
+            }
+            tr.setDrawn(true);
+        }
+        return tr;
+    }
 
+    public void setDrawn(boolean drawn) {
+        this.drawn = drawn;
+    }
+
+    
+    
 }

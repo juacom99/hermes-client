@@ -81,6 +81,8 @@ public class HermesClient extends javax.swing.JFrame
                     p.repaint();
                 }
             }
+            
+            
         });
 
         user = ConfigReader.getInstance().getUser();
@@ -298,6 +300,17 @@ public class HermesClient extends javax.swing.JFrame
                     TPChat.repaint();
                 }
             }
+
+            @Override
+            public void onUrlClicked(Panel source, HChannel ch) {
+                try {
+                    addChannel(ch);
+                } catch (Exception ex) {
+                    Logger.getLogger(HermesClient.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+            
         };
 
         final Panel cp = new Panel(user, channel, events);        

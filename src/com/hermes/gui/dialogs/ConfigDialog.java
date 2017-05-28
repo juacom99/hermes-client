@@ -401,7 +401,6 @@ public class ConfigDialog extends javax.swing.JDialog
             cmd = new IpCacheManagerDialog(null,true);
             cmd.setLocationRelativeTo(null);
             cmd.setVisible(true);
-            System.out.println(cmd.getSize());
         } catch (IOException ex)
         {
             Logger.getLogger(ConfigDialog.class.getName()).log(Level.SEVERE, null, ex);

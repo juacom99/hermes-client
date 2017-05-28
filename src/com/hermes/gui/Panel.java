@@ -23,6 +23,7 @@ import com.hermes.client.events.HClientUserUpdateEvent;
 import com.hermes.client.events.HIClientEvents;
 import com.hermes.common.AresFormater;
 import com.hermes.common.HChannel;
+import com.hermes.common.HHash;
 import com.hermes.common.HUser;
 import com.hermes.common.constants.HAdminLevel;
 import com.hermes.events.ChannelPaneEvents;
@@ -43,6 +44,7 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.zip.DataFormatException;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -75,7 +77,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
         this.event = event;
 
         TBBar.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
-        this.main = new ChatPane();        
+        this.main = new ChatPane();
         TPTabs.add("Main Chat", main);
 
         privates = new HashMap<String, ChatPane>();
@@ -84,7 +86,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
         client.addClientEventListener(this);
 
         if (channel.getTopic() != null) {
-            
+
             setTopic(channel.getTopic());
         }
 
@@ -98,10 +100,9 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
                 if (evt.getClickCount() == 2) {
                     // Double-click detected
                     int index = list.locationToIndex(evt.getPoint());
-                    
-                    if(index>list.getModel().getSize()-1)
-                    {
-                        index=list.getModel().getSize()-1;
+
+                    if (index > list.getModel().getSize() - 1) {
+                        index = list.getModel().getSize() - 1;
                     }
                     HUser u = list.getModel().getElementAt(index);
 
@@ -394,12 +395,8 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    private void setTopic(String topic)
-    {
-        System.out.println("Antes: "+LTopic.getSize());
-        LTopic.setText("<html><body><div style=\"overflow: hidden;height: 18px;valign=middle\">" + AresFormater.getInstance().toHTML(topic)+"</div></body></html>");
-        System.out.println("Despues: "+LTopic.getSize());
+    private void setTopic(String topic) {
+       LTopic.setText("<html><body><div style=\"overflow: hidden;height: 18px;valign=middle\">" + AresFormater.getInstance().toHTML(topic) + "</div></body></html>");
     }
     private void BBoldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BBoldActionPerformed
     {//GEN-HEADEREND:event_BBoldActionPerformed
@@ -485,11 +482,24 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
 
     private void LURLMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_LURLMouseClicked
     {//GEN-HEADEREND:event_LURLMouseClicked
-        try {
 
-            DesktopApi.browse(new URI(this.url));
-        } catch (URISyntaxException ex) {
-            Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+        if (this.url.startsWith("arlnk") || this.url.startsWith("\\arlnk"))
+        {
+            try {
+                event.onUrlClicked(this,HHash.getInstance().decode(this.url));
+            } catch (IOException ex) {
+                Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (DataFormatException ex) {
+                Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        } else {
+            try {
+                System.out.println(this.url);
+                DesktopApi.browse(new URI(this.url));
+            } catch (URISyntaxException ex) {
+                Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_LURLMouseClicked
 
@@ -537,10 +547,9 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
     private void LUsersMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_LUsersMouseClicked
     {//GEN-HEADEREND:event_LUsersMouseClicked
         LUsers.setSelectedIndex(LUsers.locationToIndex(evt.getPoint()));
-        
-        if(evt.getButton()==MouseEvent.BUTTON3)
-        {
-            PMUserListMenu.show(LUsers, evt.getX(),evt.getY());
+
+        if (evt.getButton() == MouseEvent.BUTTON3) {
+            PMUserListMenu.show(LUsers, evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_LUsersMouseClicked
 
@@ -585,8 +594,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
         if (PMUserListMenu.getComponentCount() < 3) {
             final HCUser usr = (HCUser) LUsers.getSelectedValue();
 
-            if (client.getAdminLevel() != HAdminLevel.Normal_User)
-            {
+            if (client.getAdminLevel() != HAdminLevel.Normal_User) {
                 JMenuItem MIMuzzle = new JMenuItem("Muzzle");
                 MIMuzzle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/hermes/resources/images/muzzle.png")));
                 MIMuzzle.addActionListener(new ActionListener() {
@@ -666,7 +674,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
     private void TPTabsStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_TPTabsStateChanged
     {//GEN-HEADEREND:event_TPTabsStateChanged
         if (TPTabs.getSelectedIndex() == 0) {
-            String title = TPTabs.getTitleAt(TPTabs.getSelectedIndex()).replaceAll("\\<.*?>","");
+            String title = TPTabs.getTitleAt(TPTabs.getSelectedIndex()).replaceAll("\\<.*?>", "");
             TPTabs.setTitleAt(TPTabs.getSelectedIndex(), title);
         } else {
             JPanel p = ((JPanel) TPTabs.getTabComponentAt(TPTabs.getSelectedIndex()));
@@ -781,7 +789,7 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
         event.onTextRecived(this);
 
         if ((TPTabs.getSelectedIndex() != 0)) {
-            TPTabs.setTitleAt(0, "<html><i>" + TPTabs.getTitleAt(0).replaceAll("\\<.*?>","") + "</i></html>");
+            TPTabs.setTitleAt(0, "<html><i>" + TPTabs.getTitleAt(0).replaceAll("\\<.*?>", "") + "</i></html>");
         }
 
     }
@@ -930,19 +938,16 @@ public class Panel extends javax.swing.JPanel implements HIClientEvents {
     private javax.swing.Box.Filler filler4;
     // End of variables declaration//GEN-END:variables
 
-      @Override
-    public void onClientRected(HClientRedirectedEvent evt)
-    {
-        main.write(AresFormater.FOREGROUND_CHARACTER + "02Your are been redirected to "+evt.getReadson()+" ("+evt.getIp().getHostAddress()+":"+evt.getPort()+")" );
-        try
-        {
+    @Override
+    public void onClientRected(HClientRedirectedEvent evt) {
+        main.write(AresFormater.FOREGROUND_CHARACTER + "02Your are been redirected to " + evt.getReadson() + " (" + evt.getIp().getHostAddress() + ":" + evt.getPort() + ")");
+        try {
             client.disconnect();
-            client.connect(evt.getIp(),evt.getPort());
-        } catch (IOException ex)
-        {
+            client.connect(evt.getIp(), evt.getPort());
+        } catch (IOException ex) {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
+
     }
 
 }

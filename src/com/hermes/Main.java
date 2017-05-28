@@ -5,8 +5,15 @@
  */
 package com.hermes;
 
+import com.hermes.client.HCChannel;
+import com.hermes.common.HChannel;
+import com.hermes.common.HHash;
+import com.hermes.gui.HSplashScreen;
 import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
-import com.hermes.gui.HermesClient;
+import java.awt.SplashScreen;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -28,8 +35,6 @@ public class Main
             //Fast
             //hifi
              UIManager.setLookAndFeel(new AluminiumLookAndFeel());
-                          
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable()
@@ -38,8 +43,9 @@ public class Main
             {
                 try
                 {
-                    new HermesClient().setVisible(true);
-                } catch (Exception ex)
+                   HSplashScreen ss=new HSplashScreen();                   
+                } 
+                catch (Exception ex)
                 {
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                 }
