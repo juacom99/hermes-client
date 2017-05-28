@@ -1,2 +1,2 @@
- 
-java -jar hermes-client.jar
+@echo off
+start javaw -jar hermes-client.jar
